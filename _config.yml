@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Official website for TypeSig, a student-run special interest group for
   semantics, programming language theory, type theory, compilers, concurrency,
   and any other field of theoretical CS!
-baseurl: "/site/" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://typesig.comp-soc.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
