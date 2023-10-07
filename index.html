@@ -1,0 +1,62 @@
+---
+title: Home
+layout: default
+background: '/img/bg-index.jpg'
+---
+
+<!-- Home Intro
+================================================== -->
+{% if page.url == "/" %} 
+<div class="rounded p-3 p-md-5 mb-5 hero">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-lg-6">
+	    <h1 class="font-weight-bold mb-4 serif-font">Theoretical CS education and events ∀ {students}.</h1>
+      <p class="lead mb-4">TypeSig is a student-run special interest group for semantics, programming language theory, type theory, compilers, concurrency, and any other field of theoretical CS.</p>
+      <a href="{{site.baseurl}}/about" class="btn btn-light text-black px-5 btn-lg">About us</a>
+    </div>
+    <div class="col-lg-6 text-right pl-0 pl-lg-4 d-none d-lg-block">
+      <img class="intro" height="500" src="{{site.baseurl}}/assets/images/linear-elim-hero.png">      
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Featured
+================================================== -->
+<section class="row">
+  {% for post in site.posts %}
+      {% if post.featured == true %}
+          <div class="col-md-4 mb-5">
+          {% include postbox.html %}
+          </div>
+      {% endif %}
+  {% endfor %}
+  </div>
+</section>
+
+<!-- Posts List with Sidebar (except featured)
+================================================== -->
+<section class="row">
+  <div class="col-sm-8">
+    <div class="row">
+      {% for post in paginator.posts %}
+      {% unless post.featured == true %}
+      <div class="col-md-6 mb-5">
+        {% include postbox.html %}
+      </div>
+      {% endunless %}
+      {% endfor %}
+    </div>
+    <!-- Pagination -->
+    <div class="bottompagination">
+      <span class="navigation" role="navigation">
+          {% include pagination.html %}
+      </span>
+    </div>
+  </div>
+  {% comment %}
+  <div class="col-sm-4">
+    {% include sidebar.html %}
+  </div>
+  {% endcomment %}
+</section>

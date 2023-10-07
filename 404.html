@@ -1,4 +1,5 @@
 ---
+title: 404
 layout: default
 ---
 
@@ -19,6 +20,21 @@ layout: default
 <div class="container">
   <h1>404</h1>
 
-  <p><strong>Page not found :(</strong></p>
+  <div style="text-align: left;">
+    <code>
+	    <b><a style="color:Crimson;">Error:</a><a style="color:Black;"> While processing right hand side of </a><a style="color:MediumVioletRed">browse</a><a style="color:Black;">. Undefined name </a><a style="color:MediumVioletRed">{{site.url}}</a><a style="color:Black;">.</a></b><br>
+	    <br>
+	    <a style="color:#008ee0;">site:4:15--4:{{ site.url | size | plus:15 }}</a><br>
+	    <a style="color:#008ee0;">1 |</a><a style="color:Black;"> module TypeSig.Website</a><br>
+	    <a style="color:#008ee0;">2 |</a><br>
+	    <a style="color:#008ee0;">3 |</a><a style="color:Black;"> browse : IO ()</a><br>
+	    <a style="color:#008ee0;">4 |</a><a style="color:Black;"> browse = load {{site.url}}</a><br>
+	    {% for x in (1..18) %}&nbsp;{% endfor %}{% for x in (1..site.url.size) %}^{% endfor %}<br>
+	    <br>
+	    <a style="color:Black;">Error(s) building file site.idr</a><br>
+    </code>
+  </div>
+
+  <br>
   <p>The requested page could not be found.</p>
 </div>

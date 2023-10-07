@@ -112,6 +112,8 @@ GEM
       pathutil (~> 0.9)
       rouge (>= 1.7, < 4)
       safe_yaml (~> 1.0)
+    jekyll-archives (2.2.1)
+      jekyll (>= 3.6, < 5.0)
     jekyll-avatar (0.7.0)
       jekyll (>= 3.0, < 5.0)
     jekyll-coffeescript (1.1.1)
@@ -260,6 +262,7 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (1.8.0)
     wdm (0.1.1)
+    webrick (1.8.1)
 
 PLATFORMS
   x86_64-linux
@@ -267,12 +270,17 @@ PLATFORMS
 DEPENDENCIES
   github-pages (~> 228)
   http_parser.rb (~> 0.6.0)
+  jekyll-archives
   jekyll-feed (~> 0.6)
+  jekyll-paginate
+  jekyll-seo-tag
+  jekyll-sitemap
   kramdown-parser-gfm
   minima (~> 2.0)
   tzinfo (>= 1, < 3)
   tzinfo-data
   wdm (~> 0.1.0)
+  webrick
 
 BUNDLED WITH
    2.4.10
