@@ -22,16 +22,13 @@ layout: default
 
   <div style="text-align: left;">
     <code>
-	    <b><a style="color:Crimson;">Error:</a><a style="color:Black;"> While processing right hand side of </a><a style="color:MediumVioletRed">browse</a><a style="color:Black;">. Undefined name </a><a style="color:MediumVioletRed">{{site.url}}</a><a style="color:Black;">.</a></b><br>
+	    <b><a style="color:Crimson;">Error:</a><a style="color:Black;"> <a style="color:MediumVioletRed">website</a><a style="color:Black;"> is not covering.<br>
 	    <br>
-	    <a style="color:#008ee0;">site:4:15--4:{{ site.url | size | plus:15 }}</a><br>
-	    <a style="color:#008ee0;">1 |</a><a style="color:Black;"> module TypeSig.Website</a><br>
-	    <a style="color:#008ee0;">2 |</a><br>
-	    <a style="color:#008ee0;">3 |</a><a style="color:Black;"> browse : IO ()</a><br>
-	    <a style="color:#008ee0;">4 |</a><a style="color:Black;"> browse = load {{site.url}}</a><br>
-	    {% for x in (1..18) %}&nbsp;{% endfor %}{% for x in (1..site.url.size) %}^{% endfor %}<br>
+	    <a style="color:#008ee0;">site:4:1--4:17</a><br>
+	    <a style="color:#008ee0;">1 |</a><a style="color:Black;"> website : URL -> String</a><br>
+	    <a style="color:#008ee0;">4 |</a><a style="color:Black;"> website path = do</a><br>
+	    {% for x in (1..4) %}&nbsp;{% endfor %}<a style="color:Crimson">{% for x in (1..17) %}^{% endfor %}</a><br>
 	    <br>
-	    <a style="color:Black;">Error(s) building file site.idr</a><br>
     </code>
   </div>
 
