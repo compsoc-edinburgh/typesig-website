@@ -2,7 +2,7 @@
 layout: post
 title:  "Kevin Buzzard Talk"
 date:   2023-11-10 12:00:00 +0100
-image: assets/images/post-headers/kevin-buzzard-talk.jpg
+image: assets/images/post-headers/kevin-buzzard-talk.png
 categories: announcements
 featured: true
 ---
