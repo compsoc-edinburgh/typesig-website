@@ -2,7 +2,7 @@
 layout: post
 title:  "Welcome to TypeSig!"
 date:   2023-09-25 12:00:00 +0100
-image: assets/images/typesig-phil.jpg
+image: assets/images/post-headers/typesig-phil.jpg
 categories: announcements
 featured: true
 ---
