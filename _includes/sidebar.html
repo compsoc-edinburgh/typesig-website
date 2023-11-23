@@ -1,10 +1,13 @@
-<div class="sidebar sticky-top">        
+<div class="sidebar sticky-top">   
+    {% comment %}     
     <div class="sidebar-section">
         <h5><span>Newsletter</span></h5>
         {--% include newsletter.html %}
     </div>
+    {% endcomment %}
+
     <div class="sidebar-section">
-        <h5><span>Your Ad Here</span></h5>
-        <img src="{{site.baseurl}}/assets/images/ad.png">
+        <h5><span>Our Sponsors</span></h5>
+        <a href="https://www.janestreet.com"><img src="{{site.baseurl}}/assets/sponsors/janestreet.png"></a>
     </div>
 </div>
