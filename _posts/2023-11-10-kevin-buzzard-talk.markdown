@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kevin Buzzard Talk"
+title:  "Kevin Buzzard Lecture"
 date:   2023-11-10 12:00:00 +0100
 image: assets/images/post-headers/kevin-buzzard-talk.png
 categories: announcements
