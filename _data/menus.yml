@@ -10,6 +10,9 @@ topmenu:
 - title: Contact
   url: "contact/"
 
+- title: TUPLE Conference
+  url: "tuple/"
+
 # Footer Menu
 footermenu:
 
@@ -21,3 +24,6 @@ footermenu:
 
 - title: Contact
   url: "contact/"
+
+- title: TUPLE Conference
+  url: "tuple/"
