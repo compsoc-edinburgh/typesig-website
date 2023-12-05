@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "TypeSig Talks: Phillip Wadler"
+date:   2023-11-21 12:00:00 +0100
+image: assets/images/post-headers/2023-11-21-phil-talk.png
+categories: announcements
+featured: false
+---
+Yesterday was another successful TypeSig Talk!
+
+Our speaker was [Prof. Phillip Wadler][phil], who needs no introduction. One of the principal designers of Haskell, Phil is a beloved lecturer here in Edinburgh, and was kind enough to give an introductory talk on formalising the lambda calculus in Lean 4. He covered basic proof techniques in Lean for those who had not seen them, then went on to give a brief representation of terms, and ended with a proof that 2+2=4.
+
+Thanks to everyone who came, and special thanks to Phil in particular.
+
+TypeSig ❤️ you!
+
+[phil]: https://homepages.inf.ed.ac.uk/wadler/
