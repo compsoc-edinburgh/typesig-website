@@ -1,10 +1,11 @@
 ---
 layout: post
 title:  "TypeSig Talks: Anton Lorenzen and John Baez"
+author: jacob
 date:   2023-11-15 12:00:00 +0100
 image: assets/images/post-headers/john-baez-typesig-talk.png
-categories: announcements
-featured: true
+categories: talks category-theory functional-programming
+featured: false
 ---
 Yesterday was our very first TypeSig Talks event!
 

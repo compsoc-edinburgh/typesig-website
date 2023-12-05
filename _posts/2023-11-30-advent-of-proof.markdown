@@ -1,9 +1,10 @@
 ---
 layout: post
 title:  "Advent of Proof"
+author: jacob
 date:   2023-11-30 12:00:00 +0100
 image: assets/images/post-headers/aop.png
-categories: announcements
+categories: lean agda events
 featured: false
 ---
 TypeSig is proud to announce a new Advent of Code style competition, called Advent of Proof! [Click here to join in!][aop]

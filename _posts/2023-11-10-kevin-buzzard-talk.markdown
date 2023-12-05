@@ -1,9 +1,10 @@
 ---
 layout: post
 title:  "Kevin Buzzard Lecture"
+author: jacob
 date:   2023-11-10 12:00:00 +0100
 image: assets/images/post-headers/kevin-buzzard-talk.png
-categories: announcements
+categories: lean talks
 featured: false
 ---
 Yesterday was the Annual Lecture for Mathematics Students, which we co-hosted wih the School of Mathematics. The guest lecturer was [Kevin Buzzard][kevin], who gave a talk on how large language models (LLMs) like ChatGPT might be integrated with theorem provers. As you can see from the image above, we completely filled AT Lecture Theatre 2! That's over 200 people!

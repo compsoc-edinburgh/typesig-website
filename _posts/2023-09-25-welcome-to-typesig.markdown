@@ -4,7 +4,7 @@ title:  "Welcome to TypeSig!"
 date:   2023-09-25 12:00:00 +0100
 image: assets/images/post-headers/typesig-phil.jpg
 categories: announcements
-featured: true
+featured: false
 ---
 This is a dedicated space for people to nerd out about semantics, type theory, programming languages, logic, and everything inbetween! We're a brand new special interest group (SIG) within [CompSoc][compsoc], and we're planning to run frequent events for you to learn about various different topics within the field.
 
