@@ -17,7 +17,7 @@ You must have a [Discord][discord-site] account to authenticate with the site.
 This is used for scoring and leaderboard purposes.
 We also have a discussion channel for the competition in [our Discord server][discord], so feel free to join in the discussion over there!
 
-Good luck and have fun! TypeSig ❤️ you!
+Good luck and have fun!
 
 [aop]: https://homepages.inf.ed.ac.uk/loconno/
 [discord-site]: https://discord.gg
