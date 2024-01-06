@@ -9,17 +9,7 @@ featured: false
 ---
 <b>UPDATE:</b> Advent of Proof 2023 has now concluded! Thank you all so much for participating, and helping to make this as large of a success as it was! And a large congratulations in particular to those who placed in the top 10. Well done!
 
-<img src="{{site.baseurl}}/assets/images/aop-results.png" class="mx-auto d-block" alt="Top 10 Global Rankings for Advent of Proof:
-1. icy001 (24 solved)
-2. manfp (24 solved)
-3. so_true (23 solved)
-4. .yellowsquid (22 solved)
-5. grhkm (15 solved)
-6. alexi0o0 (15 solved)
-7. neopalm2050 (11 solved)
-8. nankeen (10 solved)
-9. buchholz_hydra (10 solved)
-10. belazy">
+<img src="{{site.baseurl}}/assets/images/aop-results.png" class="mx-auto d-block" alt="Top 10 Global Rankings for Advent of Proof: 1. icy001 (24 solved) 2. manfp (24 solved) 3. so_true (23 solved) 4. .yellowsquid (22 solved) 5. grhkm (15 solved) 6. alexi0o0 (15 solved) 7. neopalm2050 (11 solved) 8. nankeen (10 solved) 9. buchholz_hydra (10 solved) 10. belazy">
 <hr>
 
 TypeSig is proud to announce a new Advent of Code style competition, called Advent of Proof! [Click here to join in!][aop]
