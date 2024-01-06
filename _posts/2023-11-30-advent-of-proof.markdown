@@ -7,6 +7,11 @@ image: assets/images/post-headers/aop.png
 categories: lean agda events
 featured: false
 ---
+<b>UPDATE:</b> Advent of Proof 2023 has now concluded! Thank you all so much for participating, and mking this as large of a success as it was! And a large congratulations in particular to those who placed in the top 10. Well done!
+
+<img src="{{site.baseurl}}/assets/images/aop-results.png"
+<hr>
+
 TypeSig is proud to announce a new Advent of Code style competition, called Advent of Proof! [Click here to join in!][aop]
 
 Each day from the 1st of December to the 25th, we release a new theorem that you must formalise and prove using either Agda or Lean.
