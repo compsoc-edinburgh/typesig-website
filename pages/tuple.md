@@ -8,8 +8,6 @@ The goal of the conference is to introduce more undergraduate students to resear
 
 The conference is scheduled to take place on the 21st February, 2024 at the Informatics Forum, 10 Crichton Street, Edinburgh, EH8 9AB.
 
-Please register your interest as a potential speaker [here][speaker-interest].
-
 ## Topics
 Covering topics include, but are not limited to: 
 - Programming languages 
