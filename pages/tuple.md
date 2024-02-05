@@ -8,15 +8,15 @@ The goal of the conference is to introduce more undergraduate students to resear
 
 The conference is scheduled to take place on the 21st February, 2024 at the Informatics Forum, 10 Crichton Street, Edinburgh, EH8 9AB.
 
-## Topics
-Covering topics include, but are not limited to: 
-- Programming languages 
-- Functional programming
-- Compilers
-- Interactive theorem proving
-- Formal verification
-- Type theory 
-- Concurrency
+# [BUY A TICKET][eventbrite]
+
+## Talks
+- **Dr Conor McBride**, Strathclyde: Dependent types
+- **Dr Bob Atkey**, Strathclyde: Denotational semantics
+- **Dr Julian Bradfield**, Edinburgh: Model checking 
+- **Dr Paul Jackson**, Edinburgh: Proof presentation in theorem provers (with a focus on Lean!)
+- **Tang Wenhao**, Edinburgh: Soundly handling linearity (POPL 2024 Distinguished Paper!)
+- **Jad Ghalayini**, Cambridge: Compiler optimisation and category theory
 
 ## Expected Audience
 TUPLE is the culmination of sustained student interest in PL research over the past few years.
@@ -28,3 +28,4 @@ Based on the successful precedent of [PwnEd 2023][pwned] (a cybersecurity confer
 [speaker-interest]: https://forms.gle/o2jFvc4tCThu74127
 [compsoc]: https://comp-soc.com
 [pwned]:   https://pwned.sigint.mx
+[eventbrite]: https://www.eventbrite.com/e/tuple-student-conference-on-programming-languages-tickets-807320375977
