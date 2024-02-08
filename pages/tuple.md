@@ -12,8 +12,8 @@ The conference is scheduled to take place on the 21st February, 2024 at the Info
 
 ## Schedule
 
-|  Time ⏰ | Speaker                 | 
-| -----    | ------------------------|
+|          |                          | 
+| -----    | ------------------------ |
 | 09:50 :  |	Opening remarks         |
 | 10:00 :  |	Talk - Julian Bradfield |
 | 11:00 :  |	Talk - Wenhao Tang      |
