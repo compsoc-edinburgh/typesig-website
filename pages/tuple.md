@@ -10,7 +10,24 @@ The conference is scheduled to take place on the 21st February, 2024 at the Info
 
 # [BUY A TICKET][eventbrite]
 
+## Schedule
+
+|  Time	| Speaker                 | 
+| ----- | ------------------------|
+| 09:50 |	Opening remarks         |
+| 10:00 |	Talk - Julian Bradfield |
+| 11:00 |	Talk - Wenhao Tang      |
+| 12:00 |	Lunch                   |
+| 13:00 |	Talk - Conor McBride    |
+| 14:00 |	Talk - Jad Ghalayini    |
+| 15:00 |	Break                   |
+| 15:30 |	Talk - Paul Jackson     |
+| 16:30 |	Talk - Bob Atkey        |
+| 17:30 |	Closing remarks         |
+| 18:00 |	Everyone leaves         |
+
 ## Talks
+
 - **Dr Conor McBride**, Strathclyde: Dependent types
 - **Dr Bob Atkey**, Strathclyde: Denotational semantics
 - **Dr Julian Bradfield**, Edinburgh: Model checking 
