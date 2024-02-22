@@ -18,11 +18,11 @@ The conference is scheduled to take place on the 21st February, 2024 at the Info
 | 10:00 :  |	Talk - Julian Bradfield |
 | 11:00 :  |	Talk - Wenhao Tang      | [slides](tuple2024-slides/tang-wenhao-slides.pdf)
 | 12:00 :  |	Lunch                   |
-| 13:00 :  |	Talk - Conor McBride    |
-| 14:00 :  |	Talk - Jad Ghalayini    |
+| 13:00 :  |	Talk - Conor McBride    | [files](tuple2024-slides/conor-mcbride.agda)
+| 14:00 :  |	Talk - Jad Ghalayini    | [files](tuple2024-slides/jad-galayini-slides.pdf)
 | 15:00 :  |	Break                   |
-| 15:30 :  |	Talk - Paul Jackson     |
-| 16:30 :  |	Talk - Bob Atkey        |
+| 15:30 :  |	Talk - Paul Jackson     | [slides](tuple2024-slides/paul-jackson-slides.pdf)
+| 16:30 :  |	Talk - Bob Atkey        | [files](tuple2024-slides/bob-atkey.agda)
 | 17:30 :  |	Closing remarks         |
 | 18:00 :  |	Everyone leaves         |
 
