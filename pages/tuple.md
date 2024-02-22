@@ -8,7 +8,7 @@ The goal of the conference is to introduce more undergraduate students to resear
 
 The conference is scheduled to take place on the 21st February, 2024 at the Informatics Forum, 10 Crichton Street, Edinburgh, EH8 9AB.
 
-# [BUY A TICKET][eventbrite]
+# The conference is over! Many thanks to everyone who attended!
 
 ## Schedule
 
@@ -16,7 +16,7 @@ The conference is scheduled to take place on the 21st February, 2024 at the Info
 | -----    | ------------------------ |
 | 09:50 :  |	Opening remarks         |
 | 10:00 :  |	Talk - Julian Bradfield |
-| 11:00 :  |	Talk - Wenhao Tang      |
+| 11:00 :  |	Talk - Wenhao Tang      | [slides](tuple2024-slides/tang-wenhao-slides.pdf)
 | 12:00 :  |	Lunch                   |
 | 13:00 :  |	Talk - Conor McBride    |
 | 14:00 :  |	Talk - Jad Ghalayini    |
