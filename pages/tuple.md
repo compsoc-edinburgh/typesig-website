@@ -42,6 +42,16 @@ The intended audience is primarily undergraduate students with some prior exposu
 
 Based on the successful precedent of [PwnEd 2023][pwned] (a cybersecurity conference run by another [CompSoc][compsoc] SIG) as well as TypeSig’s previous events this year, we expect TUPLE to attract significant attention from the student body in and outwith the the School of Informatics at the University of Edinburgh. 
 
+## Pictures!
+![pic1](tuple2024-pics/tuple-1.JPG)
+![pic2](tuple2024-pics/tuple-2.JPG)
+![pic3](tuple2024-pics/tuple-3.JPG)
+![pic4](tuple2024-pics/tuple-4.JPG)
+![pic5](tuple2024-pics/tuple-5.JPG)
+![pic6](tuple2024-pics/tuple-6.JPG)
+![pic7](tuple2024-pics/tuple-7.JPG)
+![pic8](tuple2024-pics/tuple-8.JPG)
+
 [speaker-interest]: https://forms.gle/o2jFvc4tCThu74127
 [compsoc]: https://comp-soc.com
 [pwned]:   https://pwned.sigint.mx
