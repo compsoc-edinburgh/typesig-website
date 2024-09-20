@@ -123,6 +123,9 @@ small, .small {
     height: 20px;
     margin-left: 15px;
 }
+.navbar-brand img {
+    height: revert-layer;
+}
 
 /* Sidebar
 ================================================== */
@@ -142,6 +145,10 @@ small, .small {
     background: $ts-blue;
     color: white;
     padding: 5rem 5rem;
+}
+.hero h1 {
+    color: white;
+    font-size:2.5em;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -170,10 +177,7 @@ small, .small {
     display:none;
 }
 
-.hero h1 {
-    color: white;
-    font-size:2.5em;
-}
+
 .section-title h2 {
 	font-weight:700;
 	font-size:1.4rem;
