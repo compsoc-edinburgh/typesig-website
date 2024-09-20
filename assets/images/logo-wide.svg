@@ -1,0 +1,11 @@
+<svg width="3000" height="600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap');
+  </style>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="100,0 600,0 600,500" style="fill:#008ee0"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="0,100 200,300 0,500" style="fill:#008ee0"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="100,600 300,400 500,600" style="fill:#008ee0"/>
+  <text font-family="IBM Plex Sans" font-weight="700" x="700" y="467" font-size="550">
+    TypeSig
+  </text>
+</svg>

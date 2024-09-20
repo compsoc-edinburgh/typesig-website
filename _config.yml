@@ -21,6 +21,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   semantics, programming language theory, type theory, compilers, concurrency,
   and any other field of theoretical CS!
 logo: assets/images/logo.svg
+logo-wide: assets/images/logo-wide.svg
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://typesig.pl" # the base hostname & protocol for your site, e.g. http://example.com
 

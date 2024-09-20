@@ -45,11 +45,13 @@ gtag('config', '{{site.ganalytics}}');
     <nav class="navbar navbar-expand-sm">
         <div class="container">
 
-          <a class="navbar-brand text-dark font-weight-bold big d-flex align-items-center" href="{{site.baseurl}}/">
-          {% if site.logo %}
-          <img class="mr-2" src="{{site.baseurl}}/{{site.logo}}" alt="logo" height="20em" width="20em">
-          {% endif %}
+          <a class="navbar-brand font-weight-bold big d-flex align-items-center" href="{{site.baseurl}}/">
+          {% if site.logo-wide %}
+          <img class="mr-2" src="{{site.baseurl}}/{{site.logo-wide}}" alt="logo" height="30em">
+          {% elseif site.logo %}
+          <img class="mr-2" src="{{site.baseurl}}/{{site.logo}}" alt="logo" height="30em">
           <span class="d-md-inline-block">{{ site.title }}</span>
+          {% endif %}
           </a>
       
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
