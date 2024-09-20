@@ -10,9 +10,7 @@ $ts-blue: #008ee0 !default;
 
 @import 'bootstrap/bootstrap';
 
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 /* add additional CSS rules below */
 html {
     scroll-behavior: smooth;
@@ -22,7 +20,7 @@ body {
     background:#fff;
     font-size:17px;
     transition: all 200ms linear;
-    font-family: "PT Sans",sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
     line-height:1.7;
     color: #333;
     overflow-x:hidden;
@@ -30,7 +28,7 @@ body {
     
 }
 .serif-font {
-    font-family:PT Serif;
+    font-family:IBM Plex Serif, serif;
 }
 @media (max-width: 1366px) {
     .container-xl, .container-lg, .container-md, .container-sm, .container {
@@ -44,14 +42,18 @@ main {min-height:500px;}
     color: #000;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-weight:600;
+    font-weight:700;
 }
 h4, .h4, h5, .h5 {
     line-height:1.4;
 }
 
+tt {
+    font-family: IBM Plex Mono, monospace;
+}
+
 .font-weight-bold {
-    font-weight:600 !important;
+    font-weight:700 !important;
 }
 a {
     color:inherit;
@@ -413,7 +415,7 @@ ul.tags li a:hover {
 	border-radius:30px;
 	font-size:0.85rem;
 	margin-left:10px;
-	font-weight:600;
+	font-weight:700;
 	text-transform:uppercase;
 }
 .post-top-meta .btn.follow {
@@ -529,7 +531,7 @@ background-color: #fff;
     background: #3d61fd !important;
     height: auto;
     padding: 6px 20px;
-    font-weight: 600;
+    font-weight: 700;
 }
 .sidebar #mc_embed_signup h2 {
     font-weight: 400;
@@ -546,8 +548,8 @@ background-color: #fff;
 .sidebar-right .sidebar {max-width:inherit;}
 
 .article-post .h1, .article-post .h2, .article-post .h3, .article-post .h4, .article-post .h5, .article-post .h6, .article-post h1, .article-post h2, .article-post h3, .article-post h4, .article-post h5, .article-post h6 {
-    font-weight: 600;
-    font-family: PT Sans;
+    font-weight: 700;
+    font-family: IBM Plex Sans, sans-serif;
     margin-top: 3rem;
 }
 
@@ -559,7 +561,7 @@ img {max-width:100%;height: auto;}
     padding: 5px;
     border-radius: 3px;
     text-transform: none;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0;
     min-width: 100px;
     display: inline-block;
