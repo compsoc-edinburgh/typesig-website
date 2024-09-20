@@ -1,0 +1,5 @@
+<svg width="600" height="600" style="background-color:#fff" xmlns="http://www.w3.org/2000/svg">
+  <polygon xmlns="http://www.w3.org/2000/svg" points="100,0 600,0 600,500" style="fill:#008ee0"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="0,100 200,300 0,500" style="fill:#008ee0"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="100,600 300,400 500,600" style="fill:#008ee0"/>
+</svg>

@@ -15,14 +15,14 @@
 # in the templates via {{ site.myvariable }}.
 title: TypeSig
 author: TypeSig Committee
-email: typesig@comp-soc.com
+email: committee@typesig.pl
 description: >- # this means to ignore newlines until "baseurl:"
   Official website for TypeSig, a student-run special interest group for
   semantics, programming language theory, type theory, compilers, concurrency,
   and any other field of theoretical CS!
-logo: assets/images/logo-round-500.png
+logo: assets/images/logo.svg
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://typesig.comp-soc.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://typesig.pl" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 markdown: kramdown
