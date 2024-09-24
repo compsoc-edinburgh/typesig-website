@@ -9,7 +9,7 @@ This page contains resources from previous TypeSig events, courses, and workshop
 ### Previous Courses
 
 [Domain Theory]({{ site.url }}/resources/domain-theory)   
-<!-- [Make a Lisp](link)    -->
+<!-- [Make a Lisp]({{ site.url }}/resources/make-a-lisp)    -->
 
 ###  Other Resources
 ##### Lean4
@@ -17,6 +17,7 @@ This page contains resources from previous TypeSig events, courses, and workshop
 [Theorem Proving in Lean](https://lean-lang.org/theorem_proving_in_lean4/introduction.html)   
 [Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/NNG4)   
 [Formalising Mathematics at Imperial College London](https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2023/)
+[Mechanics of Proof by Heather Macbeth](https://hrmacbeth.github.io/math2001/)
 
 ##### Agda
 [PLFA](https://plfa.inf.ed.ac.uk)
