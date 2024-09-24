@@ -4,9 +4,9 @@ title: Resources
 permalink: "/resources/"
 ---
 
-This page contains resources from previous TypeSig events and workshops as well as more general reference material for various topics.
+This page contains resources from previous TypeSig events, courses, and workshops, as well as more general reference material for various topics.
 
-### Previous Events
+### Previous Courses
 
 [Domain Theory]({{ site.url }}/resources/domain-theory)   
 <!-- [Make a Lisp](link)    -->
