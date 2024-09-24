@@ -10,12 +10,6 @@ topmenu:
 - title: Resources
   url: "resources/"
 
-- title: Contact
-  url: "contact/"
-
-- title: TUPLE Conference
-  url: "tuple/"
-
 # Footer Menu
 footermenu:
 
@@ -24,9 +18,6 @@ footermenu:
 
 - title: About
   url: "about/"
-
-- title: Contact
-  url: "contact/"
 
 - title: TUPLE Conference
   url: "tuple/"

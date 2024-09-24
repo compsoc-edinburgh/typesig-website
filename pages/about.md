@@ -11,5 +11,12 @@ We also have a [Discord server][discord] for announcements and general discussio
 
 TypeSig ❤️ you!
 
+# Contact
+
+If you want to get in touch with us, please ping the **@committee** role on our [Discord server][discord]. We can also be reached via [Instagram DM][instagram], but this may have a slower response time.
+For inquiries, please contact us at [{{site.email}}][email].
+
 [compsoc]: https://comp-soc.com
 [discord]: {{site.social.discord}}
+[instagram]: {{site.social.instagram}}
+[email]: mailto:{{site.email}}
