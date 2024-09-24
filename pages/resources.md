@@ -16,7 +16,7 @@ This page contains resources from previous TypeSig events, courses, and workshop
 [Functional Programming in Lean](https://lean-lang.org/functional_programming_in_lean/title.html)   
 [Theorem Proving in Lean](https://lean-lang.org/theorem_proving_in_lean4/introduction.html)   
 [Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/NNG4)   
-[Formalising Mathematics at Imperial College London](https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2023/)
+[Formalising Mathematics at Imperial College London](https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2023/)   
 [Mechanics of Proof by Heather Macbeth](https://hrmacbeth.github.io/math2001/)
 
 ##### Agda
