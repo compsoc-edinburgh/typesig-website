@@ -30,7 +30,7 @@ Typed λ-calculus. Finite Approximations. Compactness.
 
 6. **Scott Domains**     
 Algebraicity. Closure Properties. Representation Theorem. Consistent Completeness.     
-_Same notes as previous lecture_ [Recordings]("https://youtu.be/f9MfU4hiqvs")
+_Same notes as previous lecture_ [Recordings](https://youtu.be/f9MfU4hiqvs)
 
 7. **Recursively Defined Domains**     
 Fixed Points for Domain Equations. Colimits. Cocontinuous Functors. Generalising the Fixed Point Theorem. Untyped λ-calculus.     
