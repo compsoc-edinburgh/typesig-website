@@ -1,9 +1,6 @@
 # Top Menu
 topmenu:
 
-- title: Home
-  url: ""
-
 - title: About
   url: "about/"
 
