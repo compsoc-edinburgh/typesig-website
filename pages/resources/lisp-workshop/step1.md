@@ -32,6 +32,8 @@ lisp> 42
 lisp>
 ```
 
+- If the user enters `quit` or `exit` as their input, stop the loop. You should also print some text when starting the interpreter so your users know this is a possibility!
+
 - Add a command line flag to read a file as input, rather than a line from the user. When running in this mode, the program shouldn't loop after printing.
 ```console
 sh$ echo "Hello, world!" > input.txt
@@ -40,4 +42,4 @@ Hello, world!
 sh$
 ```
 
-- Implement some commands that toggle useful features in the REPL. For example, the user could enter `:timing` as a command to have the REPL show how long each input took to run (currently, this example won't do much, but once the evaluator is implemented, it becomes very handy!)
+- Implement some commands that toggle useful features in the REPL. For example, the user could enter `:timing` as a command to have the REPL show how long each input took to run (currently, this example won't do much, but once the evaluator is implemented, it becomes very handy!). Another example is `:help`, which should print a list of all commands the user can input (including the `quit`/`exit` commands from the earlier challenge)
