@@ -103,7 +103,7 @@ Luckily for us, lexing is straightforward for most grammars, and for S-Expressio
 
 Remember how most things in our syntax were whitespace separated? The only real exception to this is the brackets delimiting an S-Expression.
 Here's the hack: we can just loop through our input, and wherever we find a bracket, we can surround it with whitespace. For example:
-`(+ 1 (exp 2 3))` becomes ` ( + 1  ( exp 2 3 )  ) `. Now all we have to do is split our string on whitespace. Your language probably already has support for this in its standard library: for most languages, it's something along the lines of `String.split()`. For Haskell, there's a function called `words`. Now we have a list of strings; our example from before has become `["(", "1", "(", "exp", "2", "3", ")", ")"]`. As you'll see later, our parsing logic will be *much* simpler thanks to our lexer.
+`(+ 1 (exp 2 3))` becomes `` ( + 1  ( exp 2 3 )  ) ``. Now all we have to do is split our string on whitespace. Your language probably already has support for this in its standard library: for most languages, it's something along the lines of `String.split()`. For Haskell, there's a function called `words`. Now we have a list of strings; our example from before has become `["(", "1", "(", "exp", "2", "3", ")", ")"]`. As you'll see later, our parsing logic will be *much* simpler thanks to our lexer.
 
 
 ## Abstract Syntax Tree
