@@ -16,7 +16,7 @@ To keep things simple, we've opted for a very simple grammar, known as S-Express
 An S-Expression consists of a pair of brackets, that contain a list of "atoms" separated by whitespace. These atoms may be literal values, like numbers or strings, or symbols, which are arbitrary strings of characters. You're also allowed to have another S-Expression in place of an atom, allowing you to build more complex programs.
 In Lisp languages, the first atom is used as a function or operator name, and the following atoms are provided as arguments to the function or operator.
 Here's an example of some code written in this style:
-```lisp
+```scheme
 (+ 1 2)
 (* 3 (- 4 5))
 (concat "TypeSig" "<3" "you")
@@ -27,7 +27,7 @@ You don't need to fully understand what the semantics of these mean yet! We'll b
 The syntax may look quite strange if you're used to popular languages like Python or JavaScript, but it's still expressive enough to represent any program.
 
 We've picked S-Expressions other other grammars (say, C-style or Python-like grammars) because it's very straightforward to convert them into an AST. In fact, they're already a textual representation of an AST! To see what we mean by this, consider the following snippet:
-```lisp
+```scheme
 (+ 1 (* (- 2 3) 4))
 ```
 This code corresponds to the following AST:
@@ -53,7 +53,7 @@ Here, we've defined two literal types: integers (whole numbers), and symbols (an
 Extending the grammar for more literals (for example, strings, floating point numbers, etc) is straightforward - we just add a new rule to the grammar.
 For now, let's say our starting rule is `Literal`. When trying to parse a string with this grammar, we'll first check
 Currently, our grammar admits the following strings:
-```lisp
+```scheme
 1
 hello
 42
@@ -63,7 +63,7 @@ typesig-is-best-sig
 (exercise: why does the last one work?)
 
 It won't admit the following:
-```lisp
+```scheme
 hello world!
 1 + 2
 ```
@@ -176,7 +176,7 @@ These are some extra challenges you can attempt to build your understanding furt
 - Extend the grammar, tokeniser and parser to support string literals (strings of characters surrounded by double quotes).
 
 - When a syntax error occurs, print out the line of input it occured on, and highlight underneath the unexpected token. The input:
-```lisp
+```scheme
 (+ 1 2)
 (* 3 4))
 (- 5 6)
@@ -189,13 +189,13 @@ input:2:8: Syntax Error: Unexpected closing bracket:
 ```
 
 - The combination of a parser and a pretty printer acts as a code formatter. Add a command line flag that formats the contents of a supplied file, and rewrite the pretty printer to display S-Exprs vertically if they have more than e.g. 3 elements:
-```lisp
+```scheme
 (+ 1 2 3 4)
 (concat "hello, " (intToString 42) " world!")
 (* 5 6)
 ```
 becomes:
-```lisp
+```scheme
 (+ 1
      2
      3

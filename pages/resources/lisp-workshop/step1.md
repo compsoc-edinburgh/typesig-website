@@ -26,14 +26,14 @@ TypeSig <3 you!  // this line is program output
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
 
 - Print a prompt to the console to indicate when the user should input text:
-```
+```console
 lisp> 42
 42
 lisp>
 ```
 
 - Add a command line flag to read a file as input, rather than a line from the user. When running in this mode, the program shouldn't loop after printing.
-```
+```console
 sh$ echo "Hello, world!" > input.txt
 sh$ ./step1 -f input.txt
 Hello, world!
