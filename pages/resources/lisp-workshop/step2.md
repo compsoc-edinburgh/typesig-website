@@ -185,7 +185,7 @@ should show an error similar to the following:
 ```
 input:2:8: Syntax Error: Unexpected closing bracket:
 2 | (* 3 4))
-           ^
+             ^
 ```
 
 - The combination of a parser and a pretty printer acts as a code formatter. Add a command line flag that formats the contents of a supplied file, and rewrite the pretty printer to display S-Exprs vertically if they have more than e.g. 3 elements:
@@ -197,11 +197,11 @@ input:2:8: Syntax Error: Unexpected closing bracket:
 becomes:
 ```lisp
 (+ 1
-   2
-   3
-   4)
+     2
+     3
+     4)
 (concat "hello, "
-        (intToString 42)
-        " world!")
+          (intToString 42)
+          " world!")
 (* 5 6)
 ```
