@@ -21,7 +21,7 @@ Here's an example of some code written in this style:
 (* 3 (- 4 5))
 (concat "TypeSig" "<3" "you")
 (lambda (x) x)
-(def factorial (x) (if (equals? 0 x) 1 (factorial (- x 1))))
+(define factorial (x) (if (equals? 0 x) 1 (factorial (- x 1))))
 ```
 You don't need to fully understand what the semantics of these mean yet! We'll build up to that knowledge over the next few steps.
 The syntax may look quite strange if you're used to popular languages like Python or JavaScript, but it's still expressive enough to represent any program.
