@@ -46,7 +46,7 @@ Each of the bracket pairs turns into a `sexp` node, and the atoms between the br
 We'll build up our grammar piece by piece. First, let's just write a grammar that recognises some basic literals.
 ```ebnf
 INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/
+SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 ```
 Here, we've defined two literal types: integers (whole numbers), and symbols (any string of characters that doesn't contain whitespace or brackets). We've given regular expressions to describe valid strings that can be be parsed as these literals, although you don't necessarily need to use regex in your parser implementation.
@@ -71,7 +71,7 @@ Once we've parsed one literal, the parse rules say there's nothing else for us t
 We'll add a new rule, called `Program`, which will be our starting rule from now on:
 ```ebnf
 INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/
+SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 Program ::= Literal*
 ```
@@ -89,7 +89,7 @@ The `'('` just means we're checking our input for `(` as a character literal.
 We're now ready to construct our full grammar:
 ```ebnf
 INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/
+SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 Expr    ::= Literal | '(' Expr* ')'
 Program ::= SExpr*
@@ -136,7 +136,7 @@ So how do we parse an expression?
 As a reminder, our current grammar looks like this:
 ```ebnf
 INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/
+SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 Expr    ::= Literal | '(' Expr* ')'
 Program ::= SExpr*
