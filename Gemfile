@@ -46,3 +46,6 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 # Theme dependency
 gem "webrick"
+
+# Highlighting
+gem "rouge"

@@ -26,7 +26,9 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://typesig.pl" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
+highlighter: rouge
 markdown: kramdown
+  syntax_highlighter: rouge
 #theme: minima
 remote_theme: wowthemesnet/affiliates-jekyll-theme
 sass:
