@@ -3,6 +3,7 @@ layout: page
 title: "Lisp Workshop - Step 3: Eval"
 permalink: "/resources/lisp-workshop/step3"
 ---
+# THIS PAGE IS A WORK IN PROGRESS! Things may change, so don't get too attached!
 Complexity: Medium
 
 *Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it transforms reducible expressions, or *redexes*, into some simpler form.
