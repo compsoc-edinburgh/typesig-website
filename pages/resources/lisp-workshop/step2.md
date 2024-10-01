@@ -9,7 +9,9 @@ In the last step, we wrote a program that could read a line of input as a string
 While it's a good starting ground, it doesn't do anything particularly interesting.
 
 Our first *real* step towards a language interpreter is a parser. A parser converts a string into an *abstract syntax tree* (or AST); a data structure that represents the internal structure of our program.
-The parser operates according to a set of parse rules. This set is known as a grammar. You can learn more about parsing in the courses IADS and Compiling Techniques.
+
+If you're familiar with parsing, feel free to skip to the Tasks section.
+
 
 ## S-Expressions
 To keep things simple, we've opted for a very simple grammar, known as S-Expressions (the S stands for Symbolic. They are often abbreviated to sexps). They are used in the Lisp family of programming languages.
@@ -43,6 +45,8 @@ This code corresponds to the following AST:
 Each of the bracket pairs turns into a `sexp` node, and the atoms between the brackets turn into its children.
 
 ## Grammar
+A parser operates according to a set of *parse rules*. This set is known as a *grammar*. You can learn about parsing in detail the courses IADS and Compiling Techniques, but we'll give a brief overview here to get you started.
+
 We'll build up our grammar piece by piece. First, let's just write a grammar that recognises some basic literals.
 ```ebnf
 INTEGER ::= /[0-9]+/
@@ -162,6 +166,18 @@ You should write make this function return a string, rather than immediately pri
 
 ## 3/4ths of a REPL
 We've implemented a parser, and a pretty printer. It's time to update our REPL function from step 1! We should pass the user's input into the parser, and pass the resultant AST into the pretty printer, and print the output to the console.
+
+
+## Task
+Implement a data structure for an AST, and a parser to match the following grammar:
+```ebnf
+INTEGER ::= /[0-9]+/
+SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
+Literal ::= INTEGER | SYMBOL
+Expr    ::= Literal | '(' Expr* ')'
+Program ::= SExpr*
+```
+You should also implement a pretty printer that converts the AST back into a string. Hook these both into the REPL from the previous step, by parsing the user's input, and pretty printing the result.
 
 
 ## Extras
