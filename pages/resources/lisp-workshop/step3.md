@@ -11,6 +11,11 @@ Complexity: Medium
 
 *Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it transforms an *expression* into a *value*.
 
+- only eval to values, error if eval stops at progress violation
+- no varargs
+- s-exprs have to start with a something that evals to a function
+- base expressions are hard coded in eval
+
 
 ## Task
 Define a data structure for an environment, that maps symbols to expressions.

@@ -6,9 +6,11 @@ permalink: "/resources/lisp-workshop/step4"
 # THIS PAGE IS A WORK IN PROGRESS!
 The theory section isn't yet complete, and not all of the tasks have been added. If you're done with all of the extra tasks from the previous steps, and you're comfortable with a harder challenge, feel free to attempt the tasks here. If not, please be patient - we're working as hard as we can to get this finished!
 
-## Lambda
-Complexity: Medium
+## Environments and Lambdas
+Complexity: Long
 
+- introduce environment/context
+- does the context have values or expressions?
 
 ## Task
 If you haven't already, you should structure your interpreter so that the environment is passed as an argument to `eval`.
@@ -22,6 +24,8 @@ Add a special form to your interpreter, called `lambda`. It takes two arguments;
 ```
 Be sure to watch out for cases like `(lambda x (lambda x (+ x 1)))`! Make sure the inner `x` takes precedence over the outer `x`.
 
+You should also implement top-level declarations: `(define name val)` should extend the global environment with (`name`, `value`). You should not allow this function to be called as part of a sub expression however!
+
 Once this is done, you'll have implemented a fully Turing complete programming language! Congratulations!
 
 ## Extra Challenges
@@ -29,6 +33,8 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Add support for let statements. (Hint: `let x = v in e` is equivalent to `((lambda x e) v)`)
 
-- Allow lambdas to take multiple arguments. (Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`)
+- Allow lambdas and top-level declarations to take multiple arguments. (Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`)
 
-- Add support for top-level declarations that take arguments.
+- Support recursion in top-level definitions.
+
+- Allow top-level definitions to reference each other in any order 
