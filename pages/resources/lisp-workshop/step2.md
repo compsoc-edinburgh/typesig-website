@@ -21,7 +21,7 @@ Here's an example of some code written in this style:
 ```scheme
 (+ 1 2)
 (* 3 (- 4 5))
-(concat "TypeSig" "<3" "you")
+(concat3 "TypeSig" "<3" "you")
 (lambda (x) x)
 (define factorial (x) (if (equals? 0 x) 1 (factorial (- x 1))))
 ```
@@ -70,6 +70,7 @@ It won't admit the following:
 ```scheme
 hello world!
 1 + 2
+(* 3 4)
 ```
 Once we've parsed one literal, the parse rules say there's nothing else for us to do, so we stop. Let's update our parse rules to allow multiple expressions.
 We'll add a new rule, called `Program`, which will be our starting rule from now on:
@@ -206,18 +207,18 @@ input:2:8: Syntax Error: Unexpected closing bracket:
 
 - The combination of a parser and a pretty printer acts as a code formatter. Add a command line flag that formats the contents of a supplied file, and rewrite the pretty printer to display S-Exprs vertically if they have more than e.g. 3 elements:
 ```scheme
-(+ 1 2 3 4)
-(concat "hello, " (intToString 42) " world!")
+(foo 1 2 3 4)
+(concat3 "hello, " (intToString 42) " world!")
 (* 5 6)
 ```
 becomes:
 ```scheme
-(+ 1
-     2
-     3
-     4)
-(concat "hello, "
-          (intToString 42)
-          " world!")
+(foo 1
+       2
+       3
+       4)
+(concat3 "hello, "
+           (intToString 42)
+           " world!")
 (* 5 6)
 ```
