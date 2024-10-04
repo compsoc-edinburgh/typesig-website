@@ -3,33 +3,14 @@ layout: page
 title: "Lisp Workshop - Step 3: Eval"
 permalink: "/resources/lisp-workshop/step3"
 ---
-# THIS PAGE IS A WORK IN PROGRESS! Things may change, so don't get too attached!
+# THIS PAGE IS A WORK IN PROGRESS!
+The theory section isn't yet complete. If you're done with all of the extra tasks from the previous steps, and you're comfortable with a harder challenge, feel free to attempt the tasks here. If not, please be patient - we're working as hard as we can to get this finished!
+
+## Evaluation
 Complexity: Medium
 
-*Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it transforms reducible expressions, or *redexes*, into some simpler form.
-Changing the syntax and semantics of your language changes what you consider to be a redex.
-For our language, we'll say that all redexes are S-Expressions, where the first expression is a symbol that corresponds to a function, or another redex that reduces to a function. The following expressions (if there are any) 
-Here are a few examples of redexes in our language:
-```scheme
-(+ 1 2)
-(* 3 4 5)
-(list a b c)
-(concat "hello, " (intToString 42) " world!)
-((lambda x (+ x 1)) 41)
-```
-Some of these lines, namely the last two, contain multiple redexes. An individual expression within a redex may also be a redex itself!
+*Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it transforms an *expression* into a *value*.
 
-Here are some things that *aren't* redexes:
-```scheme
-1
-(2 3)
-(4 + 5)
-(3 (+ 1 2))
-(some-undefined-symbol 1 2 3)
-```
-The last one is a little confusing; according to our definition above, it should count!
-
-To explain why `(some-undefined-symbol 1 2 3)` isn't a redex, we need to talk about contexts.
 
 ## Task
 Define a data structure for an environment, that maps symbols to expressions.
