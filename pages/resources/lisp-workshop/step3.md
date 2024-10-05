@@ -9,20 +9,41 @@ The theory section isn't yet complete. If you're done with all of the extra task
 ## Evaluation
 Complexity: Medium
 
-*Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it transforms an *expression* into a *value*.
+*Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it *reduces* an *expression* into a *value*. An expression that can be transformed into a value is called a *reducible expression*, or *redex*.
 
-- only eval to values, error if eval stops at progress violation
+Not every expression can be transformed into a value. Some programs are syntactically correct, but semantically meaningless! As an analogy, consider the English sentence "The sky walks a hamburger". This sentence is syntactically valid according to the rules of the English language, being a noun phrase followed by a verb and another noun phrase, but (in most contexts) it's meaningless!
+
+The same principle applies in programming languages. In Lisp languages, an S-Expression must start with a function for it to be considered a redex. In this case, by "function" we mean either a symbol that refers to a function defined in our program, standard library or as a keyword in our interpreter, *or* any expression that evaluates to a function. 
+For example, the following lines of code are semantically valid under this definition:
+```scheme
+(+ 1 2)
+(lambda x (+ x 1))
+(foo)
+((id +) 1 2)    
+```
+But the following are meaningless:
+```scheme
+(1 2)
+(3 + 4)
+()
+```
+The above assumes that `+`, `lambda`, `foo`, and `id` are all defined as functions in our language.
+
+Now we have three cases to deal with when evaluating an expression. Our expression could be one of:
+- A literal value, which is already a value;
+- A semantically valid S-Expression, which we can keep evaluating;
+- A semantically invalid S-Expression. In this case, we should throw an error.
+
+The above set of rules amounts to a property of a language called *progress*. If your language has progress as a property, then it means that all semantically valid expressions eventually evaluate to a value.
+
 - no varargs
-- s-exprs have to start with a something that evals to a function
-- base expressions are hard coded in eval
 
 
 ## Task
-Define a data structure for an environment, that maps symbols to expressions.
+Define a function called `eval`, which takes an AST as its only parameter, and reduces any redexes, returning the resultant values.
 
-Next, create an environment that defines some basic mathematical operators (like addition, multiplication, etc).
+You should hard-code some arithmetic functions (addition, multiplication, etc) into this function. For example: if the first element in an S-Expression is a symbol, and that symbol is `+`, then you should add the two arguments together.
 
-Now define a function called `eval`, which takes an environment and an AST as parameters, and reduces any redexes, returning the final AST.
 Hook this into your REPL. You now have a fancy calculator!
 
 ## Extra Challenges
@@ -31,6 +52,8 @@ These are some extra challenges you can attempt to build your understanding furt
 - Add some comparison operators, like equality and `<`. You'll have to come up with a representation for true and false! Common options are to have them as separate symbols, or to map false to 0 and true to any other value.
 
 - Add some string manipulation functions, such as `concat`, `substring`, etc.
+
+- Implement `input` and `print`. `input` should return a line of input from the user, and `print` should print a value to the console.
 
 - Add some boolean functions, like `and` and `or`. For optimisation purposes, these should "short circuit"; if the first argument to `and` evaluates to false, the function should return false immediately, without evaluating the rest of its arguments.
 
