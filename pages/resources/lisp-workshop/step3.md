@@ -36,6 +36,14 @@ Now we have three cases to deal with when evaluating an expression. Our expressi
 
 The above set of rules amounts to a property of a language called *progress*. If your language has progress as a property, then it means that all semantically valid expressions eventually evaluate to a value.
 
+## Values
+So what is a value? The exact set of things that are considered to be values is specific to each language. For our language, we'll consider the following to be values:
+- Literals (integers, flaots, strings, etc);
+- Lambda expressions (you'll meet these in step 4).
+That's it!
+
+In your implementation, it's a good idea to add a new data type for values, separate from expressions. Your `eval` function should then convert an expression into a value.
+
 - no varargs
 
 
