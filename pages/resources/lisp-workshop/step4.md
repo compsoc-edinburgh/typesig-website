@@ -17,7 +17,7 @@ Define a new data type to represent the environment. This should look something 
 
 Update your `eval` function so that it takes an environment as an argument. When starting a new program, this environment should be empty.
 
-You sohuld also implement the function `define`.
+You should also implement the function `define`.
 `define` takes two arguments; a symbol `n`, acting as a name, and an expression, which is to be evaluated into a value `v`. Once evaluated, we should update our environment so that `n` maps to `v`.
 `define` is a top-level declaration, meaning that it can only appear in the outer-most level of an expression tree, and doesn't return a value. The following lines are allowed:
 ```scheme
