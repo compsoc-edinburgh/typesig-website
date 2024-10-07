@@ -35,7 +35,16 @@ You may have to restructure your evaluator to support top-level declarations.
 ## Extra Challenges
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
 
-- Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations.
+- Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations. For example, if `foo.lisp` contains the following:
+```scheme
+(define my-favourite-number 12)
+```
+  and `main.lisp` contains this:
+```
+(import "foo.lisp")
+my-favourite-number
+```
+  then evaluating `main.lisp` should print `12`, assuming that `foo.lisp` is in the same directory as `main.lisp`.
 
 - Allow top-level definitions to reference each other in any order. As an example, when running the following file:
 ```scheme
@@ -43,7 +52,7 @@ These are some extra challenges you can attempt to build your understanding furt
 (define bar 1)
 foo
 ```
-Your interpreter should output:
+  Your interpreter should output:
 ```scheme
 1
 ```
