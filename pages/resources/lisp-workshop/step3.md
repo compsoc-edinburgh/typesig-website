@@ -9,7 +9,9 @@ The theory section isn't yet complete. If you're done with all of the extra task
 ## Evaluation
 Complexity: Medium
 
-*Evaluation* (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it *reduces* an *expression* into a *value*. An expression that can be transformed into a value is called a *reducible expression*, or *redex*.
+So far, all we've worked on is *syntax*; surface-level properties of a language that define how it looks. But we've yet to define any *semantics* for our language, meaning that we can't yet do anything meaningful with our AST. We're about to change that by implementing *evaluation*.
+
+Evaluation (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it *reduces* an *expression* into a *value*. An expression that can be transformed into a value is called a *reducible expression*, or *redex*.
 
 Not every expression can be transformed into a value. Some programs are syntactically correct, but semantically meaningless! As an analogy, consider the English sentence "The sky walks a hamburger". This sentence is syntactically valid according to the rules of the English language, being a noun phrase followed by a verb and another noun phrase, but (in most contexts) it's meaningless!
 
