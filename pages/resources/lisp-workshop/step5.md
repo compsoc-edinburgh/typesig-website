@@ -30,8 +30,31 @@ Once this is done, you'll have implemented a fully Turing complete programming l
 ## Extra Challenges
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
 
-- Add support for let statements. (Hint: `let x = v in e` is equivalent to `((lambda x e) v)`)
+- Add support for let statements. In Lisp, these look like this:
+```scheme
+(let ((x 1)
+        (y 2))
+       (+ x y))
+```
+`let` takes two arguments: a list of pairs of symbols and expressions, and an expression. We're representing a list as an S-Expression with an arbitrary number of elements, and a pair as an S-Expression with exactly two elements. It's perfectly fine to hard-code this syntax into your evaluator.
 
-- Allow lambdas and top-level declarations to take multiple arguments. (Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`)
+Semantically, `(let ((x v)) e)` is equivalent to `((lambda x e) v)`, and `(let ((x1 v2) (x2 v2)) e)` is equivalent to `(let ((x1 v1)) (let ((x2 v2)) e)))`. We recommend that you directly desugar `let` expression in this way; it saves you from having to implement capture avoiding substitution again!
+
+- Allow lambdas and top-level declarations to take multiple arguments.
+
+Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`
 
 - Support recursion in top-level definitions.
+
+For example, when evaluating the following file:
+```scheme
+(define factorial (n)
+    (if (equals? 0 n)
+          1
+          (+ n (factorial (- n 1)))))
+(factorial 5)
+```
+you should see:
+```scheme
+120
+```
