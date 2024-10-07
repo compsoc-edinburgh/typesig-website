@@ -36,17 +36,17 @@ These are some extra challenges you can attempt to build your understanding furt
         (y 2))
        (+ x y))
 ```
- `let` takes two arguments: a list of pairs of symbols and expressions, and an expression. We're representing a list as an S-Expression with an arbitrary number of elements, and a pair as an S-Expression with exactly two elements. It's perfectly fine to hard-code this syntax into your evaluator.
+  `let` takes two arguments: a list of pairs of symbols and expressions, and an expression. We're representing a list as an S-Expression with an arbitrary number of elements, and a pair as an S-Expression with exactly two elements. It's perfectly fine to hard-code this syntax into your evaluator.
 
- Semantically, `(let ((x v)) e)` is equivalent to `((lambda x e) v)`, and `(let ((x1 v2) (x2 v2)) e)` is equivalent to `(let ((x1 v1)) (let ((x2 v2)) e)))`. We recommend that you directly desugar `let` expression in this way; it saves you from having to implement capture avoiding substitution again!
+  Semantically, `(let ((x v)) e)` is equivalent to `((lambda x e) v)`, and `(let ((x1 v2) (x2 v2)) e)` is equivalent to `(let ((x1 v1)) (let ((x2 v2)) e)))`. We recommend that you directly desugar `let` expression in this way; it saves you from having to implement capture avoiding substitution again!
 
 - Allow lambdas and top-level declarations to take multiple arguments.
 
-Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`
+  Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`
 
 - Support recursion in top-level definitions.
 
- For example, when evaluating the following file:
+  For example, when evaluating the following file:
 ```scheme
 (define factorial (n)
     (if (equals? 0 n)
@@ -54,7 +54,7 @@ Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`
           (+ n (factorial (- n 1)))))
 (factorial 5)
 ```
-you should see:
+  you should see:
 ```scheme
 120
 ```

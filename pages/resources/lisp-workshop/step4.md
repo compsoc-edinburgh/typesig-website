@@ -50,11 +50,11 @@ Your interpreter should output:
 
 - Add a namespace system. Namespaces allow you to keep different collections of definitions separate, ensuring that they don't interfere with each other if they happen to define the same name. You could implement this by defining a new top-level declaration `namespace`, which takes a symbol `n` to use as a name for the namespace, and then an arbitrary number of other top-level declarations. Crucially, this can include other namespaces! When `namespace` is evaluated, it creates a new environment with all of the declarations in it, and stores this environment in our orginal environment, under the name `n`. You'll have to update your representation of environments to support this.
 
- You should also add a way to access a name from a namespace. A decent way of doing so would be to define a function called `using`, which takes a symbol `n` representing the name of a namespace, and another symbol `d`, which refers to the name of a declaration within the namespace. The return value of this function is whatever value is assigned to `d` within the namespace. If `d` is not in the namespace, throw an error.
+  You should also add a way to access a name from a namespace. A decent way of doing so would be to define a function called `using`, which takes a symbol `n` representing the name of a namespace, and another symbol `d`, which refers to the name of a declaration within the namespace. The return value of this function is whatever value is assigned to `d` within the namespace. If `d` is not in the namespace, throw an error.
 
- For convenience's sake, you will also want to add `open`, which takes a symbol `n` and an expression `e`. To evaluate `(open n e)`, you should (temporarily) add all of the declarations in `n` to the current environment, and then evaluate `e` in this updated environment.
+  For convenience's sake, you will also want to add `open`, which takes a symbol `n` and an expression `e`. To evaluate `(open n e)`, you should (temporarily) add all of the declarations in `n` to the current environment, and then evaluate `e` in this updated environment.
 
- For example, the following code:
+  For example, the following code:
 ```scheme
 (namespace foo
   (define secret (+ 8 (* 17 2))))
@@ -72,7 +72,7 @@ Your interpreter should output:
 (open int-monoid ((using add op) 1 (using add unit)))
 (open int-monoid (open mul (op unit 2)))
 ```
-should output:
+  should output:
 ```scheme
 42
 1
@@ -91,6 +91,6 @@ should output:
 (define secret (+ 8 (* 17 2)))
 (define x 1)
 ```
- Now when a user `import`s the above file, it should add `foo` to the current environment. To use the definition, the user has to `open` the namespace provided. As another convenience aid, provide another keyword `load`, that combines `import` and `open`.
+  Now when a user `import`s the above file, it should add `foo` to the current environment. To use the definition, the user has to `open` the namespace provided. As another convenience aid, provide another keyword `load`, that combines `import` and `open`.
 
- Finally, you should make it an error to `import` a file that doesn't declare exactly one namespace.
+  Finally, you should make it an error to `import` a file that doesn't declare exactly one namespace.
