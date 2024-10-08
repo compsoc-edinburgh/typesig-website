@@ -46,6 +46,7 @@ my-favourite-number
 ```
   then evaluating `main.lisp` should print `12`, assuming that `foo.lisp` is in the same directory as `main.lisp`.
 
+
 - Allow top-level definitions to reference each other in any order. As an example, when running the following file:
 ```scheme
 (define foo bar)
@@ -101,5 +102,7 @@ foo
 (define x 1)
 ```
   Now when a user `import`s the above file, it should add `foo` to the current environment. To use the definition, the user has to `open` the namespace provided. As another convenience aid, provide another keyword `load`, that combines `import` and `open`.
+
+  You should also make the user specify exactly *which* definitions are to be exported. You could do this by making them provide a list of names at the top of the namespace/module declaration, or by making `define` take a "visibility" parameter (this could be a symbol, which can only take the value of `public` or `private`, for example).
 
   Finally, you should make it an error to `import` a file that doesn't declare exactly one namespace.
