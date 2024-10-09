@@ -11,6 +11,7 @@ Complexity: Short
 
 - introduce environment/context
 - does the context have values or expressions?
+- name shadowing
 
 ## Task
 Define a new data type to represent the environment. This should look something like a map from symbols to values.
