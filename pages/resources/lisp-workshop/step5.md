@@ -53,7 +53,7 @@ These are some extra challenges you can attempt to build your understanding furt
 
   Semantically, `(let ((x v)) e)` is equivalent to `((lambda x e) v)`, and `(let ((x1 v2) (x2 v2)) e)` is equivalent to `(let ((x1 v1)) (let ((x2 v2)) e)))`. We recommend that you directly desugar `let` expression in this way; it saves you from having to implement capture avoiding substitution again!
 
-- Allow lambdas and top-level declarations to take multiple arguments.
+- Allow `lambda`s and top-level declarations to take more than one argument.
 
   Hint: desugar `(lambda (x y z) e)` into `(lambda x (lambda y (lambda z e)))`
 
@@ -71,3 +71,5 @@ These are some extra challenges you can attempt to build your understanding furt
 ```scheme
 120
 ```
+
+- Write a self-hosting interpreter. This means re-implementing *everything* you've done so far as a program in your language.
