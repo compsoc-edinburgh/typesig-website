@@ -15,18 +15,29 @@ Evaluation (or *eval* for short) can be viewed as a transformation acting on an 
 
 ## Values
 So what is a value? The exact set of things that are considered to be values is specific to each language. For our language, we'll consider the following to be values:
-- Literals (integers, flaots, strings, etc);
-- Lambda expressions (you'll meet these in step 4).
+- Literals (integers, floats, strings, etc);
+- Primitive functions (functions that are implemented by in the evaluator, as opposed to defined by the user);
+- Lambda expressions (you'll meet these in step 5).
 That's it!
 
-In your implementation, it's a good idea to add a new data type for values, separate from expressions. Your `eval` function should then convert an expression into a value.
+Here are some things that *aren't* values:
+- A symbol literal
+- Any expression that hasn't been evaluated yet (including expressions that are just literals, such as `5`!)
+
+In your implementation, you will need to add a new data type for values, separate from expressions. For example, if you were using Haskell, you might define a type that looks like this:
+```hs
+data Prim = Plus | Minus | Mult | ...
+data Value = VInt Integer
+           | VPrim Prim
+```
 
 ## Semantic Validity
 Not every expression can be transformed into a value. Some programs are syntactically correct, but semantically meaningless! As an analogy, consider the English sentence "The sky walks a hamburger". This sentence is syntactically valid according to the rules of the English language, being a noun phrase followed by a verb and another noun phrase, but (in pretty much any context) it's meaningless!
 
 The same principle applies in programming languages. In Lisp languages, an S-Expression must start with a operator for it to be considered a redex. Any S-Expression that doesn't is considered to be semantically invalid. This form of notation is commonly called (prefix (or Polish) notation)[https://en.wikipedia.org/wiki/Polish_notation].
 
-For our language, by "operator" we mean either a symbol that refers to a function defined in our program, standard library or as a keyword in our interpreter, *or* any expression that evaluates to a function. 
+For our language, by "operator" we mean any expression which evaluates to a *function value*. For now, this just means expressions that evaluate to primitives.
+
 For example, the following lines of code are semantically valid under this definition:
 ```scheme
 (+ 1 2)
@@ -40,23 +51,35 @@ But the following are meaningless:
 (3 + 4)
 ()
 ```
-The above assumes that `+`, `lambda`, `foo`, and `id` are all defined as functions in our language.
+The above assumes that `+`, `lambda`, `foo`, and `id` are all defined as functions in our language, and that `id` just returns its argument.
 
-Now we have three cases to deal with when evaluating an expression. Our expression could be one of:
-- A literal value, which is already a value;
+Now we have five cases to deal with when evaluating an expression. Our expression could be one of:
+- A literal, which can be converted directly to a literal value;
+- A symbol which matches the name of a primitive, which can be replaced with the primitive as a value;
+- Any other symbol, in which case we should throw an error;
 - A semantically valid S-Expression, which we can keep evaluating;
 - A semantically invalid S-Expression. In this case, we should throw an error.
 
-The above set of rules amounts to a property of a language called *progress*. If your language has progress as a property, then it means that all semantically valid expressions eventually evaluate to a value.
+Of these cases, two are invalid. The remaining three can be reduced, and thus are redexes.
 
 ## Reduction
-So, we've defined a redex to be an S-Expression that begins with an operator. But how do we actually reduce it?
+So, we've given a definition for a redex in our language. But how do we actually reduce one?
+Let's go through each case.
 
-Perhaps unsurprisingly, correctly defining reduction rules isn't the most straightforward thing in the world, even for simple languages.
+As mentioned above, if we have a literal expression, then this can be directly reduced to a literal value.
+In other words: we take it as an axiom that a literal value evaluates to itself.
 
-Each operator will take a fixed number of arguments. This differs from some languages such as Python, which allow functions to take an arbitrary number of arguments. We'll work around this (in a more principled manner!) later on.
+Now let's examine the case where we have a symbol which matches the name of a primitive.
+For now, let's imagine that we have addition and multiplication as primitives. We'll say that the corresponding names are `+` and `*`.
+Then, if our expression is the term `LSym "+"`, we can reduce it to the value `VPrim Plus`.
+ds
+Finally, we're left with the case of the semantically valid S-Expr.
+As a reminder, this means an S-Expr where the first element evaluates to a function value.
 
-We'll need to hard-code a few operators into our evaluator. If we didn't have any hard-coded operators, then we wouldn't know how to reduce anything that isn't already a value! For now, we'll simply add some arithmetical functions.
+
+
+
+
 
 For example, if we had the term `(+ 1 (* 2 3))`, it would reduce as follows:
 ```scheme
