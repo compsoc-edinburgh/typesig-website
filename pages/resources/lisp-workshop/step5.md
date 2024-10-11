@@ -14,7 +14,7 @@ Complexity: Long
 ## Task
 If you haven't already, you should structure your interpreter so that the environment is passed as an argument to `eval`.
 
-Add a special form to your interpreter, called `lambda`. It takes two arguments; a symbol `n`, and an expression `e`. When evaluating a lambda applied to an argument `v`, a lambda should add (`n`, `v`) to the environment when evaluating `e`.
+Add a special form to your interpreter, called `lambda`. It takes two arguments; a symbol `n`, and an expression `e`. When evaluating a lambda applied to an argument `v`, a lambda should add `n -> v` to the environment when evaluating `e`.
 ```scheme
 ((lambda x (+ x 1)) 41)
 --> (+ x 1)  [environment now contains (x, 42)]
