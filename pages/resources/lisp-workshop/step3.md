@@ -152,7 +152,7 @@ As mentioned, both evaluation strategies are valid options. You can pick either 
 We've finally defined everything we need to implement an evaluator!
 
 ## Task
-Choose a set of arithmetic operations to be your primites, and define a data structure that represents values in your language (literals and primitives).
+Choose a set of arithmetic operations to be your primitives, and define a data structure that represents values in your language (literals and primitives).
 This should look something like the following Haskell type:
 ```hs
 data Prim = Plus | Minus | Mult | ...
