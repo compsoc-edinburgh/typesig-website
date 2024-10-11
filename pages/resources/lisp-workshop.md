@@ -9,6 +9,7 @@ You can choose which language to write the interpreter in; pick one that you're 
 
 - [Step 1: The Beginning](lisp-workshop/step1)
 - [Step 2: Parsing and Printing](lisp-workshop/step2)
+- [Step 3: Eval](lisp-workshop/step3)
 - More to come in the next few weeks!
 
 [discord]: {{site.social.discord}}
