@@ -36,7 +36,7 @@ Not every expression can be transformed into a value. Some programs are syntacti
 
 The same principle applies in programming languages.
 In Lisp languages, an S-Expression must start with a operator for it to be considered a redex.
-Any S-Expression that doesn't is considered to be semantically invalid. This form of notation is commonly called (prefix (or Polish) notation)[https://en.wikipedia.org/wiki/Polish_notation].
+Any S-Expression that doesn't is considered to be semantically invalid. This form of notation is commonly called [prefix (or Polish) notation](https://en.wikipedia.org/wiki/Polish_notation).
 Additionally, if the type and number of the arguments don't match what the operator expects, the S-Expression isn't valid either.
 
 For our language, by "operator" we mean any expression which evaluates to a *function value*. For now, this just means expressions that evaluate to primitives.
