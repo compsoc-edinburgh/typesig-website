@@ -133,6 +133,7 @@ foo
 (open int-monoid ((using add op) 1 (using add unit)))
 (open int-monoid (open mul (op unit 2)))
 ```
+
   should output:
 ```scheme
 42
