@@ -3,8 +3,6 @@ layout: page
 title: "Lisp Workshop - Step 3: Eval"
 permalink: "/resources/lisp-workshop/step3"
 ---
-# THIS PAGE IS A WORK IN PROGRESS!
-The theory section isn't yet complete. If you're done with all of the extra tasks from the previous steps, and you're comfortable with a harder challenge, feel free to attempt the tasks here. If not, please be patient - we're working as hard as we can to get this finished!
 
 ## Evaluation
 Complexity: Medium
