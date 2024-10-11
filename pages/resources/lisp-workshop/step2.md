@@ -97,7 +97,7 @@ INTEGER ::= /[0-9]+/
 SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 Expr    ::= Literal | '(' Expr* ')'
-Program ::= SExpr*
+Program ::= Expr*
 ```
 All we've done is combine the S-Expression grammar with the earlier one, and made program admit a list of S-Expressions instead of literals.
 
@@ -144,7 +144,7 @@ INTEGER ::= /[0-9]+/
 SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 Expr    ::= Literal | '(' Expr* ')'
-Program ::= SExpr*
+Program ::= Expr*
 ```
 The current token at the front of our token stream contains everything we need to know. If it's a `(`, then we're starting a new S-Expression, which we'll parse separately. The S-Expression parser will handle the closing bracket, so if our token is `)` then we've found a syntax error in the input. Now we know our current token must be a literal. If we can convert the token from a string into an integer, then we'll say it's an integer literal. Otherwise, it must be a symbol.
 
@@ -176,7 +176,7 @@ INTEGER ::= /[0-9]+/
 SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 Expr    ::= Literal | '(' Expr* ')'
-Program ::= SExpr*
+Program ::= Expr*
 ```
 You should also implement a pretty printer that converts the AST back into a string. Hook these both into the REPL from the previous step, by parsing the user's input, and pretty printing the result.
 
