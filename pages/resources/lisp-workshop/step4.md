@@ -9,14 +9,62 @@ The theory section isn't yet complete, and not all of the tasks have been added.
 ## Enviroments
 Complexity: Short
 
-- introduce environment/context
-- does the context have values or expressions?
+So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
+But it's pretty limited; life would be a lot nicer if the user could define their own values and functions!
+
+User defined functions are quite complicated to implement, so we'll leave those for the next step and work on user-defined values for now.
+
+We want to end up with something that lets the user do the following:
+```scheme
+(define one 1)
+(define two (+ one 1))
+(+ one two)
+```
+Evaluating the above program should result in:
+```scheme
+3
+```
+
+## Top-Level Declarations
+
+## Environments
+We'll need somewhere to keep track of all the things that the user defines.
+We'll call this the *environment*, or the *context*.
+The environment is a map from names to values.
+
+Notationally, we'll represent the context as a list, and an element as `name -> value`.
+
+Let's say the user wants to run the following program:
+```scheme
+(define one 1)
+(define two (+ one 1))
+(+ one two)
+```
+We'll start off with an empty context, which we'll represent as the empty list: `[]`.
+
+Next, we evaluate the top-level declaration `(define one 1)`.
+We evaluate `1` into `1`, and add `one -> 1` to our environment, which now looks like `[one -> 1]`.
+
+Then, we evaluate the top-level declaration `(define two (+ one 1))`.
+We need to evaluate `(+ one 1)`, which means evaluating `one`. To do this, we look up the name `one` in our context, and find that it maps to the value `1`, so we return `1`.
+Our whole expression evaluates to `2`, so we add `two -> 2` to the environment, which now looks like `[one -> 1, two -> 2]`.
+
+Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, and evaluate this to `3`.
+
+
+
+
+
+- order in env? is it a list or a set?
 - name shadowing
 
 ## Task
 Define a new data type to represent the environment. This should look something like a map from symbols to values.
 
 Update your `eval` function so that it takes an environment as an argument. When starting a new program, this environment should be empty.
+If `eval` comes across a symbol, it should look up its value in the environment.
+If it can't find it there, it should check if the symbol matches the name of a primitive.
+If it doesn't, then it should throw an error.
 
 You should also implement the function `define`.
 `define` takes two arguments; a symbol `n`, acting as a name, and an expression, which is to be evaluated into a value `v`. Once evaluated, we should update our environment so that `n` maps to `v`.
@@ -32,6 +80,8 @@ But these lines are not allowed:
 (define program (define foo 123))
 ```
 You may have to restructure your evaluator to support top-level declarations.
+
+Finally, you should update your REPL to keep track of its environment, to allow the user to run top-level declarations in the REPL.
 
 ## Extra Challenges
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
