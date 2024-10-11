@@ -162,7 +162,7 @@ data Value = VInt Integer
 
 Next, define a function called `eval`, which takes an AST as its only parameter, and reduces any redexes, returning the resultant value.
 
-Update your REPL function, by running `eval` on the parsed input, and . You now have a fancy calculator!
+Update your REPL function, by running `eval` on the parsed input, and passing the resulting value into `print`. You now have a fancy calculator!
 
 ## Extra Challenges
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
