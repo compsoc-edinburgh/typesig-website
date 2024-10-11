@@ -81,6 +81,11 @@ Finally, we're left with the case of the semantically valid S-Expr.
 As a reminder, this means an S-Expr where the first element evaluates to a function value.
 So far, our only function values are primitives.
 We just need to evaluate the operator and its arguments, and check that the types line up.
+If they do, then we can perform the operation that corresponds to our primitive in our host language.
+
+For example, let's say that `+` corresponds to addition, and takes exactly two integers as its arguments.
+To evaluate `(+ 1 2)`, we check that the types line up: they do!
+All we need to do is compute `1 + 2` in our host language, and put the result into our value datatype.
 
 ## Evaluation Strategy
 But wait!
@@ -149,11 +154,15 @@ As mentioned, both evaluation strategies are valid options. You can pick either 
 We've finally defined everything we need to implement an evaluator!
 
 ## Task
-Define a data structure that represents values in your language (currently just literals).
+Choose a set of arithmetic operations to be your primites, and define a data structure that represents values in your language (literals and primitives).
+This should look something like the following Haskell type:
+```hs
+data Prim = Plus | Minus | Mult | ...
+data Value = VInt Integer
+           | VPrim Prim
+```
 
-Next, define a function called `eval`, which takes an AST as its only parameter, and reduces any redexes, returning the resultant values.
-
-You should hard-code some arithmetic operators (addition, multiplication, etc) into this function. For example: if the first element in an S-Expression is a symbol, and that symbol is `+`, then you should add the two arguments together. Of course, if the arguments don't evaluate to integers, or there aren't exactly two arguments, you should throw an error.
+Next, define a function called `eval`, which takes an AST as its only parameter, and reduces any redexes, returning the resultant value.
 
 Update your REPL function, by running `eval` on the parsed input, and . You now have a fancy calculator!
 
