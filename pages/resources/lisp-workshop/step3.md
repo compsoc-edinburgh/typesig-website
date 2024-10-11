@@ -131,14 +131,14 @@ Normal order gets its name from the lambda calculus, where normal order evaluati
 To illustrate this, let's take the following two lambda calculus expressions (written in our Lisp syntax):
 ```scheme
 (lambda x (lambda y x))
-((lambda x (x x)) (lambda x (x x))
+((lambda x (x x)) (lambda x (x x)))
 ```
 The first expression returns takes two arguments, and returns the first one, ignoring the second.
 The second expression is called the Omega combinator, and reduces to itself, looping forever.
 
 Now consider the following expression:
 ```scheme
-((lambda x (lambda y x)) 1 ((lambda x (x x)) (lambda x (x x)))
+((lambda x (lambda y x)) 1 ((lambda x (x x)) (lambda x (x x))))
 ```
 With applicative order, we evaluate the arguments first.
 `1` of course evaluates to itself, but the Omega combinator will cause our evaluator to loop forever! We won't ever manage to return a result.
