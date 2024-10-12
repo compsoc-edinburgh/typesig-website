@@ -51,12 +51,33 @@ Our whole expression evaluates to `2`, so we add `two -> 2` to the environment, 
 
 Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, and evaluate this to `3`.
 
-
-
-
-
 - order in env? is it a list or a set?
-- name shadowing
+
+## Shadowing
+What should happen when we run the following program?
+```scheme
+(define one 1)
+(define one 2)
+one
+```
+There are three sensible options:
+- Option 1: The interpreter throws an error when the user tries to redefine `one` on the second line;
+- Option 2: The interpreter prints `1`, silently ignoring the second definition;
+- Option 3: The interpreter prints `2`, updating the entry in the environment to `one -> 2`. Here, we say the newer definition *shadows* the older one.
+
+All three make sense depending on the context, but option 2 might be quite confusing for the user if they expect the language to behave similarly to most common languages. We recommend you pick either option 1 or option 3.
+
+Also consider what behaviour your interpreter should exhibit on the following programs:
+```scheme
+(define plus +)
+(define * plus)
+```
+(where `+` and `*` are primitives)
+```scheme
+(define rec 1)
+(define rec rec)
+rec
+```
 
 ## Task
 Define a new data type to represent the environment. This should look something like a map from symbols to values.
