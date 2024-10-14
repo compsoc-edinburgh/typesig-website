@@ -4,7 +4,6 @@ title: "Lisp Workshop - Step 3: Eval"
 permalink: "/resources/lisp-workshop/step3"
 ---
 
-## Evaluation
 Complexity: Medium
 
 So far, all we've worked on is *syntax*; surface-level properties of a language that define how it looks. But we've yet to define any *semantics* for our language, meaning that we can't yet do anything meaningful with our AST. We're about to change that by implementing *evaluation*.
