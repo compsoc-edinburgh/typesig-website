@@ -8,6 +8,10 @@ The theory section isn't yet complete, and not all of the tasks have been added.
 
 Complexity: Short
 
+TODO:
+- Define top level decl (maybe not necessary? think further)
+- Define pure expr (maybe in step3?)
+
 So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
 But even as a calculator, our program is pretty limited! Consider the following program:
 ```scheme
@@ -34,16 +38,15 @@ c
 m'
 ```
 
-In this step, we're going to work towards extending our interpreter to allow the user to introduce their own definitions.
-
-## Top-Level Declarations
-We first need to introduce the concept of a *top-level declaration*.
-So far, we've considered our program to consist of a tree of expressions, where an expression can be a literal or an S-Expression.
-
-
-
+In this step, we're going to work towards extending our interpreter to allow the user to introduce their own definitions, much like in the above program.
 
 ## Environments
+So far, we've considered our program to consist of a tree of pure expressions, where an expression can be a literal or an S-Expression.
+In particular, every expression gets evaluated to a particular *value*.
+But what should `define` produce as a value?
+
+Fundamentally, there's no option that makes sense for us to pick as a return value for `define`. An expression containing `define` isn't a pure function; it modifies the context in which future expressions get evaluated!
+
 We'll need somewhere to keep track of all the things that the user defines.
 We'll call this the *environment*, or the *context*.
 The environment is a map from names to values.
