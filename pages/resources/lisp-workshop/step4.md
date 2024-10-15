@@ -6,26 +6,42 @@ permalink: "/resources/lisp-workshop/step4"
 # THIS PAGE IS A WORK IN PROGRESS!
 The theory section isn't yet complete, and not all of the tasks have been added. If you're done with all of the extra tasks from the previous steps, and you're comfortable with a harder challenge, feel free to attempt the tasks here. If not, please be patient - we're working as hard as we can to get this finished!
 
-## Enviroments
 Complexity: Short
 
 So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
-But it's pretty limited; life would be a lot nicer if the user could define their own values and functions!
-
-User defined functions are quite complicated to implement, so we'll leave those for the next step and work on user-defined values for now.
-
-We want to end up with something that lets the user do the following:
+But even as a calculator, our program is pretty limited! Consider the following program:
 ```scheme
-(define one 1)
-(define two (+ one 1))
-(+ one two)
+42
+(mod (pow 42 17) (* 61 53))
+(mod (pow (mod (pow 42 17) (* 61 53)) (modmul-inv 17 (lcm (- 61 1) (- 53 1)))) (* 61 53))
 ```
-Evaluating the above program should result in:
+Assuming correct definitions for `mod`, `pow`, `modmul-inv`, and `lcm`, this is a demostration of encrypting and then decrypting the number 42 via [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Example). But you wouldn't know it!
+
+Compare the above program to the one below. Both perform exactly the same computation. Which do you think is more readable?
 ```scheme
-3
+(define p 61)
+(define q 53)
+(define n (* p q))
+(define ln (lcm (- p 1) (- q 1)))
+(define e 17)
+(define d (modmul-inv e ln))
+
+(define m 42)
+(define c (mod (pow m e) n))
+(define m' (mod (pow c d) n))
+m
+c
+m'
 ```
+
+In this step, we're going to work towards extending our interpreter to allow the user to introduce their own definitions.
 
 ## Top-Level Declarations
+We first need to introduce the concept of a *top-level declaration*.
+So far, we've considered our program to consist of a tree of expressions, where an expression can be a literal or an S-Expression.
+
+
+
 
 ## Environments
 We'll need somewhere to keep track of all the things that the user defines.
@@ -65,7 +81,21 @@ There are three sensible options:
 - Option 2: The interpreter prints `1`, silently ignoring the second definition;
 - Option 3: The interpreter prints `2`, updating the entry in the environment to `one -> 2`. Here, we say the newer definition *shadows* the older one.
 
-All three make sense depending on the context, but option 2 might be quite confusing for the user if they expect the language to behave similarly to most common languages. We recommend you pick either option 1 or option 3.
+What about this one?
+```scheme
+(define one 1)
+(define number (+ one 1))
+(define one 2)
+one
+number
+```
+Here, there are four possibilities:
+- Option 1: The interpreter throws an error when the user tries to redefine `one` on the third line;
+- Option 2: The interpreter prints `1` followed by `2`, silently ignoring the second definition;
+- Option 3: The interpreter prints `2` followed by `2`. The new definition of `one` *shadows* the old one, and `number` still refers to the original definition of `one`.
+- Option 4: The interpreter prints `2` followed by `3`. The new definition of `one` *replaces* the old one, and `number` now refers to the new definition of `one`.
+
+All four make sense depending on the context, but option 2 might be quite confusing for the user if they expect the language to behave similarly to most common languages. We recommend you pick either option 1, option 3, or option 4. For the steps after this one, we'll assume that you're using option 3.
 
 Also consider what behaviour your interpreter should exhibit on the following programs:
 ```scheme
