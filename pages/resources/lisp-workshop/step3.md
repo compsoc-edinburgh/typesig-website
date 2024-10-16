@@ -172,6 +172,8 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Implement `input` and `print`. `input` should return a line of input from the user, and `print` should print a value to the console.
 
+  As a quick aside, implementing these transforms our language from a *pure* functional language into an *impure* functional language. This means we lose referential transparency: the property that evaluating a given expression always produces the same result! For our purposes, this isn't so bad. If you want a *real* challenge, try and implement these functions in a way that doesn't break referential transparency! You might want to take inspiration from languages like Haskell, which uses monads for side effects, or languages like Koka, which uses algebraic effects instead. (And don't get discouraged if you find this difficult; it's a large open research problem!)
+
 - Add some boolean functions, like `and` and `or`. For optimisation purposes, these should "short circuit"; if the first argument to `and` evaluates to false, the function should return false immediately, without evaluating the rest of its arguments.
 
 - Implement `if`, which takes three arguments: a condition, which should evaluate to true or false, an expression to evaluate and return if the condition is true, and another expression for if the condition is false.
