@@ -8,10 +8,6 @@ The theory section isn't yet complete, and not all of the tasks have been added.
 
 Complexity: Short
 
-TODO:
-- Define top level decl (maybe not necessary? think further)
-- Define pure expr (maybe in step3?)
-
 So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
 But even as a calculator, our program is pretty limited! Consider the following program:
 ```scheme
