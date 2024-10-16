@@ -40,18 +40,37 @@ m'
 
 In this step, we're going to work towards extending our interpreter to allow the user to introduce their own definitions, much like in the above program.
 
-## Environments
-So far, we've considered our program to consist of a tree of pure expressions, where an expression can be a literal or an S-Expression.
+## Top-Level Declarations
+Based on the code example from the previous section, you probably have an intuitive understanding of how `define` should behave.
+But we need to answer a few questions before our understanding is concrete enough to fully implement it.
+
+First off: what does `define` evaluate to?
+
+To answer this, we need to split S-Expressions in our language into two classes: *expressions*; and *declarations*.
+
+An expression can be a literal or an S-Expression.
 In particular, every expression gets evaluated to a particular *value*.
-But what should `define` produce as a value?
+Critically, evaluating an expression does not change its surrounding context.
 
-Fundamentally, there's no option that makes sense for us to pick as a return value for `define`. An expression containing `define` isn't a pure function; it modifies the context in which future expressions get evaluated!
+A declaration does not evaluate to a particular value. It doesn't evaluate to anything!
+Instead, the effect of a declaration is that it introduces a new name for us to use during evaluation of other parts of the program.
 
-We'll need somewhere to keep track of all the things that the user defines.
+For now, the only declaration we'll have is `define`, but the extra tasks in this chapter give a few more examples of declarations you might see in a functional language.
+
+We'll also say that a declaration can only appear at the *top level* of a program, rather than as a sub-expression.
+To make this clear, we'll sometimes refer to declarations as *top-level declarations*.
+
+## Environments
+Our next question is: if each declaration introduces a new name, how do we keep track of them?
+
+Simultaneously, we'll answer: how do we use these names when evaluating other parts of the program?
+
+First, we'll need somewhere to keep track of all the things that the user defines.
 We'll call this the *environment*, or the *context*.
 The environment is a map from names to values.
 
 Notationally, we'll represent the context as a list, and an element as `name -> value`.
+The order of elements in the list doesn't particularly matter for now.
 
 Let's say the user wants to run the following program:
 ```scheme
@@ -70,8 +89,6 @@ Our whole expression evaluates to `2`, so we add `two -> 2` to the environment, 
 
 Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, and evaluate this to `3`.
 
-- order in env? is it a list or a set?
-
 ## Shadowing
 What should happen when we run the following program?
 ```scheme
@@ -79,7 +96,9 @@ What should happen when we run the following program?
 (define one 2)
 one
 ```
-There are three sensible options:
+Here, the second definition *overlaps* with the first.
+
+There are three sensible options for output:
 - Option 1: The interpreter throws an error when the user tries to redefine `one` on the second line;
 - Option 2: The interpreter prints `1`, silently ignoring the second definition;
 - Option 3: The interpreter prints `2`, updating the entry in the environment to `one -> 2`. Here, we say the newer definition *shadows* the older one.
@@ -111,6 +130,8 @@ Also consider what behaviour your interpreter should exhibit on the following pr
 (define rec rec)
 rec
 ```
+
+Your choice of behaviour for overlapping definitions may dictate which data structures you can use to represent your environment.
 
 ## Task
 Define a new data type to represent the environment. This should look something like a map from symbols to values.
