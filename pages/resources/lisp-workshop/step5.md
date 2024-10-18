@@ -9,7 +9,14 @@ The theory section isn't yet complete, and not all of the tasks have been added.
 
 Complexity: Long
 
-- capture avoiding substitution
+- motivation: simple arithmetical functions? reuse RSA from earlier?
+- explain parameters/arguments
+- explain application
+- capture avoiding substitution (not necessary?)
+- beta reduction
+- closures
+- recursion? currently just extra task, maybe it's worth spinning this into a separate step?
+- desugaring (extra section in extra tasks?)
 
 ## Task
 
@@ -48,11 +55,11 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Add support for let statements. Let statements are convenient syntactic sugar for temporarily binding an expression to a name. In Lisp, these look like this:
 
-```scheme
-(let ((x 1)
-        (y 2))
-       (+ x y))
-```
+  ```scheme
+  (let ((x 1)
+          (y 2))
+        (+ x y))
+  ```
 
   This expression should return:
 
