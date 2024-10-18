@@ -195,8 +195,7 @@ foo
   For convenience's sake, you will also want to add `open`, which takes a symbol `n` and an expression `e`. To evaluate `(open n e)`, you should (temporarily) add all of the declarations in `n` to the current environment, and then evaluate `e` in this updated environment.
 
   For example, the following code:
-
-  ```scheme
+```scheme
 (namespace foo
   (define secret (+ 8 (* 17 2))))
 
@@ -215,8 +214,7 @@ foo
 ```
 
   should output:
-
-  ```scheme
+```scheme
 42
 1
 1
