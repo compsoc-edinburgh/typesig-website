@@ -196,7 +196,7 @@ foo
 
   For example, the following code:
 
-```scheme
+  ```scheme
 (namespace foo
   (define secret (+ 8 (* 17 2))))
 
@@ -216,7 +216,7 @@ foo
 
   should output:
 
-```scheme
+  ```scheme
 42
 1
 1
