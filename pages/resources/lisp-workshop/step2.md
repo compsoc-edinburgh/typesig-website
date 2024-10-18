@@ -249,11 +249,11 @@ These are some extra challenges you can attempt to build your understanding furt
 
   ```scheme
   (foo 1
-        2
-        3
-        4)
+       2
+       3
+       4)
   (concat3 "hello, "
-            (intToString 42)
-            " world!")
+           (intToString 42)
+           " world!")
   (* 5 6)
   ```

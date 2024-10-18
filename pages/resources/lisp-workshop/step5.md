@@ -57,8 +57,8 @@ These are some extra challenges you can attempt to build your understanding furt
 
   ```scheme
   (let ((x 1)
-          (y 2))
-        (+ x y))
+        (y 2))
+      (+ x y))
   ```
 
   This expression should return:
@@ -82,8 +82,8 @@ These are some extra challenges you can attempt to build your understanding furt
   ```scheme
   (define factorial (n)
       (if (equals? 0 n)
-            1
-            (+ n (factorial (- n 1)))))
+          1
+          (+ n (factorial (- n 1)))))
   (factorial 5)
   ```
 
