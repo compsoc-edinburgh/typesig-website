@@ -3,8 +3,6 @@ layout: page
 title: "Lisp Workshop - Step 4: Enviroments"
 permalink: "/resources/lisp-workshop/step4"
 ---
-# THIS PAGE IS A WORK IN PROGRESS!
-The theory section isn't yet complete, and not all of the tasks have been added. If you're done with all of the extra tasks from the previous steps, and you're comfortable with a harder challenge, feel free to attempt the tasks here. If not, please be patient - we're working as hard as we can to get this finished!
 
 Complexity: Short
 
@@ -15,7 +13,7 @@ But even as a calculator, our program is pretty limited! Consider the following 
 (mod (pow 42 17) (* 61 53))
 (mod (pow (mod (pow 42 17) (* 61 53)) (modmul-inv 17 (lcm (- 61 1) (- 53 1)))) (* 61 53))
 ```
-Assuming correct definitions for `mod`, `pow`, `modmul-inv`, and `lcm`, this is a demostration of encrypting and then decrypting the number 42 via [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Example). But you wouldn't know it!
+Assuming correct definitions for `mod`, `pow`, `modmul-inv`, and `lcm`, the above is a demostration of encrypting and then decrypting the number 42 via [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Example). But you wouldn't know it!
 
 Compare the above program to the one below. Both perform exactly the same computation. Which do you think is more readable?
 ```scheme
@@ -54,7 +52,11 @@ Instead, the effect of a declaration is that it introduces a new name for us to 
 For now, the only declaration we'll have is `define`, but the extra tasks in this chapter give a few more examples of declarations you might see in a functional language.
 
 We'll also say that a declaration can only appear at the *top level* of a program, rather than as a sub-expression.
-To make this clear, we'll sometimes refer to declarations as *top-level declarations*.
+This means you can't do the following (whatever the definition of `foo` is):
+```scheme
+(foo (define two 2) two)
+```
+For clarity, we'll sometimes refer to declarations as *top-level declarations*.
 
 ## Environments
 Our next question is: if each declaration introduces a new name, how do we keep track of them?
@@ -62,13 +64,19 @@ Our next question is: if each declaration introduces a new name, how do we keep 
 Simultaneously, we'll answer: how do we use these names when evaluating other parts of the program?
 
 First, we'll need somewhere to keep track of all the things that the user defines.
-We'll call this the *environment*, or the *context*.
+We'll call such a structure the *environment*, or the *context*.
 The environment is a map from names to values.
 
 Notationally, we'll represent the context as a list, and an element as `name -> value`.
 The order of elements in the list doesn't particularly matter for now.
 
-Let's say the user wants to run the following program:
+Now, how do we use the names in the context?
+
+Well, whenever we come across a symbol during evaluation, we can check to see if it's defined in our environment.
+If it's in the environment, we can substitute the symbol with the corresponding value.
+
+Let's walk through an example.
+Say the user wants to run the following program:
 ```scheme
 (define one 1)
 (define two (+ one 1))
@@ -77,13 +85,13 @@ Let's say the user wants to run the following program:
 We'll start off with an empty context, which we'll represent as the empty list: `[]`.
 
 Next, we evaluate the top-level declaration `(define one 1)`.
-We evaluate `1` into `1`, and add `one -> 1` to our environment, which now looks like `[one -> 1]`.
+We evaluate the expression `1` into the value `1`, and add `one -> 1` to our environment, which now looks like `[one -> 1]`.
 
 Then, we evaluate the top-level declaration `(define two (+ one 1))`.
-We need to evaluate `(+ one 1)`, which means evaluating `one`. To do this, we look up the name `one` in our context, and find that it maps to the value `1`, so we return `1`.
+We need to evaluate `(+ one 1)`, which means evaluating `one`. To do so, we look up the name `one` in our context, and find that it maps to the value `1`, so we return `1`.
 Our whole expression evaluates to `2`, so we add `two -> 2` to the environment, which now looks like `[one -> 1, two -> 2]`.
 
-Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, and evaluate this to `3`.
+Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, which evaluates to `3`.
 
 ## Shadowing
 What should happen when we run the following program?
@@ -99,7 +107,7 @@ There are three sensible options for output:
 - Option 2: The interpreter prints `1`, silently ignoring the second definition;
 - Option 3: The interpreter prints `2`, updating the entry in the environment to `one -> 2`. Here, we say the newer definition *shadows* the older one.
 
-What about this one?
+What about this program?
 ```scheme
 (define one 1)
 (define number (+ one 1))
@@ -161,8 +169,8 @@ These are some extra challenges you can attempt to build your understanding furt
 ```scheme
 (define my-favourite-number 12)
 ```
-  and `main.lisp` contains this:
-```
+  and `main.lisp` contains this program:
+```scheme
 (import "foo.lisp")
 my-favourite-number
 ```
@@ -180,13 +188,14 @@ foo
 1
 ```
 
-- Add a namespace system. Namespaces allow you to keep different collections of definitions separate, ensuring that they don't interfere with each other if they happen to define the same name. You could implement this by defining a new top-level declaration `namespace`, which takes a symbol `n` to use as a name for the namespace, and then an arbitrary number of other top-level declarations. Crucially, this can include other namespaces! When `namespace` is evaluated, it creates a new environment with all of the declarations in it, and stores this environment in our orginal environment, under the name `n`. You'll have to update your representation of environments to support this.
+- Add a namespace system. Namespaces allow you to keep different collections of definitions separate, ensuring that they don't interfere with each other if they happen to define the same name. You could implement namespaces by defining a new top-level declaration `namespace`, which takes a symbol `n` to use as a name for the namespace, and then an arbitrary number of other top-level declarations. Crucially, a namespace can contain other namespaces! When `namespace` is evaluated, it creates a new environment with all of the declarations in it, and stores this environment in our orginal environment, under the name `n`. You'll have to update your representation of environments (or values) to support namespaces.
 
   You should also add a way to access a name from a namespace. A decent way of doing so would be to define a function called `using`, which takes a symbol `n` representing the name of a namespace, and another symbol `d`, which refers to the name of a declaration within the namespace. The return value of this function is whatever value is assigned to `d` within the namespace. If `d` is not in the namespace, throw an error.
 
   For convenience's sake, you will also want to add `open`, which takes a symbol `n` and an expression `e`. To evaluate `(open n e)`, you should (temporarily) add all of the declarations in `n` to the current environment, and then evaluate `e` in this updated environment.
 
   For example, the following code:
+
 ```scheme
 (namespace foo
   (define secret (+ 8 (* 17 2))))
@@ -206,6 +215,7 @@ foo
 ```
 
   should output:
+
 ```scheme
 42
 1
@@ -226,6 +236,6 @@ foo
 ```
   Now when a user `import`s the above file, it should add `foo` to the current environment. To use the definition, the user has to `open` the namespace provided. As another convenience aid, provide another keyword `load`, that combines `import` and `open`.
 
-  You should also make the user specify exactly *which* definitions are to be exported. You could do this by making them provide a list of names at the top of the namespace/module declaration, or by making `define` take a "visibility" parameter (this could be a symbol, which can only take the value of `public` or `private`, for example).
+  You should also make the user specify exactly *which* definitions are to be exported. You could ask them to provide a list of names at the top of the namespace/module declaration, or make `define` take a "visibility" parameter (a symbol which can only take the value of `public` or `private`, for example).
 
   Finally, you should make it an error to `import` a file that doesn't declare exactly one namespace.
