@@ -5,6 +5,8 @@ permalink: "/resources/lisp-workshop/step2"
 ---
 Complexity: Long
 
+[Jump to task](#task)
+
 In the last step, we wrote a program that could read a line of input as a string, and print that string out to the console.
 While it's a good starting ground, it doesn't do anything particularly interesting.
 

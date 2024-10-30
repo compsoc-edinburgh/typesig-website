@@ -6,6 +6,8 @@ permalink: "/resources/lisp-workshop/step3"
 
 Complexity: Medium
 
+[Jump to task](#task)
+
 So far, all we've worked on is *syntax*; surface-level properties of a language that define how it looks. But we've yet to define any *semantics* for our language, meaning that we can't yet do anything meaningful with our AST. We're about to change that by implementing *evaluation*.
 
 Evaluation (or *eval* for short) can be viewed as a transformation acting on an AST. In particular, it *reduces* an *expression* into a *value*. An expression that can be transformed into a value is called a *reducible expression*, or *redex*.

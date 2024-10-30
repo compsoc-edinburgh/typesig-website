@@ -6,6 +6,8 @@ permalink: "/resources/lisp-workshop/step4"
 
 Complexity: Short
 
+[Jump to task](#task)
+
 So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
 But even as a calculator, our program is pretty limited! Consider the following program:
 

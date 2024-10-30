@@ -9,6 +9,8 @@ The theory section isn't yet complete, and not all of the tasks have been added.
 
 Complexity: Long
 
+[Jump to task](#task)
+
 - motivation: simple arithmetical functions? reuse RSA from earlier?
 - explain parameters/arguments
 - explain application

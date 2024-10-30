@@ -5,6 +5,8 @@ permalink: "/resources/lisp-workshop/step1"
 ---
 Complexity: Short
 
+[Jump to task](#task)
+
 At each step of our journey, we want to end up with a usable program, so we can see how far we've come.
 Our main way of interacting with our language interpreter is going to be via a REPL: a Read, Eval, Print Loop.
 You might be familiar with this concept from other languages: the JavaScript console, Python interpreter and even the Bash command line are all REPLs!
