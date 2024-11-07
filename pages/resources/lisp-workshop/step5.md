@@ -14,11 +14,9 @@ Complexity: Long
 - motivation: simple arithmetical functions? reuse RSA from earlier?
 - explain parameters/arguments
 - explain application
-- capture avoiding substitution (not necessary?)
 - beta reduction
 - closures
-- recursion? currently just extra task, maybe it's worth spinning this into a separate step?
-- desugaring (extra section in extra tasks?)
+- rec
 
 ## Task
 Add a special form to your interpreter, called `lambda`. It takes two arguments; a symbol `n`, and an expression `e`. When evaluating a lambda applied to an argument `v`, a lambda should add `n -> v` to the environment when evaluating `e`.

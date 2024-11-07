@@ -209,6 +209,34 @@ Program ::= Expr*
 
 You should also implement a pretty printer that converts the AST back into a string. Hook these both into the REPL from the previous step, by parsing the user's input, and pretty printing the result.
 
+## Tests
+
+Here's some test cases that you can use to check if your implementation is along the right lines:
+
+```console
+lisp>
+lisp> 1
+1
+lisp> hello
+hello
+lisp> ( )
+()
+lisp> (+ 1 2)
+(+ 1 2)
+lisp> (+ 1 (* 2 3))
+(+ 1 (* 2 3))
+lisp> (())
+(())
+lisp> (  ( )    )
+(())
+lisp> (   foo    bar  )
+(foo bar)
+lisp> (* 3
+parse: expected closing bracket
+lisp> * 3 4)
+parse: unexpected closing bracket
+```
+
 ## Extra Challenges
 
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
@@ -218,6 +246,19 @@ These are some extra challenges you can attempt to build your understanding furt
 - Add support for comments. Traditionally Lisp languages use `;` to start comments, but there's nothing stopping you from picking your own comment syntax.
 
 - Treat square brackets (`[`/`]`) the same as normal brackets/parentheses, so the user can switch between them for clarity.
+
+- Add the REPL commands `:lex` and `:parse`, which takes an expression and prints the output of the lexer and parser respectively when run on that expression. For example:
+  
+  ```console
+  lisp> :lex (+ 1 (* 2 foo))
+  ["+", "1", "(", "*", "2", "foo", ")"]
+  lisp> :parse (+ 1 (* 2 foo))
+  SExpr [LSym "+", LInt 1, SExpr [LSym "*", LInt 2, LSym "foo"]]
+  ```
+
+  Your output may look a bit different depending on how you implemented the data structure that represents parsed expressions.
+
+  For bonus points, make `:parse` print its output in a tree format!
 
 - Extend the grammar, tokeniser and parser to support string literals (strings of characters surrounded by double quotes).
 
@@ -234,7 +275,7 @@ These are some extra challenges you can attempt to build your understanding furt
   ```plaintext
   input:2:8: Syntax Error: Unexpected closing bracket:
   2 | (* 3 4))
-              ^
+            ^
   ```
 
   For bonus points, add colour to the output!

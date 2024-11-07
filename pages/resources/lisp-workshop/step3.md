@@ -192,11 +192,44 @@ Next, define a function called `eval`, which takes an AST as its only parameter,
 
 Update your REPL function, by running `eval` on the parsed input, and passing the resulting value into `print`. You now have a fancy calculator!
 
+## Tests
+
+Here's some test cases that you can use to check if your implementation is along the right lines:
+
+```console
+lisp> 1
+1
+lisp> (+ 1 2)
+3
+lisp> (+ 1 (* 2 3))
+6
+lisp> (* 1 (+ 2 3))
+5
+lisp> (- 1 2)
+-1
+lisp> 1 + 2
+1
++
+2
+lisp> (+ 1)
+eval: `+` expects exactly two integers
+lisp> (* 1 2 3)
+eval: `*` expects exactly two integers
+lisp> (+ -1 1)
+0
+lisp> (unknown 1)
+eval: `unknown` is an unknown symbol
+lisp> ()
+eval: can't eval empty S-Expression
+lisp> (1 + 2)
+eval: `1` doesn't evaluate to a function or primitive
+```
+
 ## Extra Challenges
 
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
 
-- Add some comparison operators, like equality and `<`. You'll have to come up with a representation for true and false! Common options are to have them as separate symbols, or to map false to 0 and true to any other value.
+- Add some comparison operators, like equality and `<`. You'll have to come up with a representation for true and false! Common options are to have them as a separate primitive value type, or to map false to 0 and true to any other value.
 
 - Add some string manipulation functions, such as `concat`, `substring`, etc.
 

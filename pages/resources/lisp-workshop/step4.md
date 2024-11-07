@@ -104,7 +104,7 @@ Our whole expression evaluates to `2`, so we add `two -> 2` to the environment, 
 
 Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, which evaluates to `3`.
 
-## Shadowing
+## Name Collisions
 
 What should happen when we run the following program?
 
@@ -135,11 +135,15 @@ number
 Here, there are four possibilities:
 
 - Option 1: The interpreter throws an error when the user tries to redefine `one` on the third line;
-- Option 2: The interpreter prints `1` followed by `2`, silently ignoring the second definition;
+- Option 2: The interpreter prints `1` followed by `2`, *ignoring* the second definition;
 - Option 3: The interpreter prints `2` followed by `2`. The new definition of `one` *shadows* the old one, and `number` still refers to the original definition of `one`.
 - Option 4: The interpreter prints `2` followed by `3`. The new definition of `one` *replaces* the old one, and `number` now refers to the new definition of `one`.
 
-All four make sense depending on the context, but option 2 might be quite confusing for the user if they expect the language to behave similarly to most common languages. We recommend you pick either option 1, option 3, or option 4. For the steps after this one, we'll assume that you're using option 3.
+
+The interpreter may optionally show a warning regarding the name collision for options 2, 3, and 4.
+All four options make sense depending on the context, but option 2 might be quite confusing for the user if they expect the language to behave similarly to most common languages.
+We recommend you pick either option 1, option 3, or option 4.
+For the steps after this one, we'll assume that you're using option 3.
 
 Also consider what behaviour your interpreter should exhibit on the following programs:
 
@@ -151,9 +155,9 @@ Also consider what behaviour your interpreter should exhibit on the following pr
 (where `+` and `*` are primitives)
 
 ```scheme
-(define rec 1)
-(define rec rec)
-rec
+(define foo 1)
+(define foo foo)
+foo
 ```
 
 Your choice of behaviour for overlapping definitions may dictate which data structures you can use to represent your environment.
@@ -187,6 +191,48 @@ But these lines are not allowed:
 You may have to restructure your evaluator to support top-level declarations.
 
 Finally, you should update your REPL to keep track of its environment, to allow the user to run top-level declarations in the REPL.
+
+## Tests
+
+Here's some test cases that you can use to check if your implementation is along the right lines (assuming you imlpement shadowing):
+
+```console
+lisp> (define one 1)
+lisp> one
+1
+lisp> (+ 1 one)
+2
+lisp> (define two 2)
+lisp> (+ one two)
+3
+
+lisp> (define number 42)
+lisp> (define secret (* number 17))
+lisp> (define number 12)
+lisp> number
+12
+lisp> secret
+714
+
+lisp> (define foo 1)
+lisp> (define foo foo)
+lisp> foo
+1
+
+lisp> (define plus +)
+lisp> (plus 1 2)
+3
+lisp> (define * +)
+lisp> (* 1 2)
+3
+
+lisp> (define define 1)
+lisp> define
+1
+lisp> (define foo 2)
+lisp> foo
+2
+```
 
 ## Extra Challenges
 
