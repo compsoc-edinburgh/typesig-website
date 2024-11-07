@@ -49,16 +49,26 @@ First off: what does `define` evaluate to?
 To answer this, we need to split S-Expressions in our language into two classes: *expressions*; and *declarations*.
 
 An expression can be a literal or an S-Expression.
-In particular, every expression gets evaluated to a particular *value*.
-Critically, evaluating an expression does not change its surrounding context.
+In particular, every expression gets evaluated to a particular value.
+Critically, evaluating an expression does not change its surrounding environment.
 
-A declaration does not evaluate to a particular value. It doesn't evaluate to anything!
+A declaration does not evaluate to a particular value.
 Instead, the effect of a declaration is that it introduces a new name for us to use during evaluation of other parts of the program.
 
-For now, the only declaration we'll have is `define`, but the extra tasks in this chapter give a few more examples of declarations you might see in a functional language.
+Normally, you would be able to make the distinction between an expression and a declaration syntactically, during parsing, by giving them different grammatical structures.
+For pedagogical reasons, we've chosen to keep our parser as simple as possible, so we need a different way to distinguish between an expression and a declaration.
+We'll do this via *keywords*.
 
-We'll also say that a declaration can only appear at the *top level* of a program, rather than as a sub-expression.
-This means you can't do the following (whatever the definition of `foo` is):
+A keyword is a reserved name in a language. For example, the keywords `fn`, `for`, and `in` are reserved in Rust.
+Trying to name a new variable with one of these names will throw an error.
+In our language, we'll be able to determine if a given S-Expression represents a declaration by checking if its first element is a keyword. (NB: we don't evaluate it and check the result; we check directly if it's a keyword!)
+
+The only declaration we'll need to add is given by the keyword `define`, but the extra tasks in this chapter give a few more examples of declarations you might see in a functional language.
+
+We'll also say that a declaration can only appear at the *top level* of a program or as part of another declaration where specified.
+This means you can never have a declaration as part of an expression.
+
+For example, you can't do the following:
 
 ```scheme
 (foo (define two 2) two)
@@ -237,6 +247,8 @@ lisp> foo
 ## Extra Challenges
 
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
+
+- Add a REPL command `:env` that prints the contents of the current environment.
 
 - Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations. For example, if `foo.lisp` contains the following:
 
