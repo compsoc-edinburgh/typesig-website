@@ -26,7 +26,7 @@ Here's an example of some code written in this style:
 (* 3 (- 4 5))
 (concat3 "TypeSig" "<3" "you")
 (lambda (x) x)
-(define factorial (x) (if (equals? 0 x) 1 (factorial (- x 1))))
+(define factorial (n) (if (= 0 n) 1 (* n (factorial (- n 1)))))
 ```
 
 You don't need to fully understand what the semantics of these mean yet! We'll build up to that knowledge over the next few steps.
@@ -275,7 +275,7 @@ These are some extra challenges you can attempt to build your understanding furt
   ```plaintext
   input:2:8: Syntax Error: Unexpected closing bracket:
   2 | (* 3 4))
-            ^
+             ^
   ```
 
   For bonus points, add colour to the output!
