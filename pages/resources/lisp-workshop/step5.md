@@ -41,6 +41,7 @@ Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-E
 --> ...
 --> (* 3 (* 2 (* 1 0)))
 --> 6
+```
 
 Be sure to watch out for cases like `(lambda (x) (lambda (x) (+ x 1)))`! Make sure the inner `x` takes precedence over the outer `x`. As an example, `(((lambda (x) (lambda (x) (+ x 1))) 1) 2)` should evaluate to `3`, not `2`. Not convinced? Step through this problem on pen and paper by substituting the arguments one by one.
 
