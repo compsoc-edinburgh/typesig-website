@@ -116,7 +116,7 @@ You also need to pick the order in which to evaluate the arguments.
 This is completely up to you, as there's no difference if one argument gets evaluated before another.
 In these worksheets, we'll stick to evaluating our arguments from left to right, to keep our examples clear.
 
-Let's walk through some examples of evaluating
+Let's walk through some examples of evaluation using applicative order.
 If we had the term `(+ 1 (* 2 3))`, it would reduce as follows:
 
 ```scheme
@@ -149,7 +149,7 @@ The primary advantage of applicative order over normal order is that it's easier
 
 Normal order is less frequently seen in commonly used languages. The main examples are Haskell, and, of all things, R.
 Normal order gets its name from the lambda calculus, where normal order evaluation is guaranteed to result in the normal form of an expression, if one exists. The same is not guaranteed of applicative order.
-To illustrate this, let's take the following two lambda calculus expressions (written in our Lisp syntax):
+To illustrate this, let's take the following two lambda calculus expressions, written in our Lisp syntax (you don't have to understand this fully yet!):
 
 ```scheme
 (lambda x (lambda y x))
