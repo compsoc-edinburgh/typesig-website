@@ -57,6 +57,8 @@ which should be equivalent to:
 (define func (lambda (arg) body))
 ```
 
+This form should allow defining recursive functions.
+
 You can check the number of elements in a `define` expression to determine which form to use, or you couuld just offer the new form under a different name (`defun` is quite common). Both are perfectly sensible ways to implement this; think about which one you'd prefer to use when writing a program!
 
 Once this is done, you'll have implemented a fully Turing complete programming language! Congratulations!
