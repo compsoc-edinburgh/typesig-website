@@ -11,12 +11,69 @@ Complexity: Long
 
 [Jump to task](#task)
 
-- motivation: simple arithmetical functions? reuse RSA from earlier?
-- explain parameters/arguments
-- explain application
-- beta reduction
-- closures
-- rec
+So far, we've implemented a basic evaluator that can compute arithmetical expressions and define new constants.
+But to have a truly general purpose functional programming language, we need functions!
+
+By the end of this step, you'll be able to run the following program:
+
+```scheme
+(define factorial (n)
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))))
+
+(factorial 6)
+```
+
+## Parameterisation
+
+What *is* a function?
+
+You likely already have an intuitive understanding of what a function is.
+You've almost certainly been using them to implement your interpreter, for example!
+But we'll need a concrete understanding of functions if we ever wish to implement them correctly.
+
+Functions allow us to minimise code duplication, by abstracting over common behaviour.
+They do this by *parameterising* an expression by a value.
+For example, consider the following toy program which checks some [Pythagorean triples](https://en.wikipedia.org/wiki/Pythagorean_triple):
+
+```scheme
+(= (* 5 5) (+ (* 3 3) (* 4 4)))
+(= (* 13 13) (+ (* 5 5) (* 12 12)))
+(= (* 97 97) (+ (* 65 65) (* 72 72)))
+```
+
+This program is very repetitive.
+Each line is basically of the form `(= (* a a) (+ (* b b) (* c c)))`, where `a`, `b`, and `c` are the numbers in the Pythagorean triple we want to check.
+We can retrieve the original program from this abstracted version simply by substituting values in for `a`, `b`, and `c`.
+This combination of abstraction and substitution is known as parameterisation.  !!!CHECK!!!
+
+Functions as a language feature allow us to perform the abstraction and substitution we just did above inside of our programs.
+
+
+For example, we could write the above example on Pythagorean triples as:
+```scheme
+(define square (n)
+  (* n n))
+(define check-pythagorean-triple (a b c)
+  (= (square a) (+ (square b) (square c))))
+
+(check-pythagorean-triple 5 3 4)
+(check-pythagorean-triple 13 5 12)
+(check-pythagorean-triple 97 65 72)
+```
+
+This version of the program has more lines of code, but I hope you'll agree that it's much easier to read!
+
+## Lambdas
+
+## Application and Beta Reduction
+
+## Closures
+
+## Recursion
+
+### Aside on the Y Combinator
 
 ## Task
 
