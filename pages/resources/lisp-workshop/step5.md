@@ -171,4 +171,4 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Add support for mutually-recursive functions. You will need to implement another language construct like `rec` which defines (at least) two functions at once, and extends the closure environment with `(f1 -> lambda args b1), ..., (fn -> lambda args bn)`.
 
-- Write a self-hosting interpreter. This means re-implementing *everything* you've done so far as a program in your language.
+- Write a self-hosting interpreter. This means re-implementing *everything* you've done so far as a program in your language. You may want to add some extra primitive datatypes to help you.
