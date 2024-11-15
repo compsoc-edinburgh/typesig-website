@@ -46,9 +46,11 @@ For example, consider the following toy program which checks some [Pythagorean t
 This program is very repetitive.
 Each line is basically of the form `(= (* a a) (+ (* b b) (* c c)))`, where `a`, `b`, and `c` are the numbers in the Pythagorean triple we want to check.
 We can retrieve the original program from this abstracted version simply by substituting values in for `a`, `b`, and `c`.
-This combination of abstraction and substitution is known as *parameterisation*.
-Functions as a language feature allow us to perform the parameterisation we just did above by hand inside of our programs mechanically.
 
+Using this method to capture behaviour and abstract over values is known as *function abstraction*, and is a special form of a more general process known as *parameterisation*.
+Parameterisation is one of the core tools of programming language theory, as it allows us to work with entire (infinite!) families of programs at a time, rather than just specific arbitrary programs.
+
+Functions as a language feature allow us to perform the function abstraction we just did above by hand inside of our programs mechanically.
 For example, we could write the above example on Pythagorean triples as:
 ```scheme
 (define square (n)
@@ -65,13 +67,72 @@ This version of the program has more lines of code, but I hope you'll agree that
 
 ## Lambdas
 
-## Application and Beta Reduction
+So how can we represent function abstraction within our language?
+
+Well, as mentioned above, functions are a language feature, which means we'll need to add new primitives and eval rules.
+
+
+
+---
+Ok, I ran out of time writing this in time for today's workshop so here's some brief notes.
+No motivation for anything and very few examples, but hopefully it's at least somewhat helpful!
+
+We're going to add lambdas as a language primitive. A lambda is a pair of a symbol and an expression:
+
+```scheme
+(lambda (x) (+ x 1))
+```
+
+When applied to a value `v`, the value gets bound to the symbol.
+We'll represent this by adding `x -> v` to our environment when evaluating the body.
+
+```
+((lambda (x) (+ x 1)) 41)
+--> (+ x 1)  [x -> 41]
+--> (+ 41 1)
+--> 42
+```
 
 ## Closures
 
+What should the result of eval on a lambda be?
+
+We mentioned in an earlier step that a function is a type of value, so we'll need to add a new value type to represent lambdas. This should be a pair of the name and an expression (not a value!).
+
+But, if we try to apply a lambda value to some other value, we might not get the right result.
+
+Since a lambda can refer to any name in scope at the time of definition, we need to capture the surrounding environment alongsinde the lambda expression (otherwise we might not have the right definitions for our names).
+We do this via *closures*.
+
+A closure is a value that pairs an environment and a (function) value.
+You can further evaluate a closure when it's applied to a value.
+
+Take, for example, the closure `{g, lambda (x) (+ x 1)}`.
+If we're applying it to `41`, then we'd extend `g` with `x -> 41`, and evaluate `(+ x 1)` in this new environment.
+
 ## Recursion
 
+We have anonymous functions now, and we can use `define` to give them names.
+But it's not obvious how to write recursive functions with this!
+
+This is because `define` can't add `n -> e` to our context without knowing what `e` evaluates to.
+But if `e` references `n`, then `e` can't be evaluated without knowing what `n` refers to!
+
+To avoid this cycle, we need to add a new language feature, `rec` (sometimes known as `letrec`).
+`rec` works much like `lambda`, except it takes an extra name parameter: `(rec f (x) (+ x 1))`.
+
+It evaluates to a closure much like `lambda`, except when applying the closure to a value `v`, we extend the closure's environment with `f -> rec f (x) (+ x 1), x -> v`.
+
 ### Aside on the Y Combinator
+
+The Y combinator allows general recursion, and can be defined purely in terms of lambda expressions.
+So, arguably, we don't need to add extra language features to support recursion.
+
+However, we can't use *direct* recursion with the Y combinator, since the name of our function isn't in scope.
+Instead, any time we want to write a recursive function, we need to make it take an extra "self" parameter, which it calls whenever it would normally call itself.
+The Y combinator, when applied to a function, passes the function to itself as the "self" parameter.
+
+It works, but it's annoying to write, and pretty much every common language defines language features to enable direct style recursion.
 
 ## Task
 
