@@ -46,10 +46,8 @@ For example, consider the following toy program which checks some [Pythagorean t
 This program is very repetitive.
 Each line is basically of the form `(= (* a a) (+ (* b b) (* c c)))`, where `a`, `b`, and `c` are the numbers in the Pythagorean triple we want to check.
 We can retrieve the original program from this abstracted version simply by substituting values in for `a`, `b`, and `c`.
-This combination of abstraction and substitution is known as parameterisation.  !!!CHECK!!!
-
-Functions as a language feature allow us to perform the abstraction and substitution we just did above inside of our programs.
-
+This combination of abstraction and substitution is known as *parameterisation*.
+Functions as a language feature allow us to perform the parameterisation we just did above by hand inside of our programs mechanically.
 
 For example, we could write the above example on Pythagorean triples as:
 ```scheme
@@ -124,24 +122,6 @@ Once this is done, you'll have implemented a fully Turing complete programming l
 
 These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
 
-- Add support for `let` expressions. `let` is convenient syntactic sugar for temporarily binding an expression to a name. In Lisp, these look like this:
-
-  ```scheme
-  (let ((x 1)
-        (y 2))
-      (+ x y))
-  ```
-
-  This expression should return:
-
-  ```scheme
-  3
-  ```
-
-  `let` takes two arguments: a list of pairs of symbols and expressions `((s1 e1) ... (sn en))`, and an expression `body`.
-
-  To evaluate a `let` expression, you extend the current environment with `(s1 -> e1); ...; (sn -> en)`, and evaluate `body` in this new environment.
-
 - Allow `lambda`s, `rec`s, and `define`s to take (and be applied to) more than one argument.
 
   For example:
@@ -152,22 +132,43 @@ These are some extra challenges you can attempt to build your understanding furt
   lisp> ((lambda (x y z) (+ x (+ y z))) 1 2 3)
   ```
 
-- Support recursion in top-level definitions.
-
-  For example, when evaluating the following file:
+- Add support for `let` expressions. `let` is convenient syntactic sugar for temporarily binding an expression to a name. In Lisp, `let` expressions look as follows:
 
   ```scheme
-  (define factorial (n)
-      (if (equals? 0 n)
-          1
-          (+ n (factorial (- n 1)))))
-  (factorial 5)
+  (let ((x 1))
+      (+ x 2))
   ```
 
-  you should see:
+  This expression should return `3.
+  It is equivalent to the Haskell code `let x = 1 in x + 2`.
+
+  `let` expressions may give definitions to multiple symbols.
 
   ```scheme
-  120
+  (let ((x 1)
+        (y 2))
+      (+ x y))
   ```
+
+  In a Haskell-like syntax, you might write that as:
+  
+  ```haskell
+  let x = 1 in
+    let y = 2 in
+      x + y
+  ```
+
+  Syntactically, `let` takes two arguments: a list of pairs of symbols and expressions `((s1 e1) ... (sn en))`; and an expression `body`.
+
+  ```scheme
+  (let ((s1 e1)
+        ...
+        (sn en))
+      body)
+  ```
+
+  To evaluate a `let` expression, you extend the current environment with `s1 -> eval(e1), ..., sn -> eval(en)`, and evaluate `body` in this new environment.
+
+- Add support for mutually-recursive functions. You will need to implement another language construct like `rec` which defines (at least) two functions at once, and extends the closure environment with `(f1 -> lambda args b1), ..., (fn -> lambda args bn)`.
 
 - Write a self-hosting interpreter. This means re-implementing *everything* you've done so far as a program in your language.
