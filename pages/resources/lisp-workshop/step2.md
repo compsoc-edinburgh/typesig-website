@@ -209,6 +209,64 @@ Program ::= Expr*
 
 You should also implement a pretty printer that converts the AST back into a string. Hook these both into the REPL from the previous step, by parsing the user's input, and pretty printing the result.
 
+### Hints
+
+The code for this section can be quite difficult to come up with by yourself.
+If you've spent some time trying to come up with a design for your parser, but are getting a little stuck, here's some pseudocode that might guide you.
+
+<details>
+  <summary>Lexer pseudocode</summary>
+
+  ```lua
+  function lex(input: String) -> List<String>
+    input = input.replace("(", " ( ")
+    input = input.replace(")", " ) ")
+
+    return input.split(" ")    
+  ```
+</details>
+
+<details>
+  <summary>Parser pseudocode</summary>
+
+  ```lua
+  type Expr = LInt Integer
+            | LSym String
+            | SExpr (List<Expr>)
+
+  -- Parses an S-Expression (assuming that the initial `(` has been consumed)
+  function parseSExpr(tokens: List<String>) -> (Expr, List<String>)
+    res: List<Expr> = []
+
+    while (head(tokens) != ")")
+      (e, ts) = parseExpr(tokens)
+      res.add(e)
+      tokens = ts
+
+    return (SExpr(res), tail(tokens))  -- `tail` drops the closing bracket
+
+  -- Parses a single expression
+  function parseExpr(tokens: List<String>) -> (Expr, List<String>)
+    match head(tokens)
+      case ")" => error("Unexpected closing bracket")
+      case "(" => return parseSExpr(tail(tokens))
+      case t => if isNumeric(t)
+        then return LInt(int(t))
+        else return LSym(t)
+
+  -- Parses a program (zero or more expressions)
+  function parseProgram(tokens: List<String>) -> List<Expr>
+    res: List<Expr> = []
+
+    while (tokens != [])
+      (e, ts) = parseExpr(tokens)
+      res.add(e)
+      tokens = ts
+
+    return res
+  ```
+</details>
+
 ## Tests
 
 Here's some test cases that you can use to check if your implementation is along the right lines:
