@@ -231,15 +231,16 @@ If you've spent some time trying to come up with a design for your parser, but a
   <summary>Parser pseudocode</summary>
 
   ```lua
-  type Expr = LInt Integer
-            | LSym String
-            | SExpr (List<Expr>)
+  enum Expr
+    LInt Integer,
+    LSym String,
+    SExpr (List<Expr>)
 
   -- Parses an S-Expression (assuming that the initial `(` has been consumed)
   function parseSExpr(tokens: List<String>) -> (Expr, List<String>)
     res: List<Expr> = []
 
-    while (head(tokens) != ")")
+    while (head(tokens) is not ")")
       (e, ts) = parseExpr(tokens)
       res.add(e)
       tokens = ts
@@ -259,7 +260,7 @@ If you've spent some time trying to come up with a design for your parser, but a
   function parseProgram(tokens: List<String>) -> List<Expr>
     res: List<Expr> = []
 
-    while (tokens != [])
+    while (tokens is not [])
       (e, ts) = parseExpr(tokens)
       res.add(e)
       tokens = ts
