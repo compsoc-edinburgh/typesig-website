@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lisp Workshop - Step 5: Lambda"
-permalink: "/resources/lisp-workshop/step5"
+title: "Step 5: Lambda | Language Workshop"
+permalink: "/resources/lang-workshop/step5"
 ---
 # THIS PAGE IS A WORK IN PROGRESS
 
@@ -188,16 +188,17 @@ These are some extra challenges you can attempt to build your understanding furt
   For example:
 
   ```console
-  lisp> ((lambda (x y) x) 1 2)
+  MLTS> ((lambda (x y) x) 1 2)
   1
-  lisp> ((lambda (x y z) (+ x (+ y z))) 1 2 3)
+  MLTS> ((lambda (x y z) (+ x (+ y z))) 1 2 3)
+  6
   ```
 
-- Add support for `let` expressions. `let` is convenient syntactic sugar for temporarily binding an expression to a name. In Lisp, `let` expressions look as follows:
+- Add support for `let` expressions. `let` is convenient syntactic sugar for temporarily binding an expression to a name. In Lisp-like syntax, `let` expressions look as follows:
 
   ```scheme
   (let ((x 1))
-      (+ x 2))
+    (+ x 2))
   ```
 
   This expression should return `3.
@@ -208,7 +209,7 @@ These are some extra challenges you can attempt to build your understanding furt
   ```scheme
   (let ((x 1)
         (y 2))
-      (+ x y))
+    (+ x y))
   ```
 
   In a Haskell-like syntax, you might write that as:
@@ -225,7 +226,7 @@ These are some extra challenges you can attempt to build your understanding furt
   (let ((s1 e1)
         ...
         (sn en))
-      body)
+    body)
   ```
 
   To evaluate a `let` expression, you extend the current environment with `s1 -> eval(e1), ..., sn -> eval(en)`, and evaluate `body` in this new environment.

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lisp Workshop - Step 3: Eval"
-permalink: "/resources/lisp-workshop/step3"
+title: "Step 3: Eval | Language Workshop"
+permalink: "/resources/lang-workshop/step3"
 ---
 
 Complexity: Medium
@@ -39,7 +39,7 @@ data Value = VInt Integer
 Not every expression can be transformed into a value. Some programs are syntactically correct, but semantically meaningless! As an analogy, consider the English sentence "The sky walks a hamburger". This sentence is syntactically valid according to the rules of the English language, being a noun phrase followed by a verb and another noun phrase, but (in pretty much any context) it's meaningless!
 
 The same principle applies in programming languages.
-In Lisp languages, an S-Expression must start with a operator for it to be considered a redex.
+In Lisp-like syntax, an S-Expression must start with a operator for it to be considered a redex.
 Any S-Expression that doesn't is considered to be semantically invalid. This form of notation is commonly called [prefix (or Polish) notation](https://en.wikipedia.org/wiki/Polish_notation).
 Additionally, if the type and number of the arguments don't match what the operator expects, the S-Expression isn't valid either.
 
@@ -149,7 +149,7 @@ The primary advantage of applicative order over normal order is that it's easier
 
 Normal order is less frequently seen in commonly used languages. The main examples are Haskell, and, of all things, R.
 Normal order gets its name from the lambda calculus, where normal order evaluation is guaranteed to result in the normal form of an expression, if one exists. The same is not guaranteed of applicative order.
-To illustrate this, let's take the following two lambda calculus expressions, written in our Lisp syntax (you don't have to understand this fully yet!):
+To illustrate this, let's take the following two lambda calculus expressions, written in our Lisp-like syntax (you don't have to understand this fully yet!):
 
 ```scheme
 (lambda x (lambda y x))
@@ -197,31 +197,31 @@ Update your REPL function, by running `eval` on the parsed input, and passing th
 Here's some test cases that you can use to check if your implementation is along the right lines:
 
 ```console
-lisp> 1
+MLTS> 1
 1
-lisp> (+ 1 2)
+MLTS> (+ 1 2)
 3
-lisp> (+ 1 (* 2 3))
+MLTS> (+ 1 (* 2 3))
 6
-lisp> (* 1 (+ 2 3))
+MLTS> (* 1 (+ 2 3))
 5
-lisp> (- 1 2)
+MLTS> (- 1 2)
 -1
-lisp> 1 + 2
+MLTS> 1 + 2
 1
 +
 2
-lisp> (+ 1)
+MLTS> (+ 1)
 eval: `+` expects exactly two integers
-lisp> (* 1 2 3)
+MLTS> (* 1 2 3)
 eval: `*` expects exactly two integers
-lisp> (+ -1 1)
+MLTS> (+ -1 1)
 0
-lisp> (unknown 1)
+MLTS> (unknown 1)
 eval: `unknown` is an unknown symbol
-lisp> ()
+MLTS> ()
 eval: can't eval empty S-Expression
-lisp> (1 + 2)
+MLTS> (1 + 2)
 eval: `1` doesn't evaluate to a function or primitive
 ```
 

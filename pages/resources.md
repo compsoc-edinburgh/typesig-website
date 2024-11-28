@@ -7,7 +7,7 @@ permalink: "/resources/"
 This page contains resources from previous TypeSig events, courses, and workshops, as well as more general reference material for various topics.
 
 ### Current Courses
-[Lisp Workshop]({{ site.url }}/resources/lisp-workshop)
+[Language Workshop]({{ site.url }}/resources/lang-workshop)
 
 ### Previous Courses
 

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lisp Workshop - Step 2: Parsing and Printing"
-permalink: "/resources/lisp-workshop/step2"
+title: "Step 2: Parsing and Printing | Language Workshop"
+permalink: "/resources/lang-workshop/step2"
 ---
 Complexity: Long
 
@@ -16,9 +16,14 @@ If you're familiar with parsing, feel free to skip to the Tasks section.
 
 ## S-Expressions
 
-To keep things simple, we've opted for a very simple grammar, known as S-Expressions (the S stands for Symbolic. They are often abbreviated to sexps). They are used in the Lisp family of programming languages.
-An S-Expression consists of a pair of brackets, that contain a list of "atoms" separated by whitespace. These atoms may be literal values, like numbers or strings, or symbols, which are arbitrary strings of characters. You're also allowed to have another S-Expression in place of an atom, allowing you to build more complex programs.
-In Lisp languages, the first atom is used as a function or operator name, and the following atoms are provided as arguments to the function or operator.
+To keep things simple, we've opted for a very simple grammar, known as S-Expressions (the S stands for Symbolic. They are often abbreviated to sexps).
+They are used in the Lisp family of programming languages.
+
+An S-Expression consists of a pair of brackets, that contain a list of "atoms" separated by whitespace.
+These atoms may be literal values, like numbers or strings, or symbols, which are arbitrary strings of characters.
+You're also allowed to have another S-Expression in place of an atom, allowing you to build more complex programs.
+
+In Lisp-like syntax, the first atom is used as a function or operator name, and the following atoms are provided as arguments to the function or operator.
 Here's an example of some code written in this style:
 
 ```scheme
@@ -274,26 +279,26 @@ If you've spent some time trying to come up with a design for your parser, but a
 Here's some test cases that you can use to check if your implementation is along the right lines:
 
 ```console
-lisp>
-lisp> 1
+MLTS>
+MLTS> 1
 1
-lisp> hello
+MLTS> hello
 hello
-lisp> ( )
+MLTS> ( )
 ()
-lisp> (+ 1 2)
+MLTS> (+ 1 2)
 (+ 1 2)
-lisp> (+ 1 (* 2 3))
+MLTS> (+ 1 (* 2 3))
 (+ 1 (* 2 3))
-lisp> (())
+MLTS> (())
 (())
-lisp> (  ( )    )
+MLTS> (  ( )    )
 (())
-lisp> (   foo    bar  )
+MLTS> (   foo    bar  )
 (foo bar)
-lisp> (* 3
+MLTS> (* 3
 parse: expected closing bracket
-lisp> * 3 4)
+MLTS> * 3 4)
 parse: unexpected closing bracket
 ```
 
@@ -303,16 +308,16 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Allow floating point numbers as well as integers.
 
-- Add support for comments. Traditionally Lisp languages use `;` to start comments, but there's nothing stopping you from picking your own comment syntax.
+- Add support for comments.
 
 - Treat square brackets (`[`/`]`) the same as normal brackets/parentheses, so the user can switch between them for clarity.
 
 - Add the REPL commands `:lex` and `:parse`, which takes an expression and prints the output of the lexer and parser respectively when run on that expression. For example:
   
   ```console
-  lisp> :lex (+ 1 (* 2 foo))
+  MLTS> :lex (+ 1 (* 2 foo))
   ["+", "1", "(", "*", "2", "foo", ")"]
-  lisp> :parse (+ 1 (* 2 foo))
+  MLTS> :parse (+ 1 (* 2 foo))
   SExpr [LSym "+", LInt 1, SExpr [LSym "*", LInt 2, LSym "foo"]]
   ```
 

@@ -1,16 +1,25 @@
 ---
 layout: page
-title: Lisp Workshop
-permalink: "/resources/lisp-workshop"
+title: Language Workshop
+permalink: "/resources/lang-workshop"
 ---
-Welcome to the lisp workshop! This is a series of worksheets that will walk you through implementing an interpreter for a programming language. The steps are designed to be completed in order; if you're stuck on one of the steps, ask a TypeSig committee member for help in the workshop, or post a message on our [Discord server][discord].
+Welcome to the language workshop!
+This is a series of worksheets that will walk you through implementing an interpreter for a programming language called MLTS (pronounced as "melts").
+MLTS is a functional language, and you get to choose what features your implementation supports!
+We'll walk you through implementing a parser, evaluator, REPL, and typechecker.
+
+The steps are designed to be completed in order; if you're stuck on one of the steps, ask a TypeSig committee member for help in the workshop, or post a message on our [Discord server][discord].
 
 You can choose which language to write the interpreter in; pick one that you're comfortable with already, or if you want a further challenge, pick one that you want to learn!
 
-- [Step 1: The Beginning](lisp-workshop/step1)
-- [Step 2: Parsing and Printing](lisp-workshop/step2)
-- [Step 3: Eval](lisp-workshop/step3)
-- [Step 4: Environments](lisp-workshop/step4)
+The only prior knowledge we assume is that you know how to program.
+If you're not too confident with your programming skills, this can be a great way to develop them!
+In this case, we recommend that you use a language that you have the most experience in, and ask our workshop helpers if you're unsure about anything :)
+
+- [Step 1: The Beginning](lang-workshop/step1)
+- [Step 2: Parsing and Printing](lang-workshop/step2)
+- [Step 3: Eval](lang-workshop/step3)
+- [Step 4: Environments](lang-workshop/step4)
 - More to come in the next few weeks!
 
 [discord]: {{site.social.discord}}

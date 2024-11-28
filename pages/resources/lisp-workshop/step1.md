@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lisp Workshop - Step 1: The Beginning"
-permalink: "/resources/lisp-workshop/step1"
+title: "Step 1: The Beginning | Language Workshop"
+permalink: "/resources/lang-workshop/step1"
 ---
 Complexity: Short
 
@@ -34,9 +34,9 @@ These are some extra challenges you can attempt to build your understanding furt
 - Print a prompt to the console to indicate when the user should input text:
 
 ```console
-lisp> 42
+MLTS> 42
 42
-lisp>
+MLTS>
 ```
 
 - If the user enters `quit` or `exit` as their input, stop the loop. You should also print some text when starting the interpreter so your users know this is a possibility!

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lisp Workshop - Step 4: Enviroments"
-permalink: "/resources/lisp-workshop/step4"
+title: "Step 4: Enviroments | Language Workshop"
+permalink: "/resources/lang-workshop/step4"
 ---
 
 Complexity: Short
@@ -207,40 +207,40 @@ Finally, you should update your REPL to keep track of its environment, to allow 
 Here's some test cases that you can use to check if your implementation is along the right lines (assuming you imlpement shadowing):
 
 ```console
-lisp> (define one 1)
-lisp> one
+MLTS> (define one 1)
+MLTS> one
 1
-lisp> (+ 1 one)
+MLTS> (+ 1 one)
 2
-lisp> (define two 2)
-lisp> (+ one two)
+MLTS> (define two 2)
+MLTS> (+ one two)
 3
 
-lisp> (define number 42)
-lisp> (define secret (* number 17))
-lisp> (define number 12)
-lisp> number
+MLTS> (define number 42)
+MLTS> (define secret (* number 17))
+MLTS> (define number 12)
+MLTS> number
 12
-lisp> secret
+MLTS> secret
 714
 
-lisp> (define foo 1)
-lisp> (define foo foo)
-lisp> foo
+MLTS> (define foo 1)
+MLTS> (define foo foo)
+MLTS> foo
 1
 
-lisp> (define plus +)
-lisp> (plus 1 2)
+MLTS> (define plus +)
+MLTS> (plus 1 2)
 3
-lisp> (define * +)
-lisp> (* 1 2)
+MLTS> (define * +)
+MLTS> (* 1 2)
 3
 
-lisp> (define define 1)
-lisp> define
+MLTS> (define define 1)
+MLTS> define
 1
-lisp> (define foo 2)
-lisp> foo
+MLTS> (define foo 2)
+MLTS> foo
 2
 ```
 
@@ -250,20 +250,20 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Add a REPL command `:env` that prints the contents of the current environment.
 
-- Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations. For example, if `foo.lisp` contains the following:
+- Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations. For example, if `foo.mlts` contains the following:
 
   ```scheme
   (define my-favourite-number 12)
   ```
 
-  and `main.lisp` contains this program:
+  and `main.mlts` contains this program:
 
   ```scheme
-  (import "foo.lisp")
+  (import "foo.mlts")
   my-favourite-number
   ```
 
-  then evaluating `main.lisp` should print `12`, assuming that `foo.lisp` is in the same directory as `main.lisp`.
+  then evaluating `main.mlts` should print `12`, assuming that `foo.mlts` is in the same directory as `main.mlts`.
 
 - Allow top-level definitions to reference each other in any order. As an example, when running the following file:
 
