@@ -214,7 +214,7 @@ You should also implement a pretty printer that converts the AST back into a str
 The code for this section can be quite difficult to come up with by yourself.
 If you've spent some time trying to come up with a design for your parser, but are getting a little stuck, here's some pseudocode that might guide you.
 
-<details>
+<details markdown="1">
   <summary>Lexer pseudocode</summary>
 
   ```lua
@@ -224,9 +224,10 @@ If you've spent some time trying to come up with a design for your parser, but a
 
     return input.split(" ")    
   ```
+  
 </details>
 
-<details>
+<details markdown="1">
   <summary>Parser pseudocode</summary>
 
   ```lua
