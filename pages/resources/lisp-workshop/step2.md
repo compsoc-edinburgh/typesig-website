@@ -202,7 +202,13 @@ We've implemented a parser, and a pretty printer. It's time to update our REPL f
 
 ## Task
 
-Implement a data structure for an AST, and a parser to match the following grammar:
+Implement a data structure for an AST.
+If you're using a functional-style language, you may want to use an algebraic data type to do this; if you're in an OOP-style language, you may want to use classes instead.
+
+Next, you should write the lexer, which converts an input string into a list of tokens.
+
+Once the lexer is complete, write a parser that converts a list of tokens into the corresponding syntax tree, represented by your AST data structure.
+It should match the following grammar:
 
 ```ebnf
 INTEGER ::= /[0-9]+/
@@ -212,7 +218,9 @@ Expr    ::= Literal | '(' Expr* ')'
 Program ::= Expr*
 ```
 
-You should also implement a pretty printer that converts the AST back into a string. Hook these both into the REPL from the previous step, by parsing the user's input, and pretty printing the result.
+Your language of choice likely has built in functions to convert a string to an integer (Python has `int`, Haskell has `read`, Rust has `string.parse::<i32>()`). You'll probably want to use one of these functions to determine if a literal is a symbol or an integer.
+
+Finally, you should also implement a pretty printer that converts the AST back into a string. Hook these both into the REPL from the previous step, by parsing the user's input, and pretty printing the result.
 
 ### Hints
 

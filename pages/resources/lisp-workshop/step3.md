@@ -180,13 +180,16 @@ We've finally defined everything we need to implement an evaluator!
 ## Task
 
 Choose a set of arithmetic operations to be your primitives, and define a data structure that represents values in your language (literals and primitives).
-This should look something like the following Haskell type:
+This might look something like the following Haskell type:
 
 ```hs
 data Prim = Plus | Minus | Mult | ...
 data Value = VInt Integer
            | VPrim Prim
 ```
+
+You should also write a pretty printer for this type, so you can print values.
+Call this function `print`.
 
 Next, define a function called `eval`, which takes an AST as its only parameter, and reduces any redexes, returning the resultant value.
 

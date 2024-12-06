@@ -15,7 +15,13 @@ You might be familiar with this concept from other languages: the JavaScript con
 
 Write a program that reads a line of input from the user, and responds by repeating the input back to the user.
 
-Examples:
+You may want to implement this by storing the user's input into a variable, and then passing that variable into your language's `print` function.
+
+This program should work in a loop; in other words, once the string has been printed, the program should return to its initial state, asking the user for their input once again.
+
+## Tests
+
+Here's some test cases that you can use to check if your implementation is along the right lines:
 
 ```plaintext
 Hello, world!  // this line is user input
@@ -23,8 +29,10 @@ Hello, world!  // this line is program output
 ```
 
 ```plaintext
-TypeSig <3 you!  // this line is user input
-TypeSig <3 you!  // this line is program output
+TypeSig <3 you!                // this line is user input
+TypeSig <3 you!                // this line is program output
+https://discord.gg/dnXzHRkJww  // this line is user input
+https://discord.gg/dnXzHRkJww  // this line is program output
 ```
 
 ## Extra Challenges
