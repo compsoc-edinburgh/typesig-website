@@ -10,14 +10,31 @@ Complexity: Long
 In the last step, we wrote a program that could read a line of input as a string, and print that string out to the console.
 While it's a good starting ground, it doesn't do anything particularly interesting.
 
-Our first *real* step towards a language interpreter is a parser. A parser converts a string into an *abstract syntax tree* (or AST); a data structure that represents the internal structure of our program.
-
-If you're familiar with parsing, feel free to skip to the Tasks section.
+Our first *real* step towards a language interpreter is a parser. A parser converts a string into an *abstract syntax tree* (or AST); a data structure that represents the internal structure of expressions in our language.
 
 ## S-Expressions
 
-To keep things simple, we've opted for a very simple grammar, known as S-Expressions (the S stands for Symbolic. They are often abbreviated to sexps).
-They are used in the Lisp family of programming languages.
+All languages, even human languages, adhere to a *grammar*.
+A grammar describes the *syntax*, or the textual representation, of a language; in English, for example, it's a grammatical error to have a verb follow another verb (`eat organise` isn't a valid English sentence).
+
+Programming languages also adhere to a grammar.
+Here, a grammar says how we're allowed to combine expressions to build larger expressions.
+For example, `1 + 2` is composed of the literal expression `1`, the operator `+`, and the literal expression `2`.
+
+It's important to note that we don't give any semantic meaning to these expressions yet.
+This means that `1 + 2` does *not* equal `2 + 1`; the two expressions are composed in different ways.
+
+Natural languages tend to be *ambiguous*, meaning that there are sentences that cannot be parsed into exactly one parse tree.
+To illustrate this, try and figure out how many ways you can parse the English expression "Superfluous hair remover".
+For natural languages, this is a useful property, as it enables things like puns and poetry.
+
+For programming languages, however, it's less useful.
+When we're talking to a computer, we want to be as exact about what we mean as possible!
+As a result, when picking or designing a grammar for a programming language, we should always make sure that it's unambiguous.
+
+To keep things simple for our language, we've opted for a very simple grammar, known as S-Expressions.
+S-Expressions are known for their use in the Lisp family of programming languages, where they are sometimes called sexps.
+We chose to use S-Expressions in particular as our grammer, since they give us a direct correspondence between the textual representation of our language and our internal representation.
 
 An S-Expression consists of a pair of brackets, that contain a list of "atoms" separated by whitespace.
 These atoms may be literal values, like numbers or strings, or symbols, which are arbitrary strings of characters.
