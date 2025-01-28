@@ -14,7 +14,8 @@ Complexity: Long
 So far, we've implemented a basic evaluator that can compute arithmetical expressions and define new constants.
 But to have a truly general purpose functional programming language, we need functions!
 
-By the end of this step, you'll be able to run the following program:
+In this step, we'll go over the theory of lambdas, and discuss how they can be implemented in an environment based interpreter.
+By the end of this step, your interpreter will be able to run the following program:
 
 ```scheme
 (define factorial (n)
@@ -65,28 +66,67 @@ For example, we could write the above example on Pythagorean triples as:
 
 This version of the program has more lines of code, but I hope you'll agree that it's much easier to read!
 
-## Lambdas
+## The Lambda Calculus
 
 So how can we represent function abstraction within our language?
 
 Well, as mentioned above, functions are a language feature, which means we'll need to add new primitives and eval rules.
 
+There are many different ways to represent functions, but one method that is common amongst functional languages is to base your system on the lambda calculus.
+Lambda calculus was described in 1936 by Alonzo Church, and was shown to be a universal model of computation by the Church-Turing thesis.
+In short, the Church-Turing thesis says that any function that can be computed by a Turing machine can be computed via the lambda calculus, and vice versa.
 
+You can find a detailed explanation of the lambda calculus in several of the courses taught in Edinburgh, namely Introduction to Theoretical Computer Science, and Types and Semantics of Programming Languages.
+We'll skip over a lot the theory, and focus on what's important for implementation.
+But if you find this step interesting, you should definitely consider taking these courses; there are very rich connections between the lambda calculus and the fields of logic, mathematics, category theory, and computation.
 
----
-Ok, I ran out of time writing this in time for today's workshop so here's some brief notes.
-No motivation for anything and very few examples, but hopefully it's at least somewhat helpful!
+Here's a minimal description of the (untyped) lambda calculus.
 
-We're going to add lambdas as a language primitive. A lambda is a pair of a symbol and an expression:
+The syntax for terms is as follows:
+
+```ebnf
+t ::= x       Variables
+      λx. t   Lambda Abstraction
+      t₁ t₂   Function Application
+```
+
+And we have one important reduction rule, called beta:
+
+```
+(λx. b) a   ⊢β→   b [x := a]
+```
+
+The `b [x := a]` means "substitute `a` for `x` in the term `b`".
+Substitution is notoriously quite conplicated to define, but the gist is that you replace all occurences of the variable name `x` in the term `b` with the term `a`.
+This process is what we described above!
+That's a fairly good hint that this method of function abstraction suits our purposes.
+
+## Implementing Lambdas
+
+So, we're going to add lambdas as a language primitive.
+How can we represent them in our interpreter?
+
+If we check the syntax from the previous section, we notice that a lambda is a pair of a name and an expression.
+Converting that into our S-Expression syntax, we might end up with the following:
 
 ```scheme
-(lambda (x) (+ x 1))
+(lambda (x) b)
 ```
 
-When applied to a value `v`, the value gets bound to the symbol.
-We'll represent this by adding `x -> v` to our environment when evaluating the body.
+Here, `x` is a symbol that corresponds to the name bound by the lambda, and `b` is an expression that corresponds to the body of the lambda.
+The extra brackets around `x` aren't strictly necessary, but they'll simplify your parsing rules if you allow lambdas to take multiple arguments.
 
-```
+How should we interpret a lambda expression?
+
+Above, we gave a way to interpret the expression `((lambda (x) b) a)` via substitution.
+Effectively I said that to evaluate `((lambda (x) b) a)`, you evaluate `b`, but replace occurences of the symbol `x` with `a`.
+This is something we can already do!
+In the previous step, we implemented environments.
+We can re-use our environments to interpret lambda expressions, by giving the following semantics: to evaluate `((lambda (x) b) a)` in the environment `env`, evaluate `b` in the environment `env + (x -> a)`.
+
+Here's an example to illustrate how this works:
+
+```scheme
 ((lambda (x) (+ x 1)) 41)
 --> (+ x 1)  [x -> 41]
 --> (+ 41 1)
@@ -95,9 +135,9 @@ We'll represent this by adding `x -> v` to our environment when evaluating the b
 
 ## Closures
 
-What should the result of eval on a lambda be?
+We've given a way to evaluate a lambda applied to an expression, but what should the result of `eval` on just a lambda be?
 
-We mentioned in an earlier step that a function is a type of value, so we'll need to add a new value type to represent lambdas. This should be a pair of the name and an expression (not a value!).
+In an earlier step, we mentioned that a function is a type of value, so we'll need to add a new value type to represent lambdas. This should be a pair of the name and an expression.
 
 But, if we try to apply a lambda value to some other value, we might not get the right result.
 
@@ -232,5 +272,7 @@ These are some extra challenges you can attempt to build your understanding furt
   To evaluate a `let` expression, you extend the current environment with `s1 -> eval(e1), ..., sn -> eval(en)`, and evaluate `body` in this new environment.
 
 - Add support for mutually-recursive functions. You will need to implement another language construct like `rec` which defines (at least) two functions at once, and extends the closure environment with `(f1 -> lambda args b1), ..., (fn -> lambda args bn)`.
+
+  Test this by implementing a recursive function that computes the nth Fibonacci number.
 
 - Write a self-hosting interpreter. This means re-implementing *everything* you've done so far as a program in your language. You may want to add some extra primitive datatypes to help you.

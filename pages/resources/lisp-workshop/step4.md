@@ -152,10 +152,12 @@ Here, there are four possibilities:
 
 The interpreter may optionally show a warning regarding the name collision for options 2, 3, and 4.
 All four options make sense depending on the context, but option 2 might be quite confusing for the user if they expect the language to behave similarly to most common languages.
+
 We recommend you pick either option 1, option 3, or option 4.
 For the steps after this one, we'll assume that you're using option 3.
+You should at least make sure that your representation is capable of shadowing, as you'll need it to implement lambda expressions in the next step.
 
-Also consider what behaviour your interpreter should exhibit on the following programs:
+Also, consider what behaviour your interpreter should exhibit on the following programs:
 
 ```scheme
 (define plus +)
