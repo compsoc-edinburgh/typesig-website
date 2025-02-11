@@ -103,7 +103,7 @@ That's a fairly good hint that this method of function abstraction suits our pur
 
 ## Implementing Lambdas
 
-So, we're going to add lambdas as a language primitive.
+So, we've decided lambdas are a good abstraction to use to represent functions.
 How can we represent them in our interpreter?
 
 If we check the syntax from the previous section, we notice that a lambda is a pair of a name and an expression.
@@ -116,7 +116,10 @@ Converting that into our S-Expression syntax, we might end up with the following
 Here, `x` is a symbol that corresponds to the name bound by the lambda, and `b` is an expression that corresponds to the body of the lambda.
 The extra brackets around `x` aren't strictly necessary, but they'll simplify your parsing rules if you allow lambdas to take multiple arguments.
 
-How should we interpret a lambda expression?
+We'll also introduce a new value type to represent the result of evaluating a lambda by itself.
+It will consist simply of a symbol paired with an expression.
+
+Now, how should we interpret a lambda expression?
 
 Above, we gave a way to interpret the expression `((lambda (x) b) a)` via substitution.
 Effectively I said that to evaluate `((lambda (x) b) a)`, you evaluate `b`, but replace occurences of the symbol `x` with `a`.
@@ -135,20 +138,32 @@ Here's an example to illustrate how this works:
 
 ## Closures
 
-We've given a way to evaluate a lambda applied to an expression, but what should the result of `eval` on just a lambda be?
+Let's say we have the following program:
 
-In an earlier step, we mentioned that a function is a type of value, so we'll need to add a new value type to represent lambdas. This should be a pair of the name and an expression.
+```scheme
+(define addCurry (lambda (x) (lambda (y) (+ x y))))
+(define add1 (addCurry 1))
+(add1 41)
+```
 
-But, if we try to apply a lambda value to some other value, we might not get the right result.
+We need to keep track of the assignment $x -> 1$ when we define `add1`.
+Otherwise, we'd return `(lambda (y) (+ x y))`, without having a binding for `x`; when we later try to look up `x`, we'll have to throw an error!
 
-Since a lambda can refer to any name in scope at the time of definition, we need to capture the surrounding environment alongsinde the lambda expression (otherwise we might not have the right definitions for our names).
-We do this via *closures*.
+We can solve this problem by introducing *closures*.
+A closure is a new value type, that consists of a function value paired with its surrounding environment.
+We'll denote them using curly brackets: `{v, env}` represents the value `v` paired with the  environment `env`.
 
-A closure is a value that pairs an environment and a (function) value.
-You can further evaluate a closure when it's applied to a value.
+Take, for example, the expression `(lambda (x) (+ x 1))`.
+At the top level, it consists of a single, unapplied lambda expression.
+Evaluating this expression in the environment `env` would produce the closure `{lambda (x) (+ x 1), env}`.
+As a more concrete example, in the program from above, `add1` would be represented as `{lambda (y) (+ x y), [x -> 1]}`.
 
-Take, for example, the closure `{g, lambda (x) (+ x 1)}`.
-If we're applying it to `41`, then we'd extend `g` with `x -> 41`, and evaluate `(+ x 1)` in this new environment.
+Now, we'll update our logic for applications to use closures instead of function values directly.
+
+Take the closure `{lambda (x) (+ x 1), env}` from earlier.
+If we're applying this closure to the value `41`, then we'd extend `env` with `x -> 41`, and evaluate `(+ x 1)` in this new environment.
+
+<!--></!-->
 
 ## Recursion
 
@@ -176,7 +191,12 @@ It works, but it's annoying to write, and pretty much every common language defi
 
 ## Task
 
-Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`. When evaluating a lambda applied to a value `v`, a lambda should add `arg -> v` to the environment when evaluating `body`.
+Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
+
+Add value types for lambdas and closures.
+
+Evaluating a lambda on its own should produce a closure with the surrounding environment.
+When evaluating a closure `{lambda (arg) b, env}` applied to a value `v`, add `arg -> v` to `env`, then evaluate `body` in this new environment.
 
 ```scheme
 ((lambda (x) (+ x 1)) 41)
@@ -185,7 +205,8 @@ Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S
 --> 42  [drop x -> 42 from env]
 ```
 
-Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-Expression containing a symbol `arg`, and an expression `body`. `rec` works similarly to lambda, but also adds `name -> rec name arg body` to the context when evaluating `body`.
+Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-Expression containing a symbol `arg`, and an expression `body`.
+`rec` works similarly to lambda, but also adds `name -> rec name arg body` to the context when evaluating `body`.
 
 ```scheme
 ((rec fac (n) (if (= 0 n) 1 (* n (fac (- n 1))))) 3)
@@ -199,7 +220,9 @@ Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-E
 --> 6
 ```
 
-Be sure to watch out for cases like `(lambda (x) (lambda (x) (+ x 1)))`! Make sure the inner `x` takes precedence over the outer `x`. As an example, `(((lambda (x) (lambda (x) (+ x 1))) 1) 2)` should evaluate to `3`, not `2`. Not convinced? Step through this problem on pen and paper by substituting the arguments one by one.
+Be sure to watch out for cases like `(lambda (x) (lambda (x) (+ x 1)))`!
+Make sure the inner `x` takes precedence over the outer `x`. As an example, `(((lambda (x) (lambda (x) (+ x 1))) 1) 2)` should evaluate to `3`, not `2`.
+Not convinced? Step through this problem on pen and paper by substituting the arguments one by one.
 
 You should also extend your `define` function to accept the following form:
 
@@ -215,7 +238,8 @@ which should be equivalent to:
 
 This form should allow defining recursive functions.
 
-You can check the number of elements in a `define` expression to determine which form to use, or you couuld just offer the new form under a different name (`defun` is quite common). Both are perfectly sensible ways to implement this; think about which one you'd prefer to use when writing a program!
+When determining whether to use this `define` form or the one introduced in the previous step, you can either check the number of elements in a `define` expression to determine which form to use, or you couuld just offer the new form under a different name (`defun` is quite common).
+Both are perfectly sensible ways to implement this; think about which one you'd prefer to use when writing a program!
 
 Once this is done, you'll have implemented a fully Turing complete programming language! Congratulations!
 
