@@ -114,7 +114,22 @@ Converting that into our S-Expression syntax, we might end up with the following
 ```
 
 Here, `x` is a symbol that corresponds to the name bound by the lambda, and `b` is an expression that corresponds to the body of the lambda.
-The extra brackets around `x` aren't strictly necessary, but they'll simplify your parsing rules if you allow lambdas to take multiple arguments.
+The extra brackets around `x` aren't strictly necessary, but they'll simplify your parsing rules if you allow lambdas to take multiple arguments (see the extra tasks).
+
+Let's look at a few examples of lambda expressions in our syntax.
+
+The expression `(lambda (x) x)` takes an argument named `x`, and returns it immediately.
+This function is known as the identity function.
+
+The expression `(lambda (x) 42)` takes an argument named `x`, ignores it, and returns 42.
+Such functions are known as constant functions.
+
+The expression `(lambda (x) (+ x 1))` takes an argument `x`, and adds 1 to it.
+
+The expression `(lambda (f) (f 42))` takes an argument `f`, and evaluates it on 42.
+
+The expression `(lambda (x) (lambda (y) (+ x y)))` takes one argument `x`, and returns a lambda expression that takes an argument `y` and adds it to `x`.
+For intuition, this construction is the same as a function that takes two arguments, `x` and `y`, and adds them.
 
 We'll also introduce a new value type to represent the result of evaluating a lambda by itself.
 It will consist simply of a symbol paired with an expression, and for clarity, we'll denote it as `lambda x. b`.
