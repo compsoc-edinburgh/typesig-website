@@ -131,6 +131,8 @@ The expression `(lambda (f) (f 42))` takes an argument `f`, and evaluates it on 
 The expression `(lambda (x) (lambda (y) (+ x y)))` takes one argument `x`, and returns a lambda expression that takes an argument `y` and adds it to `x`.
 For intuition, this construction is the same as a function that takes two arguments, `x` and `y`, and adds them.
 
+The expression `(lambda (x) (lambda (x) (+ x 1)))` takes an argument `x`, and returns a lambda which takes an argument `x` (shadowing the previous binding), and adds 1 to this inner argument `x`.
+
 We'll also introduce a new value type to represent the result of evaluating a lambda by itself.
 It will consist simply of a symbol paired with an expression, and for clarity, we'll denote it as `lambda x. b`.
 
