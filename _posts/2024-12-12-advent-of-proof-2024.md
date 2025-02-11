@@ -4,7 +4,7 @@ title:  "Advent of Proof 2024 Edition!"
 author: amy
 date:   2024-12-12 15:46:00 +0100
 image: assets/images/post-headers/aop-2024.png
-categories: lean agda events
+tags: lean agda events
 featured: false
 ---
 

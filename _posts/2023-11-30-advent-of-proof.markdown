@@ -4,7 +4,7 @@ title:  "Advent of Proof"
 author: jacob
 date:   2023-11-30 12:00:00 +0100
 image: assets/images/post-headers/aop.png
-categories: lean agda events
+tags: lean agda events
 featured: false
 ---
 <b>UPDATE:</b> Advent of Proof 2023 has now concluded! Thank you all so much for participating, and helping to make this as large of a success as it was! And a large congratulations in particular to those who placed in the top 10. Well done!

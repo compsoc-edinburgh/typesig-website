@@ -4,7 +4,7 @@ title:  "TypeSig Talks: Philip Wadler"
 author: jacob
 date:   2023-11-21 12:00:00 +0100
 image: assets/images/post-headers/2023-11-21-phil-talk.png
-categories: lean talks
+tags: lean talks
 featured: false
 ---
 Yesterday was another successful TypeSig Talk!

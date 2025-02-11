@@ -3,7 +3,7 @@ layout: post
 title:  "TypeSig Returns!"
 date:   2024-09-25 12:00:00 +0100
 image: assets/images/post-headers/typesig-sticker-laptop.jpg
-categories: announcements
+tags: announcements
 featured: false
 ---
 TypeSig is officially one year old!

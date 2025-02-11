@@ -4,7 +4,7 @@ title:  "Weekly Lean Hacking with MathsSoc"
 author: jacob
 date:   2023-09-28 13:24:11 +0100
 image: assets/images/lean-hacking/IMG_3701.JPG
-categories: lean events
+tags: lean events
 featured: false
 ---
 We've collaborated with MathsSoc to bring you our first regular event: weekly hacking with the Lean4 theorem prover!
