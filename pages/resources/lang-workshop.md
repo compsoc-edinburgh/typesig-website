@@ -20,6 +20,7 @@ In this case, we recommend that you use a language that you have the most experi
 - [Step 2: Parsing and Printing](lang-workshop/step2)
 - [Step 3: Eval](lang-workshop/step3)
 - [Step 4: Environments](lang-workshop/step4)
+- [Step 5: Lambdas](lang-workshop/step5)
 - More to come in the next few weeks!
 
 [discord]: {{site.social.discord}}

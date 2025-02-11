@@ -3,9 +3,6 @@ layout: page
 title: "Step 5: Lambda | Language Workshop"
 permalink: "/resources/lang-workshop/step5"
 ---
-# THIS PAGE IS A WORK IN PROGRESS
-
-The theory section isn't yet complete, and not all of the tasks have been added. If you're done with all of the extra tasks from the previous steps, and you're comfortable with a harder challenge, feel free to attempt the tasks here. If not, please be patient - we're working as hard as we can to get this finished!
 
 Complexity: Long
 
