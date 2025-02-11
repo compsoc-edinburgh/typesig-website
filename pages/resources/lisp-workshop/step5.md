@@ -117,7 +117,7 @@ Here, `x` is a symbol that corresponds to the name bound by the lambda, and `b` 
 The extra brackets around `x` aren't strictly necessary, but they'll simplify your parsing rules if you allow lambdas to take multiple arguments.
 
 We'll also introduce a new value type to represent the result of evaluating a lambda by itself.
-It will consist simply of a symbol paired with an expression.
+It will consist simply of a symbol paired with an expression, and for clarity, we'll denote it as `lambda x. b`.
 
 Now, how should we interpret a lambda expression?
 
@@ -155,39 +155,59 @@ We'll denote them using curly brackets: `{v, env}` represents the value `v` pair
 
 Take, for example, the expression `(lambda (x) (+ x 1))`.
 At the top level, it consists of a single, unapplied lambda expression.
-Evaluating this expression in the environment `env` would produce the closure `{lambda (x) (+ x 1), env}`.
-As a more concrete example, in the program from above, `add1` would be represented as `{lambda (y) (+ x y), [x -> 1]}`.
+Evaluating this expression in the environment `env` would produce the closure `{lambda x. (+ x 1), env}`.
+As a more concrete example, in the program from above, `add1` would be represented as `{lambda y. (+ x y), [x -> 1]}`.
 
 Now, we'll update our logic for applications to use closures instead of function values directly.
 
-Take the closure `{lambda (x) (+ x 1), env}` from earlier.
+Take the closure `{lambda x. (+ x 1), env}` from earlier.
 If we're applying this closure to the value `41`, then we'd extend `env` with `x -> 41`, and evaluate `(+ x 1)` in this new environment.
-
-<!--></!-->
 
 ## Recursion
 
 We have anonymous functions now, and we can use `define` to give them names.
-But it's not obvious how to write recursive functions with this!
+But we can't use this to do recursion yet!
 
-This is because `define` can't add `n -> e` to our context without knowing what `e` evaluates to.
-But if `e` references `n`, then `e` can't be evaluated without knowing what `n` refers to!
+Recall that our environment maps symbols to *values*.
+That means, in order to add `n -> e` to our context, where `e` is an expression, we need to know what `e` evaluates to.
+But if `e` references `n`, then `e` can't be evaluated without knowing what `n` refers to.
+We have an infinite loop!
 
-To avoid this cycle, we need to add a new language feature, `rec` (sometimes known as `letrec`).
-`rec` works much like `lambda`, except it takes an extra name parameter: `(rec f (x) (+ x 1))`.
+To avoid this cycle, we need to add a new language feature to represent recursive functions, separately from lambdas.
+We'll call it `rec` (other texts may call it `letrec`).
+The idea is that we'll give our anonymous function a name, and add that name to the environment as well as the argument when evaluating the body.≈
 
-It evaluates to a closure much like `lambda`, except when applying the closure to a value `v`, we extend the closure's environment with `f -> rec f (x) (+ x 1), x -> v`.
+Syntactically, `rec` looks a lot like `lambda`, except it takes an extra name parameter `f`: `(rec f (x) (+ x 1))`. As with lambdas, we'll need a new value type for rec, which we'll denote as `rec f x. b`.
+
+A `rec` expression evaluates to a closure much like `lambda`, except when applying the closure to a value `v`, we extend the closure's environment with both `f -> rec f x. (+ x 1)` and `x -> v`.
+
+For example, evaluating `(rec f (x) (+ x 1))` in the environment `env` results in the closure `{rec f x. (+ x 1), env}`. Applying this closure value to the literal value `41`
+
+```scheme
+((rec f (x) (+ x 1)) 41)
+--> ({rec f x. (+ x 1), env} 41)
+--> (+ x 1)  [f -> rec f x. (+ x 1), x -> 41]
+--> 42
+```
+
+We haven't actually used `f` in this definition, since we haven't defined any control flow operators like `if`.
+As a result, it's difficult to write anything that isn't an infinite loop with this.
+
+If you haven't done so already, we recommend doing some of the extra challenges from step 3 at this point; if you've already implemented lambdas, you should find them straightforward by this point, and while the extra operations technically don't add any computational power to the language, they certainly make things easier to write!
 
 ### Aside on the Y Combinator
 
+Earlier, we stated that lambdas on their own can't be used to implement recursion.
+This was a lie.
 The Y combinator allows general recursion, and can be defined purely in terms of lambda expressions.
-So, arguably, we don't need to add extra language features to support recursion.
 
 However, we can't use *direct* recursion with the Y combinator, since the name of our function isn't in scope.
 Instead, any time we want to write a recursive function, we need to make it take an extra "self" parameter, which it calls whenever it would normally call itself.
 The Y combinator, when applied to a function, passes the function to itself as the "self" parameter.
 
 It works, but it's annoying to write, and pretty much every common language defines language features to enable direct style recursion.
+For this reason, we decided to add `rec` as a language primitive.
+If you want, you can skip it in your implementation, but it's your funeral.
 
 ## Task
 
