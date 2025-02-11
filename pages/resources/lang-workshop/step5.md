@@ -70,7 +70,7 @@ So how can we represent function abstraction within our language?
 Well, as mentioned above, functions are a language feature, which means we'll need to add new primitives and eval rules.
 
 There are many different ways to represent functions, but one method that is common amongst functional languages is to base your system on the lambda calculus.
-Lambda calculus was described in 1936 by Alonzo Church, and was shown to be a universal model of computation by the Church-Turing thesis.
+The lambda calculus was described in 1936 by Alonzo Church, and was shown to be a universal model of computation by the Church-Turing thesis.
 In short, the Church-Turing thesis says that any function that can be computed by a Turing machine can be computed via the lambda calculus, and vice versa.
 
 You can find a detailed explanation of the lambda calculus in several of the courses taught in Edinburgh, namely Introduction to Theoretical Computer Science, and Types and Semantics of Programming Languages.
@@ -160,7 +160,7 @@ Let's say we have the following program:
 (add1 41)
 ```
 
-We need to keep track of the assignment $x -> 1$ when we define `add1`.
+We need to keep track of the assignment `x -> 1` when we define `add1`.
 Otherwise, we'd return `(lambda (y) (+ x y))`, without having a binding for `x`; when we later try to look up `x`, we'll have to throw an error!
 
 We can solve this problem by introducing *closures*.
@@ -197,7 +197,8 @@ A `rec` expression evaluates to a closure much like `lambda`, except when applyi
 
 For example, evaluating `(rec f (x) (+ x 1))` in the environment `env` results in the closure `{rec f x. (+ x 1), env}`. Applying this closure value to the literal value `41`
 
-```scheme
+<!-->  clojure avoids syntax errors with {/}  </!-->
+```clojure
 ((rec f (x) (+ x 1)) 41)
 --> ({rec f x. (+ x 1), env} 41)
 --> (+ x 1)  [f -> rec f x. (+ x 1), x -> 41]
@@ -207,13 +208,13 @@ For example, evaluating `(rec f (x) (+ x 1))` in the environment `env` results i
 We haven't actually used `f` in this definition, since we haven't defined any control flow operators like `if`.
 As a result, it's difficult to write anything that isn't an infinite loop with this.
 
-If you haven't done so already, we recommend doing some of the extra challenges from step 3 at this point; if you've already implemented lambdas, you should find them straightforward by this point, and while the extra operations technically don't add any computational power to the language, they certainly make things easier to write!
+If you haven't done so already, we recommend doing some of the extra challenges from [Step 3](./step3) at this point; if you've already implemented lambdas, you should find them straightforward by this point, and while the extra operations technically don't add any computational power to the language, they certainly make things easier to write!
 
 ### Aside on the Y Combinator
 
 Earlier, we stated that lambdas on their own can't be used to implement recursion.
 This was a lie.
-The Y combinator allows general recursion, and can be defined purely in terms of lambda expressions.
+The [Y combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator) allows general recursion, and can be defined purely in terms of lambda expressions.
 
 However, we can't use *direct* recursion with the Y combinator, since the name of our function isn't in scope.
 Instead, any time we want to write a recursive function, we need to make it take an extra "self" parameter, which it calls whenever it would normally call itself.
@@ -270,7 +271,7 @@ which should be equivalent to:
 (define func (lambda (arg) body))
 ```
 
-This form should allow defining recursive functions.
+This form should allow defining recursive functions. (Hint: use `rec`!)
 
 When determining whether to use this `define` form or the one introduced in the previous step, you can either check the number of elements in a `define` expression to determine which form to use, or you couuld just offer the new form under a different name (`defun` is quite common).
 Both are perfectly sensible ways to implement this; think about which one you'd prefer to use when writing a program!
