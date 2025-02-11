@@ -66,6 +66,11 @@ authors:
     avatar: 'assets/images/authors/jacob.jpg'
     web: https://jacobwalte.rs
     description: "World's biggest bike-shedding fan"
+  
+  amy:
+    name: Amy Yin
+    display_name: Amy Yin
+    avatar: 'assets/images/authors/amy.png'
 
 social:
   discord: https://discord.gg/dnXzHRkJww
