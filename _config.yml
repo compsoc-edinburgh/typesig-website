@@ -30,11 +30,12 @@ highlighter: rouge
 markdown: kramdown
 kramdown:
   syntax_highlighter: rouge
+  input: GFM
 #theme: minima
 remote_theme: wowthemesnet/affiliates-jekyll-theme
 sass:
   sass_dir: _sass
-  style: :compressed
+  style: compressed
 plugins:
   - jekyll-feed
   - jekyll-paginate
@@ -58,19 +59,18 @@ paginate: 30
 feed_items: 10
 feed_update_period: daily
 
-
 authors:
   jacob:
     name: Jacob Walters
     display_name: Jacob Walters
-    avatar: 'assets/images/authors/jacob.jpg'
+    avatar: "assets/images/authors/jacob.jpg"
     web: https://jacobwalte.rs
     description: "World's biggest bike-shedding fan"
-  
+
   amy:
     name: Amy Yin
     display_name: Amy Yin
-    avatar: 'assets/images/authors/amy.png'
+    avatar: "assets/images/authors/amy.png"
 
 social:
   discord: https://discord.gg/dnXzHRkJww
