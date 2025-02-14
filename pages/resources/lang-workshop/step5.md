@@ -183,7 +183,7 @@ We have anonymous functions now, and we can use `define` to give them names.
 But we can't use this to do recursion yet!
 
 Recall that our environment maps symbols to *values*.
-That means, in order to add `n -> e` to our context, where `e` is an expression, we need to know what `e` evaluates to.
+That means, in order to add `n -> e` to our environment, where `e` is an expression, we need to know what `e` evaluates to.
 But if `e` references `n`, then `e` can't be evaluated without knowing what `n` refers to.
 We have an infinite loop!
 
@@ -241,7 +241,7 @@ When evaluating a closure `{lambda (arg) b, env}` applied to a value `v`, add `a
 ```
 
 Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-Expression containing a symbol `arg`, and an expression `body`.
-`rec` works similarly to lambda, but also adds `name -> rec name arg body` to the context when evaluating `body`.
+`rec` works similarly to lambda, but also adds `name -> rec name arg body` to the environment when evaluating `body`.
 
 ```scheme
 ((rec fac (n) (if (= 0 n) 1 (* n (fac (- n 1))))) 3)
