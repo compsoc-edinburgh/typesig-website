@@ -189,7 +189,7 @@ We have an infinite loop!
 
 To avoid this cycle, we need to add a new language feature to represent recursive functions, separately from lambdas.
 We'll call it `rec` (other texts may call it `letrec`).
-The idea is that we'll give our anonymous function a name, and add that name to the environment as well as the argument when evaluating the body.≈
+The idea is that we'll give our anonymous function a name, and add that name to the environment as well as the argument when evaluating the body.
 
 Syntactically, `rec` looks a lot like `lambda`, except it takes an extra name parameter `f`: `(rec f (x) (+ x 1))`. As with lambdas, we'll need a new value type for rec, which we'll denote as `rec f x. b`.
 
@@ -235,9 +235,9 @@ When evaluating a closure `{lambda (arg) b, env}` applied to a value `v`, add `a
 
 ```scheme
 ((lambda (x) (+ x 1)) 41)
---> (+ x 1)  [add x -> 42 to env]
+--> (+ x 1)  [add x -> 41 to env]
 --> (+ 41 1)
---> 42  [drop x -> 42 from env]
+--> 42  [drop x -> 41 from env]
 ```
 
 Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-Expression containing a symbol `arg`, and an expression `body`.

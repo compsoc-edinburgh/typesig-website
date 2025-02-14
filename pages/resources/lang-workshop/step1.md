@@ -79,7 +79,7 @@ These are some extra challenges you can attempt to build your understanding furt
 
 - Implement some commands that toggle useful features in the REPL. For example, the user could enter `:timing` as a command to have the REPL show how long each input took to run (currently, this example won't do much, but once the evaluator is implemented, it becomes very handy!).
 
-Another example is `:help`, which should print a list of all commands the user can input (including the `quit`/`exit` commands from the earlier challenge). You could even add a command that lets the user customise the text and colour of the prompt.
+  Another example is `:help`, which should print a list of all commands the user can input (including the `quit`/`exit` commands from the earlier challenge). You could even add a command that lets the user customise the text and colour of the prompt.
 
 - Add history to your REPL. The user should be able to press the up and down arrow keys to navigate through the previous inputs they gave. Up should go backwards through the history, and down should go forwards. Also, the user should be able to press Control-R to search through the history.
 
