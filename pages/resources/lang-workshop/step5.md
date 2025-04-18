@@ -87,14 +87,14 @@ t ::= x       Variables
       t₁ t₂   Function Application
 ```
 
-And we have one important reduction rule, called beta:
+And we have one reduction rule, called beta:
 
 ```
 (λx. b) a   ⊢β→   b [x := a]
 ```
 
 The `b [x := a]` means "substitute `a` for `x` in the term `b`".
-Substitution is notoriously quite conplicated to define, but the gist is that you replace all occurences of the variable name `x` in the term `b` with the term `a`.
+Substitution is notoriously quite complicated to define, but the gist is that you replace all occurences of the variable name `x` in the term `b` with the term `a`.
 This process is what we described above!
 That's a fairly good hint that this method of function abstraction suits our purposes.
 
@@ -292,6 +292,8 @@ These are some extra challenges you can attempt to build your understanding furt
   MLTS> ((lambda (x y z) (+ x (+ y z))) 1 2 3)
   6
   ```
+
+  You may want to implement this using *spines*. A spine is a pair of a function, and a list of arguments.
 
 - Add support for `let` expressions. `let` is convenient syntactic sugar for temporarily binding an expression to a name. In Lisp-like syntax, `let` expressions look as follows:
 
