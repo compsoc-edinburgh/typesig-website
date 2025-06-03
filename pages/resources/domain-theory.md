@@ -4,7 +4,7 @@ title: Domain Theory 2024
 permalink: "/resources/domain-theory"
 ---
 
-These are resources from a lecture series run by Professor [Liam O'Connor](https://liamoc.net) in Spring 2024.
+These are resources from a lecture series run by Professor [Liam O'Connor](https://liamoc.net) in Spring 2024. An updated version of these notes can be found on [his website](https://liamoc.net/forest/dt-001Y/index.xml).
 
 ### Content
 
