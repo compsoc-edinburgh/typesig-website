@@ -28,6 +28,10 @@ We'll capture this difference formally via a *type system*.
 - introduce function types (rec and lambda)
 - checking and inference
 
+I'm just testing website stuff here.
+
+{% include question.html header="Types" text="Why are we adding types?" solution="Because they're pretty cool." %}
+
 ## Task
 
 Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
