@@ -2,7 +2,7 @@
 {% assign author = site.authors[post.author] %}
 <div class="card border">
     <a href="{{ post.url | absolute_url }}">
-        {% if post.image %} <img class="rounded mb-2" src="{{ site.baseurl }}/{{ post.image }}" alt="{{ post.title }}"> {% endif %}
+        {% if post.image %} <img class="rounded-top mb-2" src="{{ site.baseurl }}/{{ post.image }}" alt="{{ post.title }}"> {% endif %}
     </a>
     <div class="card-block m-2">
         <h2 class="card-title h4"><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h2>
