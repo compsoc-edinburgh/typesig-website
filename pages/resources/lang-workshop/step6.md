@@ -37,8 +37,14 @@ I'm just testing website stuff here.
   header="Example Title"
   text="Which of the following are fruits?"
   options="Apple:Correct answer.;Carrot:Incorrect, it is a vegetable.;Banana:Correct answer.;Broccoli:Incorrect, it is a vegetable."
-  correct_answers="Apple,Banana" %}
-
+  correct_answers="Apple,Banana"
+%}
+  
+{% include mcq.html
+  header="No Correct Answers Specified"
+  text="Which of the following are fruits?"
+  options="Apple:Correct answer.;Carrot:Incorrect, it is a vegetable.;Banana:Correct answer.;Broccoli:Incorrect, it is a vegetable."
+%}
 ## Task
 
 Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
