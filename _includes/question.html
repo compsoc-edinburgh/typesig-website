@@ -13,8 +13,8 @@
     - "solution" = displayed in the collapse
 
 {%- endcomment -%}
-<div class="card my-4">
-    {% if include.header %}<div class="h4 card-header">{{ include.header }}</div>{% endif %}
+<div class="card border">
+    {% if include.header %}<div class="card-header h4 mt-0">{{ include.header }}</div>{% endif %}
     <div class="card-body">
         <div class="card-text">
             {{ include.text | markdownify }}
