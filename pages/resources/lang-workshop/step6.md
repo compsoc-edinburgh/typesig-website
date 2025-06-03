@@ -33,6 +33,12 @@ I'm just testing website stuff here.
 {% include question.html header="Types" text="Why are we adding types?" solution="Because they're pretty cool." %}
 {% include question.html header="Question 2" text="Why are we adding types again?" solution="I said, because they're pretty cool." %}
 
+{% include mcq.html
+  header="Example Title"
+  text="Which of the following are fruits?"
+  options="Apple:Correct answer.,Carrot:Incorrect, it is a vegetable.,Banana:Correct answer.,Broccoli:Incorrect, it is a vegetable."
+  correct_answers="Apple,Banana" %}
+
 ## Task
 
 Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
