@@ -21,7 +21,7 @@
         </div>
         {% if include.solution %}
         <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ include.header | default: 'Solution' | slugify }}" aria-expanded="false" aria-controls="collapseExample">
-            View Solution {% include icon.html icon="chevron-down" %}
+            View Solution
         </button>
         <div class="collapse" id="collapse{{ include.header | default: 'Solution' | slugify }}">
           <div class="card card-body">
