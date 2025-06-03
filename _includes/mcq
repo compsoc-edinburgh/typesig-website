@@ -1,0 +1,46 @@
+{% comment %}
+
+    Multiple Choice Question feature with multiple correct answers and explanations.
+    This include creates a card containing a question text with multiple answer options, each with an explanation, and the correct answers are hidden until the user clicks the "view answer" button.
+
+    e.g. --> {% include mcq.html header="Example Title" text="Which of the following are fruits?" options="Apple:Correct answer.,Carrot:Incorrect, it is a vegetable.,Banana:Correct answer.,Broccoli:Incorrect, it is a vegetable." correct_answers="Apple,Banana" %}
+    
+    Options:
+    - "header" = card header text (in bar above card content)
+    - "text" = main card text, can use markdown formatting. Use a Liquid capture to add more complex content.
+    - "options" = semicolon-separated list of answer options with explanations (format: "Option:Explanation")
+    - "correct_answers" = comma-separated list of correct answers
+
+{%- endcomment -%}
+<div class="card border">
+    {% if include.header %}<div class="card-header h4 mt-0">{{ include.header }}</div>{% endif %}
+    <div class="card-body">
+        <div class="card-text">
+            {{ include.text | markdownify }}
+        </div>
+        <ul class="list-group my-3">
+            {% assign options = include.options | split: ';' %}
+            {% for option in options %}
+                {% assign parts = option | split: ':' %}
+                <li class="list-group-item">
+                    {{ parts[0] }} 
+                    <button class="btn btn-info btn-sm float-end" type="button" data-bs-toggle="collapse" data-bs-target="#explanation{{ forloop.index }}" aria-expanded="false" aria-controls="explanation{{ forloop.index }}">
+                        Explanation
+                    </button>
+                    <div class="collapse" id="explanation{{ forloop.index }}">
+                        <div class="mt-2">{{ parts[1] }}</div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if include.correct_answers %}
+        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ include.header | default: 'Answer' | slugify }}" aria-expanded="false" aria-controls="collapseExample">
+            View Correct Answers
+        </button>
+        <div class="collapse" id="collapse{{ include.header | default: 'Answer' | slugify }}">
+          <div class="card card-body">
+            Correct Answers: {{ include.correct_answers }}
+          </div>
+        </div>{% endif %}
+    </div>
+</div>
