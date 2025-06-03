@@ -22,12 +22,13 @@
             {% assign options = include.options | split: ';' %}
             {% for option in options %}
                 {% assign parts = option | split: ':' %}
+                {% assign slugified_option = parts[0] | slugify %}
                 <li class="list-group-item">
                     {{ parts[0] }} 
-                    <button class="btn btn-info btn-sm float-right" type="button" data-bs-toggle="collapse" data-bs-target="#explanation{{ forloop.index }}" aria-expanded="false" aria-controls="explanation{{ forloop.index }}">
+                    <button class="btn btn-info btn-sm float-right" type="button" data-bs-toggle="collapse" data-bs-target="#explanation{{ slugified_option }}" aria-expanded="false" aria-controls="explanation{{ forloop.index }}">
                         Explanation
                     </button>
-                    <div class="collapse" id="explanation{{ forloop.index }}">
+                    <div class="collapse" id="explanation{{ slugified_option }}">
                         <div class="mt-2">{{ parts[1] }}</div>
                     </div>
                 </li>
