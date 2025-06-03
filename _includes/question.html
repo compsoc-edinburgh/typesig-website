@@ -23,10 +23,8 @@
         <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ include.header | default: 'Solution' | slugify }}" aria-expanded="false" aria-controls="collapseExample">
             View Solution
         </button>
-        <div class="collapse" id="collapse{{ include.header | default: 'Solution' | slugify }}">
-          <div class="card card-body">
+        <div class="collapse pt-3" id="collapse{{ include.header | default: 'Solution' | slugify }}">
             {{ include.solution | markdownify }}
-          </div>
         </div>{% endif %}
     </div>
 </div>
