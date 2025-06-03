@@ -36,7 +36,7 @@ I'm just testing website stuff here.
 {% include mcq.html
   header="Example Title"
   text="Which of the following are fruits?"
-  options="Apple:Correct answer.,Carrot:Incorrect, it is a vegetable.,Banana:Correct answer.,Broccoli:Incorrect, it is a vegetable."
+  options="Apple:Correct answer.;Carrot:Incorrect, it is a vegetable.;Banana:Correct answer.;Broccoli:Incorrect, it is a vegetable."
   correct_answers="Apple,Banana" %}
 
 ## Task
