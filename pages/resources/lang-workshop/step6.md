@@ -31,6 +31,7 @@ We'll capture this difference formally via a *type system*.
 I'm just testing website stuff here.
 
 {% include question.html header="Types" text="Why are we adding types?" solution="Because they're pretty cool." %}
+{% include question.html header="Question 2" text="Why are we adding types again?" solution="I said, because they're pretty cool." %}
 
 ## Task
 
