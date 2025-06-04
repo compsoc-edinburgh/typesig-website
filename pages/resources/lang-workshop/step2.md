@@ -5,10 +5,11 @@ permalink: "/resources/lang-workshop/step2"
 ---
 Complexity: Long
 
+## Table of Contents
+{:.no_toc}
+
 * toc dummy
 {:toc}
-
-[Jump to task](#task)
 
 In the last step, we wrote a program that could read a line of input as a string, and print that string out to the console.
 While it's a good starting ground, it doesn't do anything particularly interesting.
@@ -225,7 +226,7 @@ You should write make this function return a string, rather than immediately pri
 
 We've implemented a parser, and a pretty printer. It's time to update our REPL function from step 1! We should pass the user's input into the parser, and pass the resultant AST into the pretty printer, and print the output to the console.
 
-## Task
+## **Task**
 
 Implement a data structure for an AST.
 If you're using a functional-style language, you may want to use an algebraic data type to do this; if you're in an OOP-style language, you may want to use classes instead.
