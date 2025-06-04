@@ -23,8 +23,13 @@ Programming languages also adhere to a grammar.
 Here, a grammar says how we're allowed to combine expressions to build larger expressions.
 For example, `1 + 2` is composed of the literal expression `1`, the operator `+`, and the literal expression `2`.
 
-It's important to note that we don't give any semantic meaning to these expressions yet.
-This means that `1 + 2` does *not* equal `2 + 1`; the two expressions are composed in different ways.
+{% include infobox.html
+  text="
+  It's important to note that we don't give any semantic meaning to these expressions yet.
+  This means that `1 + 2` does *not* equal `2 + 1`; the two expressions are composed in different ways.
+  "
+  color="info" align="center"
+%}
 
 Natural languages tend to be *ambiguous*, meaning that there are sentences that cannot be parsed into exactly one parse tree.
 To illustrate this, try and figure out how many ways you can parse the English expression "Superfluous hair remover".
