@@ -5,6 +5,7 @@ permalink: "/resources/lang-workshop/step2"
 ---
 Complexity: Long
 
+* toc dummy
 {:toc}
 
 [Jump to task](#task)
