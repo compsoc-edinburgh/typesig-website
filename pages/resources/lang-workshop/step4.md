@@ -2,6 +2,7 @@
 layout: page
 title: "Step 4: Enviroments | Language Workshop"
 permalink: "/resources/lang-workshop/step4"
+toc: true
 ---
 
 Complexity: Short

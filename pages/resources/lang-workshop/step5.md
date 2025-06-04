@@ -2,6 +2,7 @@
 layout: page
 title: "Step 5: Lambda | Language Workshop"
 permalink: "/resources/lang-workshop/step5"
+toc: true
 ---
 
 Complexity: Long

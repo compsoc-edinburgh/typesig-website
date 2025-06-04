@@ -2,6 +2,7 @@
 layout: page
 title: "Step 1: The Beginning | Language Workshop"
 permalink: "/resources/lang-workshop/step1"
+toc: true
 ---
 Complexity: Short
 

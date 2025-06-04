@@ -2,6 +2,7 @@
 layout: page
 title: "Step 3: Eval | Language Workshop"
 permalink: "/resources/lang-workshop/step3"
+toc: true
 ---
 
 Complexity: Medium
