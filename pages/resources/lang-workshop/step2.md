@@ -2,9 +2,10 @@
 layout: page
 title: "Step 2: Parsing and Printing | Language Workshop"
 permalink: "/resources/lang-workshop/step2"
-toc: true
 ---
 Complexity: Long
+
+{:toc}
 
 [Jump to task](#task)
 
