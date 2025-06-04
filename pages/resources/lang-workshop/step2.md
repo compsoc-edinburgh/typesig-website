@@ -66,6 +66,12 @@ Here's an example of some code written in this style:
 (define factorial (n) (if (= 0 n) 1 (* n (factorial (- n 1)))))
 ```
 
+{% include mcq.html
+  header="Exercise 1"
+  text="Which of the following are valid S-Expressions?"
+  options="`(factorial 6)`:This is a valid S-Expression.;`factorial 6`:This is not a valid S-Expression. If you want to join multiple atoms into one expression, they must be in brackets.;`(factorial)`:This is a valid S-Expression syntactically. It may not be a semantically valid program, but that doesn't affect its syntactic validity.;`factorial`:This is a valid S-Expression, consisting of the single atom `factorial`."
+%}
+
 You don't need to fully understand what the semantics of these mean yet! We'll build up to that knowledge over the next few steps.
 The syntax may look quite strange if you're used to popular languages like Python or JavaScript, but it's still expressive enough to represent any program.
 
