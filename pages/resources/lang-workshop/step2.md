@@ -34,8 +34,14 @@ For example, `1 + 2` is composed of the literal expression `1`, the operator `+`
 %}
 
 Natural languages tend to be *ambiguous*, meaning that there are sentences that cannot be parsed into exactly one parse tree.
-To illustrate this, try and figure out how many ways you can parse the English expression "Superfluous hair remover".
 For natural languages, this is a useful property, as it enables things like puns and poetry.
+
+{% include infobox.html
+  text="
+  To illustrate this, try and figure out how many ways you can parse the English expressions "Superfluous hair remover" and "Programming language implementations".
+  "
+  color="success" align="center"
+%}
 
 For programming languages, however, it's less useful.
 When we're talking to a computer, we want to be as exact about what we mean as possible!
