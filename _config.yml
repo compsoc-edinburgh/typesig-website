@@ -32,7 +32,7 @@ kramdown:
   syntax_highlighter: rouge
   input: GFM
 #theme: minima
-remote_theme: wowthemesnet/affiliates-jekyll-theme
+#remote_theme: wowthemesnet/affiliates-jekyll-theme
 sass:
   sass_dir: _sass
   style: compressed
