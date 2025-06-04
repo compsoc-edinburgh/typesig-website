@@ -52,7 +52,7 @@ For example, the following lines of code are semantically valid under this defin
 (+ 1 2)
 (lambda x (+ x 1))
 (foo)
-((id +) 1 2)    
+((id +) 1 2)
 ```
 
 But the following are meaningless:

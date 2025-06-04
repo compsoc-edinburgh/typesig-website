@@ -315,7 +315,7 @@ These are some extra challenges you can attempt to build your understanding furt
   ```
 
   In a Haskell-like syntax, you might write that as:
-  
+
   ```haskell
   let x = 1 in
     let y = 2 in

@@ -253,9 +253,9 @@ If you've spent some time trying to come up with a design for your parser, but a
     input = input.replace("(", " ( ")
     input = input.replace(")", " ) ")
 
-    return input.split(" ")    
+    return input.split(" ")
   ```
-  
+
 </details>
 
 <details markdown="1">
@@ -339,7 +339,7 @@ These are some extra challenges you can attempt to build your understanding furt
 - Treat square brackets (`[`/`]`) the same as normal brackets/parentheses, so the user can switch between them for clarity.
 
 - Add the REPL commands `:lex` and `:parse`, which takes an expression and prints the output of the lexer and parser respectively when run on that expression. For example:
-  
+
   ```console
   MLTS> :lex (+ 1 (* 2 foo))
   ["+", "1", "(", "*", "2", "foo", ")"]
