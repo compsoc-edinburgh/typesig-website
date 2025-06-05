@@ -84,14 +84,16 @@ The syntax for terms is as follows:
 
 ```ebnf
 t ::= x       Variables
-      λx. t   Lambda Abstraction
+      λx.
+t   Lambda Abstraction
       t₁ t₂   Function Application
 ```
 
 And we have one reduction rule, called beta:
 
 ```
-(λx. b) a   ⊢β→   b [x := a]
+(λx.
+b) a   ⊢β→   b [x := a]
 ```
 
 The `b [x := a]` means "substitute `a` for `x` in the term `b`".
@@ -132,7 +134,8 @@ For intuition, this construction is the same as a function that takes two argume
 The expression `(lambda (x) (lambda (x) (+ x 1)))` takes an argument `x`, and returns a lambda which takes an argument `x` (shadowing the previous binding), and adds 1 to this inner argument `x`.
 
 We'll also introduce a new value type to represent the result of evaluating a lambda by itself.
-It will consist simply of a symbol paired with an expression, and for clarity, we'll denote it as `lambda x. b`.
+It will consist simply of a symbol paired with an expression, and for clarity, we'll denote it as `lambda x.
+b`.
 
 Now, how should we interpret a lambda expression?
 
@@ -170,12 +173,15 @@ We'll denote them using curly brackets: `{v, env}` represents the value `v` pair
 
 Take, for example, the expression `(lambda (x) (+ x 1))`.
 At the top level, it consists of a single, unapplied lambda expression.
-Evaluating this expression in the environment `env` would produce the closure `{lambda x. (+ x 1), env}`.
-As a more concrete example, in the program from above, `add1` would be represented as `{lambda y. (+ x y), [x -> 1]}`.
+Evaluating this expression in the environment `env` would produce the closure `{lambda x.
+(+ x 1), env}`.
+As a more concrete example, in the program from above, `add1` would be represented as `{lambda y.
+(+ x y), [x -> 1]}`.
 
 Now, we'll update our logic for applications to use closures instead of function values directly.
 
-Take the closure `{lambda x. (+ x 1), env}` from earlier.
+Take the closure `{lambda x.
+(+ x 1), env}` from earlier.
 If we're applying this closure to the value `41`, then we'd extend `env` with `x -> 41`, and evaluate `(+ x 1)` in this new environment.
 
 ## Recursion
@@ -192,17 +198,24 @@ To avoid this cycle, we need to add a new language feature to represent recursiv
 We'll call it `rec` (other texts may call it `letrec`).
 The idea is that we'll give our anonymous function a name, and add that name to the environment as well as the argument when evaluating the body.
 
-Syntactically, `rec` looks a lot like `lambda`, except it takes an extra name parameter `f`: `(rec f (x) (+ x 1))`. As with lambdas, we'll need a new value type for rec, which we'll denote as `rec f x. b`.
+Syntactically, `rec` looks a lot like `lambda`, except it takes an extra name parameter `f`: `(rec f (x) (+ x 1))`.
+As with lambdas, we'll need a new value type for rec, which we'll denote as `rec f x.
+b`.
 
-A `rec` expression evaluates to a closure much like `lambda`, except when applying the closure to a value `v`, we extend the closure's environment with both `f -> rec f x. (+ x 1)` and `x -> v`.
+A `rec` expression evaluates to a closure much like `lambda`, except when applying the closure to a value `v`, we extend the closure's environment with both `f -> rec f x.
+(+ x 1)` and `x -> v`.
 
-For example, evaluating `(rec f (x) (+ x 1))` in the environment `env` results in the closure `{rec f x. (+ x 1), env}`. Applying this closure value to the literal value `41`
+For example, evaluating `(rec f (x) (+ x 1))` in the environment `env` results in the closure `{rec f x.
+(+ x 1), env}`.
+Applying this closure value to the literal value `41`
 
 <!-->  clojure avoids syntax errors with {/}  </!-->
 ```clojure
 ((rec f (x) (+ x 1)) 41)
---> ({rec f x. (+ x 1), env} 41)
---> (+ x 1)  [f -> rec f x. (+ x 1), x -> 41]
+--> ({rec f x.
+(+ x 1), env} 41)
+--> (+ x 1)  [f -> rec f x.
+(+ x 1), x -> 41]
 --> 42
 ```
 
@@ -227,7 +240,8 @@ If you want, you can skip it in your implementation, but it's your funeral.
 
 ## Task
 
-Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
+Add a keyword to your interpreter, called `lambda`.
+It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
 
 Add value types for lambdas and closures.
 
@@ -257,8 +271,10 @@ Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-E
 ```
 
 Be sure to watch out for cases like `(lambda (x) (lambda (x) (+ x 1)))`!
-Make sure the inner `x` takes precedence over the outer `x`. As an example, `(((lambda (x) (lambda (x) (+ x 1))) 1) 2)` should evaluate to `3`, not `2`.
-Not convinced? Step through this problem on pen and paper by substituting the arguments one by one.
+Make sure the inner `x` takes precedence over the outer `x`.
+As an example, `(((lambda (x) (lambda (x) (+ x 1))) 1) 2)` should evaluate to `3`, not `2`.
+Not convinced?
+Step through this problem on pen and paper by substituting the arguments one by one.
 
 You should also extend your `define` function to accept the following form:
 
@@ -272,16 +288,21 @@ which should be equivalent to:
 (define func (lambda (arg) body))
 ```
 
-This form should allow defining recursive functions. (Hint: use `rec`!)
+This form should allow defining recursive functions.
+(Hint: use `rec`!)
 
 When determining whether to use this `define` form or the one introduced in the previous step, you can either check the number of elements in a `define` expression to determine which form to use, or you couuld just offer the new form under a different name (`defun` is quite common).
 Both are perfectly sensible ways to implement this; think about which one you'd prefer to use when writing a program!
 
-Once this is done, you'll have implemented a fully Turing complete programming language! Congratulations!
+Once this is done, you'll have implemented a fully Turing complete programming language!
+Congratulations!
 
 ## Extra Challenges
 
-These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
+These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete.
+None of them are required for a fully-functional interpreter.
+They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later.
+Depending on your language choice, they might be easier or harder than anticipated!
 
 - Allow `lambda`s, `rec`s, and `define`s to take (and be applied to) more than one argument.
 
@@ -294,16 +315,19 @@ These are some extra challenges you can attempt to build your understanding furt
   6
   ```
 
-  You may want to implement this using *spines*. A spine is a pair of a function, and a list of arguments.
+  You may want to implement this using *spines*.
+  A spine is a pair of a function, and a list of arguments.
 
-- Add support for `let` expressions. `let` is convenient syntactic sugar for temporarily binding an expression to a name. In Lisp-like syntax, `let` expressions look as follows:
+- Add support for `let` expressions.
+  `let` is convenient syntactic sugar for temporarily binding an expression to a name.
+  In Lisp-like syntax, `let` expressions look as follows:
 
   ```scheme
   (let ((x 1))
     (+ x 2))
   ```
 
-  This expression should return `3.
+  This expression should return `3`.
   It is equivalent to the Haskell code `let x = 1 in x + 2`.
 
   `let` expressions may give definitions to multiple symbols.
@@ -333,8 +357,11 @@ These are some extra challenges you can attempt to build your understanding furt
 
   To evaluate a `let` expression, you extend the current environment with `s1 -> eval(e1), ..., sn -> eval(en)`, and evaluate `body` in this new environment.
 
-- Add support for mutually-recursive functions. You will need to implement another language construct like `rec` which defines (at least) two functions at once, and extends the closure environment with `(f1 -> lambda args b1), ..., (fn -> lambda args bn)`.
+- Add support for mutually-recursive functions.
+  You will need to implement another language construct like `rec` which defines (at least) two functions at once, and extends the closure environment with `(f1 -> lambda args b1), ..., (fn -> lambda args bn)`.
 
   Test this by implementing a recursive function that computes the nth Fibonacci number.
 
-- Write a self-hosting interpreter. This means re-implementing *everything* you've done so far as a program in your language. You may want to add some extra primitive datatypes to help you.
+- Write a self-hosting interpreter.
+  This means re-implementing *everything* you've done so far as a program in your language.
+  You may want to add some extra primitive datatypes to help you.

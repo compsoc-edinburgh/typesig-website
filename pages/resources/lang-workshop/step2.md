@@ -193,7 +193,8 @@ But, the task of parsing is usually simpler if we first convert our input string
 This process is called *lexing*, and a program that does lexing is called a *lexer*.
 Luckily for us, lexing is straightforward for most grammars, and for S-Expressions in particular, there's a neat hack that does almost the whole thing for us!
 
-Remember how most things in our syntax were whitespace separated? The only real exception to this is the brackets delimiting an S-Expression.
+Remember how most things in our syntax were whitespace separated?
+The only real exception to this is the brackets delimiting an S-Expression.
 Here's the hack: we can just loop through our input, and wherever we find a bracket, we can surround it with whitespace.
 For example:
 `(+ 1 (exp 2 3))` becomes `` ( + 1  ( exp 2 3 )  ) ``.
@@ -241,7 +242,8 @@ Thus, our function to parse a program should repeatedly try and parse an express
 Once we've reached the end of the input, we should return the list of expressions we've built up.
 
 Thanks to the work we did above with the lexer, each token in our stream can be one of three options: an open bracket `(`, a close bracket `)`, or some other string of characters (excluding whitespace and brackets).
-Not convinced? Go back to the lexer section, and see if you can find an input that would produce something else.
+Not convinced?
+Go back to the lexer section, and see if you can find an input that would produce something else.
 
 So how do we parse an expression?
 

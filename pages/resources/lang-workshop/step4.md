@@ -10,7 +10,8 @@ Complexity: Short
 [Jump to task](#task)
 
 So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
-But even as a calculator, our program is pretty limited! Consider the following program:
+But even as a calculator, our program is pretty limited!
+Consider the following program:
 
 ```scheme
 42
@@ -18,9 +19,12 @@ But even as a calculator, our program is pretty limited! Consider the following 
 (mod (pow (mod (pow 42 17) (* 61 53)) (modmul-inv 17 (lcm (- 61 1) (- 53 1)))) (* 61 53))
 ```
 
-Assuming correct definitions for `mod`, `pow`, `modmul-inv`, and `lcm`, the above is a demostration of encrypting and then decrypting the number 42 via [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Example). But you wouldn't know it!
+Assuming correct definitions for `mod`, `pow`, `modmul-inv`, and `lcm`, the above is a demostration of encrypting and then decrypting the number 42 via [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Example).
+But you wouldn't know it!
 
-Compare the above program to the one below. Both perform exactly the same computation. Which do you think is more readable?
+Compare the above program to the one below.
+Both perform exactly the same computation.
+Which do you think is more readable?
 
 ```scheme
 (define p 61)
@@ -60,9 +64,11 @@ Normally, you would be able to make the distinction between an expression and a 
 For pedagogical reasons, we've chosen to keep our parser as simple as possible, so we need a different way to distinguish between an expression and a declaration.
 We'll do this via *keywords*.
 
-A keyword is a reserved name in a language. For example, the keywords `fn`, `for`, and `in` are reserved in Rust.
+A keyword is a reserved name in a language.
+For example, the keywords `fn`, `for`, and `in` are reserved in Rust.
 Trying to name a new variable with one of these names will throw an error.
-In our language, we'll be able to determine if a given S-Expression represents a declaration by checking if its first element is a keyword. (NB: we don't evaluate it and check the result; we check directly if it's a keyword!)
+In our language, we'll be able to determine if a given S-Expression represents a declaration by checking if its first element is a keyword.
+(NB: we don't evaluate it and check the result; we check directly if it's a keyword!)
 
 The only declaration we'll need to add is given by the keyword `define`, but the extra tasks in this chapter give a few more examples of declarations you might see in a functional language.
 
@@ -110,7 +116,8 @@ Next, we evaluate the top-level declaration `(define one 1)`.
 We evaluate the expression `1` into the value `1`, and add `one -> 1` to our environment, which now looks like `[one -> 1]`.
 
 Then, we evaluate the top-level declaration `(define two (+ one 1))`.
-We need to evaluate `(+ one 1)`, which means evaluating `one`. To do so, we look up the name `one` in our context, and find that it maps to the value `1`, so we return `1`.
+We need to evaluate `(+ one 1)`, which means evaluating `one`.
+To do so, we look up the name `one` in our context, and find that it maps to the value `1`, so we return `1`.
 Our whole expression evaluates to `2`, so we add `two -> 2` to the environment, which now looks like `[one -> 1, two -> 2]`.
 
 Finally, to evaluate `(+ one two)`, we look up the values of `one` and `two` in our context, resulting in `(+ 1 2)`, which evaluates to `3`.
@@ -131,7 +138,8 @@ There are three sensible options for output:
 
 - Option 1: The interpreter throws an error when the user tries to redefine `one` on the second line;
 - Option 2: The interpreter prints `1`, silently ignoring the second definition;
-- Option 3: The interpreter prints `2`, updating the entry in the environment to `one -> 2`. Here, we say the newer definition *shadows* the older one.
+- Option 3: The interpreter prints `2`, updating the entry in the environment to `one -> 2`.
+Here, we say the newer definition *shadows* the older one.
 
 What about this program?
 
@@ -147,8 +155,10 @@ Here, there are four possibilities:
 
 - Option 1: The interpreter throws an error when the user tries to redefine `one` on the third line;
 - Option 2: The interpreter prints `1` followed by `2`, *ignoring* the second definition;
-- Option 3: The interpreter prints `2` followed by `2`. The new definition of `one` *shadows* the old one, and `number` still refers to the original definition of `one`.
-- Option 4: The interpreter prints `2` followed by `3`. The new definition of `one` *replaces* the old one, and `number` now refers to the new definition of `one`.
+- Option 3: The interpreter prints `2` followed by `2`.
+The new definition of `one` *shadows* the old one, and `number` still refers to the original definition of `one`.
+- Option 4: The interpreter prints `2` followed by `3`.
+The new definition of `one` *replaces* the old one, and `number` now refers to the new definition of `one`.
 
 
 The interpreter may optionally show a warning regarding the name collision for options 2, 3, and 4.
@@ -177,16 +187,20 @@ Your choice of behaviour for overlapping definitions may dictate which data stru
 
 ## Task
 
-Define a new data type to represent the environment. This should look something like a map from symbols to values.
+Define a new data type to represent the environment.
+This should look something like a map from symbols to values.
 
-Update your `eval` function so that it takes an environment as an argument. When starting a new program, this environment should be empty.
+Update your `eval` function so that it takes an environment as an argument.
+When starting a new program, this environment should be empty.
 If `eval` comes across a symbol, it should look up its value in the environment.
 If it can't find it there, it should check if the symbol matches the name of a primitive.
 If it doesn't, then it should throw an error.
 
 You should also implement the function `define`.
-`define` takes two arguments; a symbol `n`, acting as a name, and an expression, which is to be evaluated into a value `v`. Once evaluated, we should update our environment so that `n` maps to `v`.
-`define` is a top-level declaration, meaning that it can only appear in the outer-most level of an expression tree, and doesn't return a value. The following lines are allowed:
+`define` takes two arguments; a symbol `n`, acting as a name, and an expression, which is to be evaluated into a value `v`.
+Once evaluated, we should update our environment so that `n` maps to `v`.
+`define` is a top-level declaration, meaning that it can only appear in the outer-most level of an expression tree, and doesn't return a value.
+The following lines are allowed:
 
 ```scheme
 (define one 1)
@@ -249,11 +263,15 @@ MLTS> foo
 
 ## Extra Challenges
 
-These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete. None of them are required for a fully-functional interpreter. They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later. Depending on your language choice, they might be easier or harder than anticipated!
+These are some extra challenges you can attempt to build your understanding further, and make your interpreter more feature-complete.
+None of them are required for a fully-functional interpreter.
+They are listed in order of subjective difficulty; if you struggle on the later ones, you should move on to the next step and come back later.
+Depending on your language choice, they might be easier or harder than anticipated!
 
 - Add a REPL command `:env` that prints the contents of the current environment.
 
-- Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations. For example, if `foo.mlts` contains the following:
+- Add a basic import system: define another top-level declaration called `import`, which takes a filename; loads that file; evaluates all of the top level declarations stored in it; and extends the current environment with these declarations.
+  For example, if `foo.mlts` contains the following:
 
   ```scheme
   (define my-favourite-number 12)
@@ -268,7 +286,8 @@ These are some extra challenges you can attempt to build your understanding furt
 
   then evaluating `main.mlts` should print `12`, assuming that `foo.mlts` is in the same directory as `main.mlts`.
 
-- Allow top-level definitions to reference each other in any order. As an example, when running the following file:
+- Allow top-level definitions to reference each other in any order.
+  As an example, when running the following file:
 
   ```scheme
   (define foo bar)
@@ -282,11 +301,20 @@ These are some extra challenges you can attempt to build your understanding furt
   1
   ```
 
-- Add a namespace system. Namespaces allow you to keep different collections of definitions separate, ensuring that they don't interfere with each other if they happen to define the same name. You could implement namespaces by defining a new top-level declaration `namespace`, which takes a symbol `n` to use as a name for the namespace, and then an arbitrary number of other top-level declarations. Crucially, a namespace can contain other namespaces! When `namespace` is evaluated, it creates a new environment with all of the declarations in it, and stores this environment in our orginal environment, under the name `n`. You'll have to update your representation of environments (or values) to support namespaces.
+- Add a namespace system.
+  Namespaces allow you to keep different collections of definitions separate, ensuring that they don't interfere with each other if they happen to define the same name.
+  You could implement namespaces by defining a new top-level declaration `namespace`, which takes a symbol `n` to use as a name for the namespace, and then an arbitrary number of other top-level declarations.
+  Crucially, a namespace can contain other namespaces!
+  When `namespace` is evaluated, it creates a new environment with all of the declarations in it, and stores this environment in our orginal environment, under the name `n`.
+  You'll have to update your representation of environments (or values) to support namespaces.
 
-  You should also add a way to access a name from a namespace. A decent way of doing so would be to define a function called `using`, which takes a symbol `n` representing the name of a namespace, and another symbol `d`, which refers to the name of a declaration within the namespace. The return value of this function is whatever value is assigned to `d` within the namespace. If `d` is not in the namespace, throw an error.
+  You should also add a way to access a name from a namespace.
+  A decent way of doing so would be to define a function called `using`, which takes a symbol `n` representing the name of a namespace, and another symbol `d`, which refers to the name of a declaration within the namespace.
+  The return value of this function is whatever value is assigned to `d` within the namespace.
+If `d` is not in the namespace, throw an error.
 
-  For convenience's sake, you will also want to add `open`, which takes a symbol `n` and an expression `e`. To evaluate `(open n e)`, you should (temporarily) add all of the declarations in `n` to the current environment, and then evaluate `e` in this updated environment.
+  For convenience's sake, you will also want to add `open`, which takes a symbol `n` and an expression `e`.
+  To evaluate `(open n e)`, you should (temporarily) add all of the declarations in `n` to the current environment, and then evaluate `e` in this updated environment.
 
   For example, the following code:
 
@@ -317,7 +345,10 @@ These are some extra challenges you can attempt to build your understanding furt
   2
   ```
 
-- Integrate your import system with your namespace system. Each file should be its own namespace. To improve user convenience, you could add a new keyword, `module`, which takes as its only argument a symbol `n`, representing the name of the namespace the rest of the file is under. The following two files should be exactly equivalent:
+- Integrate your import system with your namespace system.
+  Each file should be its own namespace.
+  To improve user convenience, you could add a new keyword, `module`, which takes as its only argument a symbol `n`, representing the name of the namespace the rest of the file is under.
+  The following two files should be exactly equivalent:
 
   ```scheme
   (namespace foo
@@ -331,8 +362,11 @@ These are some extra challenges you can attempt to build your understanding furt
   (define x 1)
   ```
 
-  Now when a user `import`s the above file, it should add `foo` to the current environment. To use the definition, the user has to `open` the namespace provided. As another convenience aid, provide another keyword `load`, that combines `import` and `open`.
+  Now when a user `import`s the above file, it should add `foo` to the current environment.
+  To use the definition, the user has to `open` the namespace provided.
+  As another convenience aid, provide another keyword `load`, that combines `import` and `open`.
 
-  You should also make the user specify exactly *which* definitions are to be exported. You could ask them to provide a list of names at the top of the namespace/module declaration, or make `define` take a "visibility" parameter (a symbol which can only take the value of `public` or `private`, for example).
+  You should also make the user specify exactly *which* definitions are to be exported.
+  You could ask them to provide a list of names at the top of the namespace/module declaration, or make `define` take a "visibility" parameter (a symbol which can only take the value of `public` or `private`, for example).
 
   Finally, you should make it an error to `import` a file that doesn't declare exactly one namespace.
