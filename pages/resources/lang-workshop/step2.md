@@ -45,7 +45,7 @@ For natural languages, this is a useful property, as it enables things like puns
 
 {% include infobox.html
   text="
-  To illustrate this, try and figure out how many ways you can parse the English expressions "Superfluous hair remover" and "Programming language implementations".
+  To illustrate this, try and figure out how many ways you can parse the English expressions \"Superfluous hair remover\" and \"Programming language implementations\".
   "
   color="success" align="center"
 %}
