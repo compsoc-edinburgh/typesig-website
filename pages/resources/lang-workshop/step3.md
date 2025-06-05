@@ -1,13 +1,18 @@
 ---
 layout: page
-title: "Step 3: Eval | Language Workshop"
+title: "Step 3: Evaluation | Language Workshop"
 permalink: "/resources/lang-workshop/step3"
-toc: true
 ---
 
 Complexity: Medium
 
-[Jump to task](#task)
+## Table of Contents
+{:.no_toc}
+
+* toc dummy
+{:toc}
+
+## Motivation
 
 So far, all we've worked on is *syntax*; surface-level properties of a language that define how it looks.
 But we've yet to define any *semantics* for our language, meaning that we can't yet do anything meaningful with our AST.

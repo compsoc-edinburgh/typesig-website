@@ -2,12 +2,17 @@
 layout: page
 title: "Step 5: Lambda | Language Workshop"
 permalink: "/resources/lang-workshop/step5"
-toc: true
 ---
 
 Complexity: Long
 
-[Jump to task](#task)
+## Table of Contents
+{:.no_toc}
+
+* toc dummy
+{:toc}
+
+## Motivation
 
 So far, we've implemented a basic evaluator that can compute arithmetical expressions and define new constants.
 But to have a truly general purpose functional programming language, we need functions!

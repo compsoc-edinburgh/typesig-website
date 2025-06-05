@@ -2,12 +2,17 @@
 layout: page
 title: "Step 4: Enviroments | Language Workshop"
 permalink: "/resources/lang-workshop/step4"
-toc: true
 ---
 
 Complexity: Short
 
-[Jump to task](#task)
+## Table of Contents
+{:.no_toc}
+
+* toc dummy
+{:toc}
+
+## Motivation
 
 So, by now you've implemented an evaluator for simple arithmetic expressions (and maybe more, if you did the extra challenges).
 But even as a calculator, our program is pretty limited!

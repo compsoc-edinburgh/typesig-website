@@ -2,12 +2,17 @@
 layout: page
 title: "Step 6: Types | Language Workshop"
 permalink: "/resources/lang-workshop/step6"
-toc: true
 ---
 
 Complexity: Medium
 
-[Jump to task](#task)
+## Table of Contents
+{:.no_toc}
+
+* toc dummy
+{:toc}
+
+## Motivation
 
 In the previous step, you extended your language with functions.
 

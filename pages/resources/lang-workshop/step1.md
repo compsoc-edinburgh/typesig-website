@@ -2,11 +2,17 @@
 layout: page
 title: "Step 1: The Beginning | Language Workshop"
 permalink: "/resources/lang-workshop/step1"
-toc: true
 ---
+
 Complexity: Short
 
-[Jump to task](#task)
+## Table of Contents
+{:.no_toc}
+
+* toc dummy
+{:toc}
+
+## Motivation
 
 Welcome to step 1 of TypeSig's language workshop!
 
