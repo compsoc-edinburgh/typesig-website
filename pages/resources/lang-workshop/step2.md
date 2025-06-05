@@ -20,6 +20,9 @@ While it's a good starting ground, it doesn't do anything particularly interesti
 Our first *real* step towards a language interpreter is a parser.
 A parser converts a string into an *abstract syntax tree* (or AST); a data structure that represents the internal structure of expressions in our language.
 
+Once we have an AST, we'll be able to reason about our code in a structured way.
+In particular, type checking becomes a form of tree traversal, and evaluation becomes a form of tree reduction.
+
 ## S-Expressions
 
 All languages, even human languages, adhere to a *grammar*.
