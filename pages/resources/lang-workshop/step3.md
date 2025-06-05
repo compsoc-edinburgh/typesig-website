@@ -206,7 +206,7 @@ You can pick either of them, but the remainder of this course will assume you've
 
 We've finally defined everything we need to implement an evaluator!
 
-## Task
+## **Task**
 
 Choose a set of arithmetic operations to be your primitives, and define a data structure that represents values in your language (literals and primitives).
 This might look something like the following Haskell type:

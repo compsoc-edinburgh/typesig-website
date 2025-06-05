@@ -244,7 +244,7 @@ It works, but it's annoying to write, and pretty much every common language defi
 For this reason, we decided to add `rec` as a language primitive.
 If you want, you can skip it in your implementation, but it's your funeral.
 
-## Task
+## **Task**
 
 Add a keyword to your interpreter, called `lambda`.
 It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.

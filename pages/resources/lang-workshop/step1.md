@@ -36,7 +36,7 @@ REPLs are a common way to interact with an interpreter; they let the user direct
 You might be familiar with REPLs from other languages: the JavaScript console, Python interpreter and even the Bash command line are all REPLs!
 
 
-## Task
+## **Task**
 
 Write a program that reads a line of input from the user, and responds by repeating the input back to the user.
 In other words, a REPL where our expression data structure is just a string, and our evaluation does nothing.

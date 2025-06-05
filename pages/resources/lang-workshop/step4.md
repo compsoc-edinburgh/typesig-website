@@ -192,7 +192,7 @@ foo
 
 Your choice of behaviour for overlapping definitions may dictate which data structures you can use to represent your environment.
 
-## Task
+## **Task**
 
 Define a new data type to represent the environment.
 This should look something like a map from symbols to values.
