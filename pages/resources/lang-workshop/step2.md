@@ -4,7 +4,9 @@ title: "Step 2: Parsing and Printing | Language Workshop"
 permalink: "/resources/lang-workshop/step2"
 ---
 
-Complexity: Long
+| Complexity | Long                                                    |
+| Previous   | [Step 1: The Beginning](/resources/lang-workshop/step1) |
+| Next       | [Step 3: Evaluation](/resources/lang-workshop/step3)    |
 
 ## Table of Contents
 {:.no_toc}

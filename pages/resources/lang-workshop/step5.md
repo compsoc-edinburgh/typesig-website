@@ -4,7 +4,8 @@ title: "Step 5: Lambda | Language Workshop"
 permalink: "/resources/lang-workshop/step5"
 ---
 
-Complexity: Long
+| Complexity | Long                                                   |
+| Previous   | [Step 4: Environments](/resources/lang-workshop/step4) |
 
 ## Table of Contents
 {:.no_toc}

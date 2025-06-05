@@ -4,7 +4,9 @@ title: "Step 3: Evaluation | Language Workshop"
 permalink: "/resources/lang-workshop/step3"
 ---
 
-Complexity: Medium
+| Complexity | Medium                                                         |
+| Previous   | [Step 2: Parsing and Printing](/resources/lang-workshop/step2) |
+| Next       | [Step 4: Environments](/resources/lang-workshop/step4)         |
 
 ## Table of Contents
 {:.no_toc}

@@ -4,7 +4,9 @@ title: "Step 4: Enviroments | Language Workshop"
 permalink: "/resources/lang-workshop/step4"
 ---
 
-Complexity: Short
+| Complexity | Short                                                |
+| Previous   | [Step 3: Evaluation](/resources/lang-workshop/step3) |
+| Next       | [Step 5: Lambdas](/resources/lang-workshop/step5)    |
 
 ## Table of Contents
 {:.no_toc}

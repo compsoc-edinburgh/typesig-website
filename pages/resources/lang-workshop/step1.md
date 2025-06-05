@@ -4,7 +4,9 @@ title: "Step 1: The Beginning | Language Workshop"
 permalink: "/resources/lang-workshop/step1"
 ---
 
-Complexity: Short
+
+| Complexity | Short                                                          |
+| Next       | [Step 2: Parsing and Printing](/resources/lang-workshop/step2) |
 
 ## Table of Contents
 {:.no_toc}
