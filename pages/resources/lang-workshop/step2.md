@@ -166,6 +166,7 @@ typesig-is_best-sig!
 ```
 
 {% include infobox.html
+  align="start"
   header="Exercise 2"
   text="
   Write down the parse trace for each string above.
@@ -185,6 +186,7 @@ hello world!
 ```
 
 {% include infobox.html
+  align="start"
   header="Exercise 3"
   text="
   Why does our grammar not admit any of these?
