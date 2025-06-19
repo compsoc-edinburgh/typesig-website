@@ -93,9 +93,9 @@ Here's an example of some code written in this style:
 {% include mcq.html
   header="Exercise 1"
   text="Which of the following are valid S-Expressions?"
-  options="`(factorial 6)`:This is a valid S-Expression.;`factorial 6`:This is not a valid S-Expression.
+  options="`(factorial 1)`:This is a valid S-Expression.;`factorial 2`:This is not a valid S-Expression.
 If you want to join multiple atoms into one expression, they must be in brackets.;`(factorial)`:This is a valid S-Expression syntactically.
-It may not be a semantically valid program, but that doesn't affect its syntactic validity.;`factorial`:This is a valid S-Expression, consisting of the single atom `factorial`."
+It may not be a semantically valid program, but that doesn't affect its syntactic validity.;`fact`:This is a valid S-Expression, consisting of the single atom `fact`.;`!`:This is a valid S-Expression, consisting of the single atom `!`."
 %}
 
 You don't need to fully understand what the semantics of these mean yet!
