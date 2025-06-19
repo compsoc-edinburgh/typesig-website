@@ -1,6 +1,6 @@
 {% comment %}
     Taken from https://github.com/learn-static/lesson-template/blob/main/_includes/alert.html
-    
+
     Bootstrap Alert, https://getbootstrap.com/docs/5.1/components/alerts/
 
     e.g. --> {% include infobox.html text="This is an example!" color="warning" align="center" %}
@@ -13,5 +13,6 @@
 {%- endcomment -%}
 
 <div class="alert feature-alert alert-{{ include.color | default: 'primary' }} {% if include.align %}text-{{ include.align }}{% endif %}" role="alert">
+{% if include.header %}<h4 class="alert-heading mt-0 mb-1">{{ include.header }}</h4>{% endif %}
 {{ include.text | markdownify }}
 </div>
