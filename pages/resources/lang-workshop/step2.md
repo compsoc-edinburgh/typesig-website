@@ -90,6 +90,10 @@ Here's an example of some code written in this style:
 (define factorial (n) (if (= 0 n) 1 (* n (factorial (- n 1)))))
 ```
 
+You don't need to fully understand what the semantics of these mean yet!
+We'll build up to that knowledge over the next few steps.
+The syntax may look quite strange if you're used to popular languages like Python or JavaScript, but it's still expressive enough to represent any program.
+
 {% include mcq.html
   header="Exercise 1"
   text="Which of the following are valid S-Expressions?"
@@ -98,9 +102,6 @@ If you want to join multiple atoms into one expression, they must be in brackets
 It may not be a semantically valid program, but that doesn't affect its syntactic validity.;`fact`:This is a valid S-Expression, consisting of the single atom `fact`.;`!`:This is a valid S-Expression, consisting of the single atom `!`."
 %}
 
-You don't need to fully understand what the semantics of these mean yet!
-We'll build up to that knowledge over the next few steps.
-The syntax may look quite strange if you're used to popular languages like Python or JavaScript, but it's still expressive enough to represent any program.
 
 We've picked S-Expressions other other grammars (say, C-style or Python-like grammars) because it's very straightforward to convert them into an AST.
 In fact, they're already a textual representation of an AST!
