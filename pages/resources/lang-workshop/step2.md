@@ -327,7 +327,7 @@ We just need to put everything together, by writing a function that calls the le
 
 We've spent most of this step implementing a way to go from strings to an AST.
 While we're at it, we might as well write a function that goes the other way.
-Such functions are called *pretty printers*, and are thankfully much easier to implement that parsers!
+Such functions are called *pretty printers*, and are thankfully much easier to implement than parsers!
 
 We'll make our program pretty printer put each top-level expression on its own line.
 Then, for each expression:
