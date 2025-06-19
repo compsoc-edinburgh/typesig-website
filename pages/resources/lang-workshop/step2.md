@@ -158,7 +158,7 @@ Currently, our grammar admits the following strings:
 
 ```scheme
 1
-hello
+h3ll0
 42
 2+2=4
 typesig-is_best-sig!
