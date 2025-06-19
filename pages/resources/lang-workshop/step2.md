@@ -20,12 +20,12 @@ In the last step, we wrote a program that could read a line of input as a string
 While it's a good starting ground, it doesn't do anything particularly interesting.
 
 Our first *real* step towards a language interpreter is a parser.
-A parser converts a string into an *abstract syntax tree* (or AST); a data structure that represents the internal structure of expressions in our language.
+A parser converts an input string into an *abstract syntax tree* (or AST); a data structure that represents the internal structure of expressions in our language.
 
 Once we have an AST, we'll be able to reason about our code in a structured way.
 In particular, type checking becomes a form of tree traversal, and evaluation becomes a form of tree reduction.
 
-## S-Expressions
+## Grammars
 
 All languages, even human languages, adhere to a *grammar*.
 A grammar describes the *syntax*, or the textual representation, of a language; in English, for example, it's a grammatical error to have a verb follow another verb (`eat organise` isn't a valid English sentence).
@@ -42,19 +42,34 @@ For example, `1 + 2` is composed of the literal expression `1`, the operator `+`
   color="info" align="center"
 %}
 
+## Syntax Trees
+
+Grammars provide syntactic rules for a language
+Syntax trees provide syntactic *structure* for a language.
+
+In other words, the act of parsing involves taking an input string, and, according to the rules given by the grammar for your language, trying to produce a syntax tree that represents the input expression.
+
+<!-- TODO: continue -->
+
+## Ambiguity
+
 Natural languages tend to be *ambiguous*, meaning that there are sentences that cannot be parsed into exactly one parse tree.
 For natural languages, this is a useful property, as it enables things like puns and poetry.
 
 {% include infobox.html
   text="
-  To illustrate this, try and figure out how many ways you can parse the English expressions \"Superfluous hair remover\" and \"Programming language implementations\".
+  To illustrate this, try and figure out how many ways you can parse the English expressions \"Superfluous hair remover\" and \"Programming language implementations\". Draw out the syntax tree resulting from each parse.
   "
   color="success" align="center"
 %}
 
 For programming languages, however, it's less useful.
 When we're talking to a computer, we want to be as exact about what we mean as possible!
-As a result, when picking or designing a grammar for a programming language, we should always make sure that it's unambiguous.
+As a result, when choosing or designing a grammar for a programming language, we should always make sure that it's unambiguous.
+
+<!-- TODO: talk about ambiguity being undecidable, and how to construct an unambiguous grammar -->
+
+## S-Expressions
 
 To keep things simple for our language, we've opted for a very simple grammar, known as S-Expressions.
 S-Expressions are known for their use in the Lisp family of programming languages, where they are sometimes called sexps.
@@ -109,13 +124,10 @@ This code corresponds to the following AST:
 
 Each of the bracket pairs turns into a `sexp` node, and the atoms between the brackets turn into its children.
 
-## Grammar
+## The Grammar for S-Expressions
 
-A parser operates according to a set of *parse rules*.
-This set is known as a *grammar*.
-You can learn about parsing in detail the courses IADS and Compiling Techniques, but we'll give a brief overview here to get you started.
-
-We'll build up our grammar piece by piece.
+In order to build our parser, we'll need a concrete grammar for it.
+We'll build one up piece by piece.
 First, let's just write a grammar that recognises some basic literals.
 
 ```ebnf
@@ -124,33 +136,61 @@ SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
 Literal ::= INTEGER | SYMBOL
 ```
 
-Here, we've defined two literal types: integers (whole numbers), and symbols (any string of characters that doesn't contain whitespace or brackets).
+Here, we've defined two literal types: `INTEGER`s (whole numbers), and `SYMBOL`s (any string of characters that doesn't contain whitespace or brackets).
 We've given regular expressions to describe valid strings that can be be parsed as these literals, although you don't necessarily need to use regex in your parser implementation.
-Extending the grammar for more literals (for example, strings, floating point numbers, etc) is straightforward - we just add a new rule to the grammar.
-For now, let's say our starting rule is `Literal`.
-When trying to parse a string with this grammar, we'll first check
+
+We've then combined these literal types into one grammar rule, called `Literal`.
+A `Literal` can be either an `INTEGER`, or a `SYMBOL`.
+The interpretation of the `|` character depends on what type of grammar you're defining: in some grammars, the pipe denotes a non-deterministic choice between either branch; in others, you'd deterministically try the left branch first, then the right.
+We'll choose the deterministic type; it's less general, but it's easier to work with both on paper and when implementing the code for your parser.
+
+To show how the grammar works, we'll walk through an example.
+Let's say we're trying to parse the expression `hello` using this grammar, where our starting symbol is `Literal`.
+- A `Literal` can be either an `INTEGER` or a `SYMBOL`. Since we have a deterministic grammar, we'll try the `INTEGER` branch first.
+- An `INTEGER` must consist only of digits from 0-9, and there must be at least one. Our input is `hello`, which contains non-digit characters (in fact, it doesn't contain any characters!), so we can't apply this rule. We must backtrack.
+- Backtracking to `Literal`, the next branch to try is `SYMBOL`.
+- A `SYMBOL` is at least one character that isn't brackets or whitespace. Our input is `hello`, which matches this rule. We consume the first character in our input, `h`.
+- Because `SYMBOL` accepts multiple characters, we keep consuming characters from our input until we either find a character that `SYMBOL` doesn't accept, or we run out of characters in our input. In both cases, we return back to literal. For our example, we consume the entire input `hello`, and return back to `Literal`.
+- `Literal` (our starting rule)has nothing left to do since it only consumes one literal at a time, and we've consumed all of our input, so we're done. Our final parse trace is `Literal -> SYMBOL`.
+
 Currently, our grammar admits the following strings:
 
 ```scheme
 1
 hello
 42
-typesig-is-best-sig
+2+2=4
+typesig-is_best-sig!
 137.5
 ```
 
-(exercise: why does the last one work?)
+{% include infobox.html
+  text="
+  Write down the parse trace for each string above.
+  "
+  color="success" align="center"
+%}
+
 
 It won't admit the following:
 
 ```scheme
 hello world!
+(123)
 1 + 2
 (* 3 4)
+1+(2*3)
 ```
 
-Once we've parsed one literal, the parse rules say there's nothing else for us to do, so we stop.
+{% include infobox.html
+  text="
+  Why does our grammar not admit any of these?
+  "
+  color="success" align="center"
+%}
+
 Let's update our parse rules to allow multiple expressions.
+Luckily for us, extending the grammar  is straightforward - we just add a new rule to the grammar.
 We'll add a new rule, called `Program`, which will be our starting rule from now on:
 
 ```ebnf
