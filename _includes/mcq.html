@@ -4,7 +4,7 @@
     This include creates a card containing a question text with multiple answer options, each with an explanation, and the correct answers are hidden until the user clicks the "view answer" button.
 
     e.g. --> {% include mcq.html header="Example Title" text="Which of the following are fruits?" options="Apple:Correct answer.;Carrot:Incorrect, it is a vegetable.;Banana:Correct answer.;Broccoli:Incorrect, it is a vegetable." correct_answers="Apple,Banana" %}
-    
+
     Options:
     - "header" = card header text (in bar above card content)
     - "text" = main card text, can use markdown formatting. Use a Liquid capture to add more complex content.
@@ -13,7 +13,7 @@
 
 {%- endcomment -%}
 <div class="card border">
-    {% if include.header %}<div class="card-header h4 mt-0">{{ include.header }}</div>{% endif %}
+    {% if include.header %}<div class="card-header h4 mt-0">{{ include.header | markdownify }}</div>{% endif %}
     <div class="card-body">
         <div class="card-text">
             {{ include.text | markdownify }}
@@ -24,12 +24,12 @@
                 {% assign parts = option | split: ':' %}
                 {% assign slugified_option = include.header | slugify | append: '-' | append: parts[0] | slugify %}
                 <li class="list-group-item">
-                    {{ parts[0] }} 
+                    {{ parts[0] | markdownify }}
                     <button class="btn btn-info btn-sm float-right" type="button" data-bs-toggle="collapse" data-bs-target="#explanation{{ slugified_option }}" aria-expanded="false" aria-controls="explanation{{ slugified_option }}">
                         Explanation
                     </button>
                     <div class="collapse" id="explanation{{ slugified_option }}">
-                        <div class="mt-2">{{ parts[1] }}</div>
+                        <div class="mt-2">{{ parts[1] | markdownify }}</div>
                     </div>
                 </li>
             {% endfor %}
@@ -40,7 +40,7 @@
         </button>
         <div class="collapse" id="collapse{{ include.header | default: 'Answer' | slugify }}">
           <div class="card card-body">
-            Correct Answers: {{ include.correct_answers }}
+            Correct Answers: {{ include.correct_answers | markdownify }}
           </div>
         </div>{% endif %}
     </div>
