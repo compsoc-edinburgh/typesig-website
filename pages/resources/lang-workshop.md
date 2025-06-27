@@ -21,6 +21,12 @@ In this case, we recommend that you use a language that you have the most experi
 - [Step 3: Eval](lang-workshop/step3)
 - [Step 4: Environments](lang-workshop/step4)
 - [Step 5: Lambdas](lang-workshop/step5)
-- More to come in the next few weeks!
+A sneak peek into the future...
+- Step 6: Types
+- Step 7: Polymorphism and Generics
+- Step 8: ADTs and Pattern Matching
+- Step 9: Typeclasses and Overloading
+- Step 10: IO
+- Step 11: Metaprogramming
 
 [discord]: {{site.social.discord}}
