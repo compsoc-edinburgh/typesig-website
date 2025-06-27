@@ -14,46 +14,65 @@ Complexity: Medium
 
 ## Motivation
 
-In the previous step, you extended your language with functions.
+By now, we have a fully Turing complete programming language.
+But not every program that we can express in our language is meaningful.
 
-Consider the following expression.
+For example, consider the following program:
 
 ```scheme
-(+ (lambda (x) x) 1)
+(+ 1 (lambda (x) x))
 ```
 
-What does it mean to perform addition between a lambda value and an integer literal?
-This question doesn't even really make sense; lambas and integers are fundamentally different.
-We'll capture this difference formally via a *type system*.
+Try evaluating it in your interpreter and see what happens.
+You'll probably either hit an error, or you'll get a nonsense result.
+That's because it doesn't really make sense to have addition defined between an integer and a lambda expression.
+
+Let's look at another example.
+
+```scheme
+(1 2)
+```
+
+Here, we're trying to use an integer as a function!
+
+Currently, we handle these errors during evaluation.
+By introducing a type system, we can instead catch such errors *before* evaluating an expression.
+Crucially, this means we can reason about our programs without even running them, and we can use this to catch mistakes before they happen, to structure our code more clearly, and even to apply optimisations.
 
 ## Types and Type Systems
-
-- motivate types more
 - explain types in the abstract, and progress/preservation
-- introduce ground/base types
+
+## MLTS Types
+So what types do we have available to us so far?
+
+Naturally, we have all of the primitive types we've added; integers, floats, characters, strings, booleans, as well as any other types you may have decided to add.
+We'll refer to these as *ground* types, or *base* types.
+
+But what type should lambdas have?
+
 - introduce function types (rec and lambda)
+- quiz on which terms are well typed
+
+## Checking and Inference
 - checking and inference
 
-I'm just testing website stuff here.
-
-{% include question.html header="Types" text="Why are we adding types?" solution="Because they're pretty cool." %}
-{% include question.html header="Question 2" text="Why are we adding types again?" solution="I said, because they're pretty cool." %}
-
-{% include mcq.html
-  header="Example Title"
-  text="Which of the following are fruits?"
-  options="Apple:Correct answer.;Carrot:Incorrect, it is a vegetable.;Banana:Correct answer.;Broccoli:Incorrect, it is a vegetable."
-  correct_answers="Apple,Banana"
-%}
-
-{% include mcq.html
-  header="No Correct Answers Specified"
-  text="Which of the following are fruits?"
-  options="Apple:Correct answer.;Carrot:Incorrect, it is a vegetable.;Banana:Correct answer.;Broccoli:Incorrect, it is a vegetable."
-%}
 ## Task
 
-Add a keyword to your interpreter, called `lambda`. It takes two arguments; an S-Expression containing a symbol `arg`, and an expression `body`.
+Add a new data structure to represent types in your language.
+It should support any primitives you've implemented (integers, boolean, strings etc.), as well as function types.
+
+You should also add a data structure for typing contexts, mapping names to types.
+
+Update the syntax for `lambda` and `rec` to take the types of any arguments:
+
+```scheme
+(lambda ((x Int)) (+ x 1))
+(lambda ((x Int) (y Int)) (+ x y))
+```
+
+Implement a new function, `infer`, which takes a typing context, and an expression, and attempts to infer the type of the expression within the context.
+
+Update your REPL so that it uses `infer` to typecheck an expression before evaluating it.
 
 ## Extra Challenges
 
@@ -64,6 +83,16 @@ These are some extra challenges you can attempt to build your understanding furt
   ```console
   MLTS> :t (lambda ((x Int)) (+ x 1))
   Int -> Int
+  ```
+
+- Add a REPL command that lets the user search for all available functions via their type (a la [Haskell's Hoogle](https://hoogle.haskell.org)):
+
+  ```console
+  MLTS> :typesearch Int -> Int -> Int
+  +
+  -
+  *
+  /
   ```
 
 - Allow the user to specify an unknown type by using an underscore:
