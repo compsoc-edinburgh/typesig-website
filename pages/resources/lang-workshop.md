@@ -28,6 +28,5 @@ A sneak peek into the future...
 - Step 8: ADTs and Pattern Matching
 - Step 9: Typeclasses and Overloading
 - Step 10: IO
-- Step 11: Metaprogramming
 
 [discord]: {{site.social.discord}}
