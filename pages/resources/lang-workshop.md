@@ -29,4 +29,6 @@ A sneak peek into the future...
 - Step 9: Typeclasses and Overloading
 - Step 10: IO
 
+If you have any ideas of other things we should cover, do get in touch with us on our [Discord][discord]!
+
 [discord]: {{site.social.discord}}
