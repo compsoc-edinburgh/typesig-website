@@ -59,6 +59,12 @@ In BNF, non-terminal symbols are typically enclosed in angle brackets (e.g., `<e
 The production rules are defined using the `::=` operator, which indicates that the left-hand side can be replaced by the right-hand side.
 Additionally, we may use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) for clarity, if a production rule would otherwise be very large.
 We'll denote a regular expression by surrounding it in `\`s.
+
+Sometimes, a rule may allow different sub-forms.
+For example, in English, wherever we use a noun, we may also use a noun-phrase (a noun paired with another grammatical construct), such as `The cat` (an article paired with a noun) or `large egg` (an adjective paired with a noun).
+The `|` symbol introduces multiple valid forms for a rule, each of which is called an *alternative*.
+For this workshop, if a rule has multiple alternatives, we'll try them from left to right (although this isn't universally the case!).
+
 For example, a simple BNF rule for an arithmetic expression might look like this:
 
 ```ebnf
