@@ -38,16 +38,19 @@ You might be familiar with REPLs from other languages: the JavaScript console, P
 
 ## **Task**
 
+First, if you haven't already, pick a language that you want to implement your interpeter in.
+You might want to pick a language you're familiar with, but you could also take the opportunity to learn a new language.
+
 Write a program that reads a line of input from the user, and responds by repeating the input back to the user.
 In other words, a REPL where our expression data structure is just a string, and our evaluation does nothing.
 
 You'll need to use your language's functions for getting user input, and printing strings.
 If you don't know what these are for your chosen language, you can probably find them via searching online.
 
-You may want to implement this by storing the user's input into a variable, and then passing that variable into your language's `print` function.
+You may want to implement this by storing the user's input into a variable as a string, and then passing that variable into your language's `print` function.
 This approach will make future steps easier to implement.
 
-This program should work in a loop; in other words, once the string has been printed, the program should return to its initial state, asking the user for their input once again.
+This program should operate in a loop; in other words, once the string has been printed, the program should return to its initial state, asking the user for their input once again.
 
 While it's not a particularly useful program yet, we've already laid the foundations for interacting with our interpreter.
 
@@ -65,6 +68,8 @@ TypeSig <3 you!                // this line is user input
 TypeSig <3 you!                // this line is program output
 https://discord.gg/dnXzHRkJww  // this line is user input
 https://discord.gg/dnXzHRkJww  // this line is program output
+                               // this line is (empty) user input
+                               // this line is (empty) program output
 ```
 
 ## Extra Challenges
