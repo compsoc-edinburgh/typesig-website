@@ -55,8 +55,8 @@ BNF is a formal notation used to describe the syntax of programming languages an
 It provides a clear and concise way to specify the grammatical structure of a language by defining its syntax rules in terms of production rules.
 Each rule consists of a left-hand side, which is a non-terminal symbol representing a category of expressions, and a right-hand side, which describes how that non-terminal can be expanded into a sequence of terminal symbols (actual characters or tokens) and/or other non-terminals.
 
-In BNF, non-terminal symbols are typically enclosed in angle brackets (e.g., <expression>, <term>), while terminal symbols are written as plain text.
-The production rules are defined using the ::= operator, which indicates that the left-hand side can be replaced by the right-hand side.
+In BNF, non-terminal symbols are typically enclosed in angle brackets (e.g., `<expression>`, `<term>`), while terminal symbols are written as plain text.
+The production rules are defined using the `::=` operator, which indicates that the left-hand side can be replaced by the right-hand side.
 Additionally, we may use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) for clarity, if a production rule would otherwise be very large.
 We'll denote a regular expression by surrounding it in `\`s.
 For example, a simple BNF rule for an arithmetic expression might look like this:
@@ -174,15 +174,6 @@ You don't need to fully understand what the semantics of these mean yet!
 We'll build up to that knowledge over the next few steps.
 The syntax may look quite strange if you're used to popular languages like Python or JavaScript, but it's still expressive enough to represent any program.
 
-{% include mcq.html
-  header="Exercise 1"
-  text="Which of the following are valid S-Expressions?"
-  options="`(factorial 1)`:This is a valid S-Expression.;`factorial 2`:This is not a valid S-Expression.
-If you want to join multiple atoms into one expression, they must be in brackets.;`(factorial)`:This is a valid S-Expression syntactically.
-It may not be a semantically valid program, but that doesn't affect its syntactic validity.;`fact`:This is a valid S-Expression, consisting of the single atom `fact`.;`!`:This is a valid S-Expression, consisting of the single atom `!`."
-%}
-
-
 We've picked S-Expressions other other grammars (say, C-style or Python-like grammars) because it's very straightforward to convert them into an AST.
 In fact, they're already a textual representation of an AST!
 To see what we mean by this, consider the following snippet:
@@ -247,7 +238,7 @@ typesig-is_best-sig!
 
 {% include infobox.html
   align="start"
-  header="Exercise 2"
+  header="Exercise 1"
   text="
   Write down the parse trace for each string above.
   "
@@ -267,7 +258,7 @@ hello world!
 
 {% include infobox.html
   align="start"
-  header="Exercise 3"
+  header="Exercise 2"
   text="
   Why does our grammar not admit any of these?
   "
@@ -319,6 +310,14 @@ We're now ready to construct our full grammar:
 
 All we've done is combine the S-Expression grammar with the earlier one, and made program admit a list of S-Expressions instead of literals.
 
+{% include mcq.html
+  header="Exercise 3"
+  text="Which of the following are valid S-Expressions?"
+  options="`(factorial 1)`:This is a valid S-Expression.;`factorial 2`:This is not a valid S-Expression.
+If you want to join multiple atoms into one expression, they must be in brackets.;`(factorial)`:This is a valid S-Expression syntactically.
+It may not be a semantically valid program, but that doesn't affect its syntactic validity.;`fact`:This is a valid S-Expression, consisting of the single atom `fact`.;`!`:This is a valid S-Expression, consisting of the single atom `!`."
+%}
+
 ## Lexing
 
 It's perfectly possible to build a parser that operates directly on an input string, and that's the model we've operated under so far.
@@ -357,6 +356,16 @@ Now we have a list of strings; our example from before has become `["(", "+", "1
 Now it's quite easy to check which token type each element in this list of strings is: if the string is entirely digits, it's an integer token, if it's an open or close bracket, then it's an open or close bracket token, and otherwise it's a symbol (since whitespace has already been handled).
 
 As you'll see later, our parsing logic will be *much* simpler thanks to our lexer.
+
+
+{% include infobox.html
+  align="start"
+  header="Exercise 4"
+  text="
+  On pen and paper, lex the following S-Expression, like we did with the Python example above: `( factorial (* (+ 1 2) (- 3 4)))`
+  "
+  color="success" align="center"
+%}
 
 ## Abstract Syntax Tree
 
