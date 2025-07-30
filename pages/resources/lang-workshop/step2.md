@@ -8,6 +8,8 @@ permalink: "/resources/lang-workshop/step2"
 | Previous   | [Step 1: The Beginning](/resources/lang-workshop/step1) |
 | Next       | [Step 3: Evaluation](/resources/lang-workshop/step3)    |
 
+This is quite a long chapter, with a lot of explanatory text. Feel free to jump straight to the task, and if you get stuck, you can always come back to read any relevant parts.
+
 ## Table of Contents
 {:.no_toc}
 
