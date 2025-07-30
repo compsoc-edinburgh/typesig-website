@@ -59,6 +59,7 @@ But what type should lambdas have?
 
 - introduce function types (rec and lambda)
 - quiz on which terms are well typed
+- quick note/ref to STLC
 
 ## Convertibility
 We'll need a notion for when two types are equivalent.
