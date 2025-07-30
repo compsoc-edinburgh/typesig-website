@@ -25,14 +25,21 @@ A parser converts an input string into an *abstract syntax tree* (or AST); a dat
 Once we have an AST, we'll be able to reason about our code in a structured way.
 In particular, type checking becomes a form of tree traversal, and evaluation becomes a form of tree reduction.
 
-## Grammars
+## Grammars and BNF
 
 All languages, even human languages, adhere to a *grammar*.
-A grammar describes the *syntax*, or the textual representation, of a language; in English, for example, it's a grammatical error to have a verb follow another verb (`eat organise` isn't a valid English sentence).
+A grammar describes the *syntax*, or the textual representation, of a language.
+If a sentence or expression in the language satisfies the rules as laid out by the grammar, we call it *valid*.
+
+English grammar states that a sentence which follows a subject-verb-object structure, such as "The sky (subject) is (verb) green (object)", is valid.
+But, for example, it's a grammatical error to have a verb follow another verb, such as "eat organise."
+
+Each word in the grammar refers to a specific *type* of concept; nouns represent things, verbs represent actions, and so on.
 
 Programming languages also adhere to a grammar.
 Here, a grammar says how we're allowed to combine expressions to build larger expressions.
-For example, `1 + 2` is composed of the literal expression `1`, the operator `+`, and the literal expression `2`.
+For example, using Python's syntax, `1 + 2` is composed of the literal expression `1`, the operator `+`, and the literal expression `2`.
+However, `1 +` would *not* be valid in Python's syntax, as the `+` operator must have an expression on either side.
 
 {% include infobox.html
   text="
@@ -42,6 +49,27 @@ For example, `1 + 2` is composed of the literal expression `1`, the operator `+`
   color="info" align="center"
 %}
 
+To describe grammars, we'll use a notation called Backus-Naur Form (or BNF).
+
+BNF is a formal notation used to describe the syntax of programming languages and other formal languages.
+It provides a clear and concise way to specify the grammatical structure of a language by defining its syntax rules in terms of production rules.
+Each rule consists of a left-hand side, which is a non-terminal symbol representing a category of expressions, and a right-hand side, which describes how that non-terminal can be expanded into a sequence of terminal symbols (actual characters or tokens) and/or other non-terminals.
+
+In BNF, non-terminal symbols are typically enclosed in angle brackets (e.g., <expression>, <term>), while terminal symbols are written as plain text.
+The production rules are defined using the ::= operator, which indicates that the left-hand side can be replaced by the right-hand side.
+Additionally, we may use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) for clarity, if a production rule would otherwise be very large.
+We'll denote a regular expression by surrounding it in `\`s.
+For example, a simple BNF rule for an arithmetic expression might look like this:
+
+```ebnf
+<expression> ::= <term> | <expression> + <term>
+<term>       ::= <number> | <term> * <number>
+<number>     ::= /[0-9]+/
+```
+
+Here, we have three non-terminal symbols: `<expression>`, `<term>`, and `<number>`.
+Our terminal symbols are `+`, `*`, and non-empty sequences of digits from 0 to 9 (denoted by the regular expression `[0-9]+`).
+
 ## Syntax Trees
 
 Grammars provide syntactic rules for a language
@@ -49,31 +77,83 @@ Syntax trees provide syntactic *structure* for a language.
 
 In other words, the act of parsing involves taking an input string, and, according to the rules given by the grammar for your language, trying to produce a syntax tree that represents the input expression.
 
-<!-- TODO: continue -->
+To illustrate this concept, let's consider the simple sentence "I love TypeSig" in natural language.
+The syntax tree for this sentence would break it down into its grammatical components.
+At the top level, we have a sentence (S), which can be further divided into a noun phrase (NP) and a verb phrase (VP).
+The noun phrase consists of the subject "I," while the verb phrase contains the verb "love" and the object "TypeSig."
+The resulting syntax tree would look like this:
+
+```
+  S
+ / \
+NP  VP
+|   / \
+I  V   NP
+   |   |
+  love TypeSig
+```
+
+Now, let's consider a Python-style expression, such as `result = 3 + 5`.
+The syntax tree for this expression would reflect its components according to the rules of the grammar for arithmetic expressions.
+At the top level, we have an assignment statement (Assign), which consists of a variable (result) and an expression.
+The expression itself is a binary operation (Add) that combines two integer literals (3 and 5).
+The corresponding syntax tree would look like this:
+
+```
+      Assign
+     /      \
+  Var       BinaryOp (Add)
+  |         /   \
+result      Lit  Lit
+            |    |
+            3    5
+
+```
 
 ## Ambiguity
 
 Natural languages tend to be *ambiguous*, meaning that there are sentences that cannot be parsed into exactly one parse tree.
 For natural languages, this is a useful property, as it enables things like puns and poetry.
 
+Natural languages often exhibit *ambiguity*, where a single sentence can have multiple interpretations.
+For example, the phrase "superfluous hair remover" can either refer to a product that removes superfluous hair, or to hair remover that is superfluous.
+
+```
+          Phrase
+         /      \
+      Adj        NP
+     /          /  \
+superfluous  hair remover
+```
+
+```
+          Phrase
+         /      \
+     AdjP        N
+    /     \        \
+superfluous hair    remover
+```
+
+This ambiguity can enrich communication in human languages, allowing for puns and poetic expressions.
+
 {% include infobox.html
   text="
-  To illustrate this, try and figure out how many ways you can parse the English expressions \"Superfluous hair remover\" and \"Programming language implementations\". Draw out the syntax tree resulting from each parse.
+  To illustrate ambiguity, try and figure out how many ways you can parse the English expressions \"Programming language implementations\" and \"I saw the man with the telescope\". Write out unambiguous versions of each parse, and draw out the syntax tree resulting from each parse.
   "
   color="success" align="center"
 %}
 
-For programming languages, however, it's less useful.
+For programming languages, however, clarity is paramount.
 When we're talking to a computer, we want to be as exact about what we mean as possible!
 As a result, when choosing or designing a grammar for a programming language, we should always make sure that it's unambiguous.
-
-<!-- TODO: talk about ambiguity being undecidable, and how to construct an unambiguous grammar -->
+For MLTS, we'll be using a simple grammar that's known to be unambiguous.
 
 ## S-Expressions
 
 To keep things simple for our language, we've opted for a very simple grammar, known as S-Expressions.
 S-Expressions are known for their use in the Lisp family of programming languages, where they are sometimes called sexps.
 We chose to use S-Expressions in particular as our grammer, since they give us a direct correspondence between the textual representation of our language and our internal representation.
+This direct correspondence makes implementing parsing easier compared to a more traditional grammar, while still allowing us to write complex expressions.
 
 An S-Expression consists of a pair of brackets, that contain a list of "atoms" separated by whitespace.
 These atoms may be literal values, like numbers or strings, or symbols, which are arbitrary strings of characters.
@@ -132,27 +212,27 @@ We'll build one up piece by piece.
 First, let's just write a grammar that recognises some basic literals.
 
 ```ebnf
-INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
-Literal ::= INTEGER | SYMBOL
+<integer> ::= /[0-9]+/          // matches one or more digits
+<symbol>  ::= /(^\s|\(|\))+/    // any string of non-whitespace characters
+<literal> ::= <integer> | <symbol>
 ```
 
-Here, we've defined two literal types: `INTEGER`s (whole numbers), and `SYMBOL`s (any string of characters that doesn't contain whitespace or brackets).
+Here, we've defined two literal types: `<integer>`s (whole numbers), and `<symbol>`s (any string of characters that doesn't contain whitespace or brackets).
 We've given regular expressions to describe valid strings that can be be parsed as these literals, although you don't necessarily need to use regex in your parser implementation.
 
-We've then combined these literal types into one grammar rule, called `Literal`.
-A `Literal` can be either an `INTEGER`, or a `SYMBOL`.
+We've then combined these literal types into one grammar rule, called `<literal>`.
+A `<literal>` can be either an `<integer>`, or a `<symbol>`.
 The interpretation of the `|` character depends on what type of grammar you're defining: in some grammars, the pipe denotes a non-deterministic choice between either branch; in others, you'd deterministically try the left branch first, then the right.
 We'll choose the deterministic type; it's less general, but it's easier to work with both on paper and when implementing the code for your parser.
 
 To show how the grammar works, we'll walk through an example.
-Let's say we're trying to parse the expression `hello` using this grammar, where our starting symbol is `Literal`.
-- A `Literal` can be either an `INTEGER` or a `SYMBOL`. Since we have a deterministic grammar, we'll try the `INTEGER` branch first.
-- An `INTEGER` must consist only of digits from 0-9, and there must be at least one. Our input is `hello`, which contains non-digit characters (in fact, it doesn't contain any characters!), so we can't apply this rule. We must backtrack.
-- Backtracking to `Literal`, the next branch to try is `SYMBOL`.
-- A `SYMBOL` is at least one character that isn't brackets or whitespace. Our input is `hello`, which matches this rule. We consume the first character in our input, `h`.
-- Because `SYMBOL` accepts multiple characters, we keep consuming characters from our input until we either find a character that `SYMBOL` doesn't accept, or we run out of characters in our input. In both cases, we return back to literal. For our example, we consume the entire input `hello`, and return back to `Literal`.
-- `Literal` (our starting rule)has nothing left to do since it only consumes one literal at a time, and we've consumed all of our input, so we're done. Our final parse trace is `Literal -> SYMBOL`.
+Let's say we're trying to parse the expression `hello` using this grammar, where our starting symbol is `<literal>`.
+- A `<literal>` can be either an `<integer>` or a `<symbol>`. Since we have a deterministic grammar, we'll try the `<integer>` branch first.
+- An `<integer>` must consist only of digits from 0-9, and there must be at least one. Our input is `hello`, which contains non-digit characters (in fact, it doesn't contain any characters!), so we can't apply this rule. We must backtrack.
+- Backtracking to `<literal>`, the next branch to try is `<symbol>`.
+- A `<symbol>` is at least one character that isn't brackets or whitespace. Our input is `hello`, which matches this rule. We consume the first character in our input, `h`.
+- Because `<symbol>` accepts multiple characters, we keep consuming characters from our input until we either find a character that `<symbol>` doesn't accept, or we run out of characters in our input. In both cases, we return back to literal. For our example, we consume the entire input `hello`, and return back to `<literal>`.
+- `<literal>` (our starting rule)has nothing left to do since it only consumes one literal at a time, and we've consumed all of our input, so we're done. Our final parse trace is `<literal> -> <symbol>`.
 
 Currently, our grammar admits the following strings:
 
@@ -196,22 +276,22 @@ hello world!
 
 Let's update our parse rules to allow multiple expressions.
 Luckily for us, extending the grammar  is straightforward - we just add a new rule to the grammar.
-We'll add a new rule, called `Program`, which will be our starting rule from now on:
+We'll add a new rule, called `<program>`, which will be our starting rule from now on:
 
 ```ebnf
-INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
-Literal ::= INTEGER | SYMBOL
-Program ::= Literal*
+<integer> ::= /[0-9]+/          // matches one or more digits
+<symbol>  ::= /(^\s|\(|\))+/    // any string of non-whitespace characters
+<literal> ::= <integer> | <symbol>
+<program> ::= <literal>*
 ```
 
-The new `Program` rule refers to `Literal`, but there's an `*` after it.
-This symbol is called a *Kleene star*, and it means that we're looking for zero or more `Literal`s.
+The new `<program>` rule refers to `<literal>`, but there's an `*` after it.
+This symbol is called a *Kleene star*, and it means that we're looking for zero or more `<literal>`s.
 You might have seen similar syntax before if you've studied regular expressions.
-We could replace it with a `+` if we wanted one or more `Literal`s, or a `?` if we wanted exactly zero or one.
+We could replace it with a `+` if we wanted one or more `<literal>`s, or a `?` if we wanted exactly zero or one.
 
 By the way, we've not handled the fact that there needs to be whitespace between each literal.
-We could replace our program rule with something like `Program ::= Literal | Literal \s Program`, which would do the trick, but for the sake of explanation and clarity, we'll leave it implicit.
+We could replace our program rule with something like `<program> ::= <literal> | <literal> \s <program>`, which would do the trick, but for the sake of explanation and clarity, we'll leave it implicit.
 We're going to use a sneaky trick later on to avoid having to worry about it anyways!
 
 Now we admit the strings from above.
@@ -222,19 +302,19 @@ We'll say an *expression* is either an atom (a literal) or an S-Expression (with
 In other (more formal) words:
 
 ```ebnf
-Expr    ::= Literal | '(' Expr* ')'
+<expr>    ::= <literal> | ( <expr>* )
 ```
 
-The `'('` just means we're checking our input for `(` as a character literal.
+The `(` and `)` just mean we're checking our input for `(` and `)` as a character literal respectively.
 
 We're now ready to construct our full grammar:
 
 ```ebnf
-INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
-Literal ::= INTEGER | SYMBOL
-Expr    ::= Literal | '(' Expr* ')'
-Program ::= Expr*
+<integer> ::= /[0-9]+/          // matches one or more digits
+<symbol>  ::= /(^\s|\(|\))+/    // any string of non-whitespace characters
+<literal> ::= <integer> | <symbol>
+<expr>    ::= <literal> | ( <expr>* )
+<program> ::= <expr>*
 ```
 
 All we've done is combine the S-Expression grammar with the earlier one, and made program admit a list of S-Expressions instead of literals.
@@ -243,8 +323,28 @@ All we've done is combine the S-Expression grammar with the earlier one, and mad
 
 It's perfectly possible to build a parser that operates directly on an input string, and that's the model we've operated under so far.
 But, the task of parsing is usually simpler if we first convert our input string into a list of *tokens* — strings that are syntactically important to our grammar — and run our parser on that instead of a list of characters.
+This way, our parser doesn't need to work out if the character it's looking at is part of a symbol or a literal, as that job has already been done for it.≈
 This process is called *lexing*, and a program that does lexing is called a *lexer*.
-Luckily for us, lexing is straightforward for most grammars, and for S-Expressions in particular, there's a neat hack that does almost the whole thing for us!
+Luckily for us, lexing is straightforward for most grammars.
+
+For example, consider the simple Python-like expression: `result = (1 * 2) + 3`.
+During the lexing process, this expression would be broken down into the following tokens:
+- `result (an identifier)
+- `=` (an assignment operator)
+- `(` (an open bracket)
+- `1` (an integer literal)
+- `*` (an addition operator)
+- `2` (an integer literal)
+- `)` (an open bracket)
+- `+` (an addition operator)
+- `3` (an integer literal)
+
+The lexer identifies each of these components based on predefined rules, such as recognizing that anything starting with a letter is an identifier, while sequences of digits represent integer literals.
+These rules are derived from the grammar of the language; specifically, every terminal symbol in the grammar becomes a token type.
+Additionally, the lexer ignores any whitespace that may appear between tokens.
+
+The token types for our S-Expression syntax will be symbols, integer literals, open bracket, and close bracket.
+For S-Expressions in particular, there's a neat hack which performs most of the work of a lexer for us!
 
 Remember how most things in our syntax were whitespace separated?
 The only real exception to this is the brackets delimiting an S-Expression.
@@ -252,9 +352,10 @@ Here's the hack: we can just loop through our input, and wherever we find a brac
 For example:
 `(+ 1 (exp 2 3))` becomes `` ( + 1  ( exp 2 3 )  ) ``.
 Now all we have to do is split our string on whitespace.
-Your language probably already has support for this in its standard library: for most languages, it's something along the lines of `String.split()`.
-For Haskell, there's a function called `words`.
+Your language probably already has support for this in its standard library: for most languages, it's something along the lines of `String.split()`; for Haskell, there's a function called `words`.
 Now we have a list of strings; our example from before has become `["(", "+", "1", "(", "exp", "2", "3", ")", ")"]`.
+Now it's quite easy to check which token type each element in this list of strings is: if the string is entirely digits, it's an integer token, if it's an open or close bracket, then it's an open or close bracket token, and otherwise it's a symbol (since whitespace has already been handled).
+
 As you'll see later, our parsing logic will be *much* simpler thanks to our lexer.
 
 ## Abstract Syntax Tree
@@ -277,7 +378,7 @@ type Program = [Expr]
 It's a good idea to keep your AST representation as flat as possible.
 A simple AST makes writing your evaluator much more pleasant.
 The above example keeps the literals and the S-Expressions at the same level, compared to the grammar, which had a separate rule for literals.
-Here I've defined a type alias so I can call a list of `Expr`s a `Program`, but this is just for convenience.
+Here I've defined a type alias so I can call a list of `Expr`s a `Program`, just for convenience.
 
 ## Parser
 
@@ -288,7 +389,7 @@ In OOP languages, you should probably make a class that has the token stream as 
 For a pure functional language like Haskell, we'll need to pass around our data explicitly.
 This means our type actually looks more like `[String] -> (Expr, [String])` (remember that we're representing our token stream as a list of strings).
 
-We'll use a top-down approach, which means we'll start by writing a parser for a `Program`, and work our way down to the smaller types.
+We'll use a top-down approach, which means we'll start by writing a parser for a `Program` (a list of `Expr`s), and work our way down to the smaller types.
 
 A program, as defined by our grammar, is a list of top-level expressions.
 Thus, our function to parse a program should repeatedly try and parse an expression from the token stream until there aren't any tokens left.
@@ -303,11 +404,11 @@ So how do we parse an expression?
 As a reminder, our current grammar looks like this:
 
 ```ebnf
-INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
-Literal ::= INTEGER | SYMBOL
-Expr    ::= Literal | '(' Expr* ')'
-Program ::= Expr*
+<integer> ::= /[0-9]+/          // matches one or more digits
+<symbol>  ::= /(^\s|\(|\))+/    // any string of non-whitespace characters
+<literal> ::= <integer> | <symbol>
+<expr>    ::= <literal> | ( <expr>* )
+<program> ::= <expr>*
 ```
 
 The current token at the front of our token stream contains everything we need to know.
@@ -320,8 +421,8 @@ Otherwise, it must be a symbol.
 So far, so good; we can parse literals, and handle at least one form of syntax error.
 All that's left is to parse S-Expressions.
 
-The grammar rule for an S-Expression was `'(' Expr* ')'`.
-We already know how to parse `(`, `)` and `Expr`, so all that's left is the `*`!
+The grammar rule for an S-Expression was `( <expr>* )`.
+We already know how to parse `(`, `)` and `<expr>`, so all that's left is the `*`!
 We already dealt with a similar situation when parsing the whole program, except here instead of stopping at the end of the input, we want to stop when our current token is a `)`.
 If we *do* reach the end of the input before we find our `)`, then there must have been another syntax error!
 
@@ -360,11 +461,11 @@ Once the lexer is complete, write a parser that converts a list of tokens into t
 It should match the following grammar:
 
 ```ebnf
-INTEGER ::= /[0-9]+/
-SYMBOL  ::= /(^\s|\(|\))+/    // this just means no whitespace or brackets
-Literal ::= INTEGER | SYMBOL
-Expr    ::= Literal | '(' Expr* ')'
-Program ::= Expr*
+<integer> ::= /[0-9]+/          // matches one or more digits
+<symbol>  ::= /(^\s|\(|\))+/    // any string of non-whitespace characters
+<literal> ::= <integer> | <symbol>
+<expr>    ::= <literal> | ( <expr>* )
+<program> ::= <expr>*
 ```
 
 Your language of choice likely has built in functions to convert a string to an integer (Python has `int`, Haskell has `read`, Rust has `string.parse::<i32>()`).
