@@ -619,6 +619,9 @@ Depending on your language choice, they might be easier or harder than anticipat
 
   For bonus points, add colour to the output!
 
+- Allow the pretty printer to print code in colour.
+  For example, you may want to highlight integers in blue, string literals in green, brackets in grey (so they're less visible/distracting), a function head in bold.
+
 - The combination of a parser and a pretty printer acts as a code formatter.
   Add a command line flag that formats the contents of a supplied file, and rewrite the pretty printer to display S-Exprs vertically if they have more than e.g. 3 elements:
 
