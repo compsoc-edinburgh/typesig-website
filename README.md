@@ -1,6 +1,6 @@
 # TypeSig Website
 This is the website for TypeSig.
-It's hosted using GitHub Pages, and the domain is managed by CompSoc (currently).
+It's hosted using GitHub Pages, and is available live on https://typesig.pl.
 
 ## Adding Posts
 Add a new post by putting a markdown file in the `_posts/` directory.
