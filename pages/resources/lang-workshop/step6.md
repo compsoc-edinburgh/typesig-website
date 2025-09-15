@@ -168,7 +168,7 @@ Luckily, both of them correspond to axioms, so we can fill them in much like bef
   \BinaryInfC{\textrm{Socrates can be killed}}
 \end{prooftree}
 
-We have no more statements left to give proofs for, so we have a proof that Socrates can be killed!
+We have no remaining statements to prove; therefore, we have a proof that Socrates can be killed!
 
 ## Types and Type Systems
 The core concept behind a type system is to give every expression \(e\) an associated type \(t\), according to a pre-defined set of *typing rules*.
