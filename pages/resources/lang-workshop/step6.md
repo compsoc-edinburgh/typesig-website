@@ -55,9 +55,11 @@ Validity here is determined by the logical system you're working with.
 
 Let's look at a classic example of an inference rule.
 
-$$
-\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}
-$$
+\begin{prooftree}
+\AxiomC{\textrm{{Socrates is a man}}
+\AxiomC{\textrm{{All men are mortal}}
+\BinaryInfC{\textrm{Socrates is mortal}}
+\end{prooftree}
 
 This rule can be read in two ways:
 - Top to bottom: If I know that Socrates is a man, and that all men are mortal, then I can infer that Socrates is mortal.
@@ -191,7 +193,6 @@ We'll have two typing rules:
   \AxiomC{y : \texttt{Int}}
   \BinaryInfC{x + y : \texttt{Int}}
 \end{prooftree}
-
 <!-- TODO: Give example derivations -->
 
 
