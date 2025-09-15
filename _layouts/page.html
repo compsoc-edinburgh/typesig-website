@@ -2,7 +2,18 @@
 layout: default
 ---
 <!-- LaTeX -->
-{% if page.latex %}<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>{% endif %}
+{% if page.latex %}<script>
+MathJax = {
+  loader: {
+    load: ['[tex]/bussproofs']
+  },
+  tex: {
+    packages: {'[+]': ['bussproofs']}
+    inlineMath: {'[+]': [['$', '$']]}
+  }
+};
+</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+{% endif %}
 
 <!-- Post Featured Image -->
 {% if page.image %}
