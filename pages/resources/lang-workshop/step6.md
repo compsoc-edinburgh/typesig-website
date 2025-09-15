@@ -173,8 +173,8 @@ Luckily, both of them correspond to axioms, so we can fill them in much like bef
 We have no remaining statements to prove; therefore, we have a proof that Socrates can be killed!
 
 ## Types and Type Systems
-The core concept behind a type system is to give every expression \(e\) an associated type \(t\), according to a pre-defined set of *typing rules*.
-We write this association as \(e : t\), and read it as "\(e\) has type \(t\)", or "\(e\) is a \(t\)".
+The core concept behind a type system is to give every expression \\(e\\) an associated type \\(t\\), according to a pre-defined set of *typing rules*.
+We write this association as \(e : t\), and read it as "\\(e\\) has type \\(t\\)", or "\\(e\\) is a \\(t\\)".
 Any expression that can be given a type, is then considered *valid*, or *well typed*.
 
 As an example, let's consider a simple language, with just integer literals and the usual addition operator `+`.
