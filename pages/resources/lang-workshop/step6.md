@@ -266,7 +266,7 @@ Pretty quickly, we'll reach the following state in our proof tree:
   \BinaryInfC{1 + \texttt{true} : \texttt{Int}}
 \end{prooftree}
 
-We have no way of deriving $\texttt{true} : \texttt{Int}}$, so we can't derive a type for the overall expression, and it's invalid according to our type system.
+We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a type for the overall expression, and it's invalid according to our type system.
 This is good news!
 The fact that the system we've just come up with doesn't allow $1 + \texttt{true}$ means we've reached our goal of a type system that only allows meaningful programs.
 
