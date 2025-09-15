@@ -76,7 +76,89 @@ $$
 $$
 
 ### Proof Trees
-<!-- TODO: explain proof trees -->
+We can combine axioms and inference rules to produce *proof trees*, which show that a given logical statement follows from the assumed axioms and inference rules.
+
+A proof tree is complete when there are no unproven statements at its leaves.
+If we ever end up with a tree where with unproven statements, but there are no rules that can be applied, then it means the statement is unprovable from the assumed axioms and inference rules.
+
+We'll step through an example proof tree so you can see how to do them.
+Let's say we assume the following axioms:
+$$
+\frac{}{\textrm{Socrates is a man}}
+\frac{}{\textrm{All men are mortal}}
+\frac{}{\textrm{All mortals can be killed}}
+$$
+
+And we assume the following inference rules:
+$$
+\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}
+\frac{\textrm{Socrates is mortal}\quad\textrm{All mortals can be killed}}{\textrm{Socrates can be killed}}
+$$
+
+We can combine these together into a proof that Socrates can be killed.
+
+When deriving proof trees, it's often easiest to work bottom to top, so let's start off with just our conclusion:
+$$
+\begin{prooftree}
+  \AxiomC{\textrm{Socrates can be killed}}
+\end{prooftree}
+$$
+
+Here, we can only use the $\frac{\textrm{Socrates is mortal}\quad\textrm{All mortals can be killed}}{\textrm{Socrates can be killed}}$ rule, as no other rule has a matching conclusion.
+So, let's plug it in to our proof:
+
+$$
+\begin{prooftree}
+  \AxiomC{\textrm{Socrates is mortal}}
+  \AxiomC{\textrm{All mortals can be killed}}
+  \BinaryInfC{\textrm{Socrates can be killed}}
+\end{prooftree}
+$$
+
+We now have two more statements we need to prove; that Socrates is mortal, and that all mortals can be killed.
+However, notice that the second statement is assumed as an axiom.
+We can plug the axiom into our proof tree as follows:
+
+$$
+\begin{prooftree}
+  \AxiomC{\textrm{Socrates is mortal}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{All mortals can be killed}}
+  \BinaryInfC{\textrm{Socrates can be killed}}
+\end{prooftree}
+$$
+
+Since the axiom doesn't introduce any new unproven statements, we can move onto the remaining statement on the left.
+Let's attack this statement with the original $\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}$ rule:
+
+$$
+\begin{prooftree}
+  \AxiomC{\textrm{Socrates is a man}}
+  \AxiomC{\textrm{All men are mortal}}
+  \BinaryInfC{\textrm{Socrates is mortal}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{All mortals can be killed}}
+  \BinaryInfC{\textrm{Socrates can be killed}}
+\end{prooftree}
+$$
+
+Now we have two holes.
+Luckily, both of them correspond to axioms, so we can fill them in much like before:
+
+$$
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{\textrm{Socrates is a man}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{All men are mortal}}
+  \BinaryInfC{\textrm{Socrates is mortal}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{All mortals can be killed}}
+  \BinaryInfC{\textrm{Socrates can be killed}}
+\end{prooftree}
+$$
+
+We have no more statements left to give proofs for, so we have a proof that Socrates can be killed!
 
 ## Types and Type Systems
 The core concept behind a type system is to give every expression $e$ an associated type $t$, according to a pre-defined set of *typing rules*.
