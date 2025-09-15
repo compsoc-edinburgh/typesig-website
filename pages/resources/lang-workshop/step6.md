@@ -35,9 +35,11 @@ Let's look at another example.
 
 Here, we're trying to use an integer as a function!
 
-Currently, we handle these errors during evaluation.
-By introducing a type system, we can instead catch such errors *before* evaluating an expression.
-Crucially, this means we can reason about our programs without even running them, and we can use this to catch mistakes before they happen, to structure our code more clearly, and even to apply optimisations.
+Perhaps there are models of programming where this would be a sensible thing to do, but in general, it's good to be able to restrict the programs we're able to write in our language to only meaningful programs.
+We can do this by adding a *type system* to our language, and a function to our interpreter that performs *type checking*.
+
+The exact definition of "meaningful" above depends on the programs you want your language to be able to express, and changing the definition of meaningful changes the features your type system needs to have.
+Over the next few steps, we'll explore a few common type system designs and features that many languages have.
 
 ## Types and Type Systems
 - explain types in the abstract
