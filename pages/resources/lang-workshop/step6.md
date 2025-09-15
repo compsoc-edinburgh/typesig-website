@@ -102,7 +102,9 @@ Update the syntax for `lambda` and `rec` to take the types of any arguments:
 (lambda ((x Int) (y Int)) (+ x y))
 ```
 
-Implement a new function, `infer`, which takes a typing context, and an expression, and attempts to infer the type of the expression within the context.
+Implement a function called `convertible`, which takes two types, and returns a boolean value indicating if the two types are convertible.
+
+Using `convertible`, write another function called `infer`, which takes a typing context, and an expression, and attempts to infer the type of the expression within the context.
 
 Update your REPL so that it uses `infer` to typecheck an expression before evaluating it.
 
