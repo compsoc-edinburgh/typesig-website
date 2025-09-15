@@ -56,8 +56,8 @@ Validity here is determined by the logical system you're working with.
 Let's look at a classic example of an inference rule.
 
 \begin{prooftree}
-  \AxiomC{\textrm{{Socrates is a man}}
-  \AxiomC{\textrm{{All men are mortal}}
+  \AxiomC{\textrm{Socrates is a man}}
+  \AxiomC{\textrm{All men are mortal}}
   \BinaryInfC{\textrm{Socrates is mortal}}
 \end{prooftree}
 
@@ -105,14 +105,14 @@ Let's say we assume the following axioms:
 And we assume the following inference rules:
 
 \begin{prooftree}
-  \AxiomC{\textrm{{Socrates is a man}}
-  \AxiomC{\textrm{{All men are mortal}}
+  \AxiomC{\textrm{Socrates is a man}}
+  \AxiomC{\textrm{All men are mortal}}
   \BinaryInfC{\textrm{Socrates is mortal}}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{\textrm{{Socrates is mortal}}
-  \AxiomC{\textrm{{All mortals can be killed}}
+  \AxiomC{\textrm{Socrates is mortal}}
+  \AxiomC{\textrm{All mortals can be killed}}
   \BinaryInfC{\textrm{Socrates can be killed}}
 \end{prooftree}
 
