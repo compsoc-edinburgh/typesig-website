@@ -56,9 +56,9 @@ Validity here is determined by the logical system you're working with.
 Let's look at a classic example of an inference rule.
 
 \begin{prooftree}
-\AxiomC{\textrm{{Socrates is a man}}
-\AxiomC{\textrm{{All men are mortal}}
-\BinaryInfC{\textrm{Socrates is mortal}}
+  \AxiomC{\textrm{{Socrates is a man}}
+  \AxiomC{\textrm{{All men are mortal}}
+  \BinaryInfC{\textrm{Socrates is mortal}}
 \end{prooftree}
 
 This rule can be read in two ways:
@@ -74,8 +74,8 @@ We do this by producing an inference rule where there are zero premises, and the
 Such an inference rule is called an *axiom*.
 
 \begin{prooftree}
-\AxiomC{}
-\UnaryInfC{\textrm{Socrates is a man}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{Socrates is a man}}
 \end{prooftree}
 
 ### Proof Trees
@@ -88,32 +88,32 @@ We'll step through an example proof tree so you can see how to do them.
 Let's say we assume the following axioms:
 
 \begin{prooftree}
-\AxiomC{}
-\UnaryInfC{\textrm{Socrates is a man}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{Socrates is a man}}
 \end{prooftree}
 
 \begin{prooftree}
-\AxiomC{}
-\UnaryInfC{\textrm{All men are mortal}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{All men are mortal}}
 \end{prooftree}
 
 \begin{prooftree}
-\AxiomC{}
-\UnaryInfC{\textrm{All mortals can be killed}}
+  \AxiomC{}
+  \UnaryInfC{\textrm{All mortals can be killed}}
 \end{prooftree}
 
 And we assume the following inference rules:
 
 \begin{prooftree}
-\AxiomC{\textrm{{Socrates is a man}}
-\AxiomC{\textrm{{All men are mortal}}
-\BinaryInfC{\textrm{Socrates is mortal}}
+  \AxiomC{\textrm{{Socrates is a man}}
+  \AxiomC{\textrm{{All men are mortal}}
+  \BinaryInfC{\textrm{Socrates is mortal}}
 \end{prooftree}
 
 \begin{prooftree}
-\AxiomC{\textrm{{Socrates is mortal}}
-\AxiomC{\textrm{{All mortals can be killed}}
-\BinaryInfC{\textrm{Socrates can be killed}}
+  \AxiomC{\textrm{{Socrates is mortal}}
+  \AxiomC{\textrm{{All mortals can be killed}}
+  \BinaryInfC{\textrm{Socrates can be killed}}
 \end{prooftree}
 
 We can combine these together into a proof that Socrates can be killed.
