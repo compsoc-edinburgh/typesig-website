@@ -41,6 +41,25 @@ We can do this by adding a *type system* to our language, and a function to our 
 The exact definition of "meaningful" above depends on the programs you want your language to be able to express, and changing the definition of meaningful changes the features your type system needs to have.
 Over the next few steps, we'll explore a few common type system designs and features that many languages have.
 
+## Notation
+Before we start with types, we need to introduce some notation.
+
+When describing type systems, we make use of *inference rules*.
+Inference rules are a way of expressing logical systems
+
+$$
+\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}
+$$
+
+This rule can be read in two ways:
+- Top to bottom: If I know that Socrates is a man, and that all men are mortal, then I can infer that Socrates is mortal.
+- Bottom to top: If I want to check that Socrates is mortal, then I must first check that Socrates is a man and that all men are mortal.
+
+Which reading is more relevent depends on what you're trying to accomplish.
+Often, with type systems, we usually read things from bottom to top.
+
+<!-- TODO: explain proof trees -->
+
 ## Types and Type Systems
 The core concept behind a type system is to give every expression an associated type, according to a pre-defined set of *typing rules*.
 Any expression that can be given a type, is then considered *valid*, or *well typed*.
@@ -51,7 +70,6 @@ Our only type will be `Int`, which represents the integers.
 We'll have two typing rules:
 1. Any integer literal has type `Int`
 2. Given an expression `a + b` (where `a` and `b` stand for sub-expressions, *not* variables), if both `a` and `b` have type `Int`, then `a + b` has type `Int`.
-<!-- TODO: I think things will be much easier if we start using inference rule syntax -->
 <!-- TODO: Give example derivations -->
 
 
@@ -59,7 +77,6 @@ Not all expressions can be given a type, however.
 If we have an expression that, according to our pre-defined set of typing rules, cannot be given a type
 
 - explain types in the abstract
-<!-- TODO: how far do we go, notation wise? it might be easier to explain things if we start using inference rule notation -->
 - well-typed-ness
 - progress
 - preservation
