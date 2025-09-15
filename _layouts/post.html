@@ -10,7 +10,9 @@ post_class: post-template
 
 	<div class="row">
 		
-
+		<!-- LaTeX -->
+		{% if page.latex %}<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>{% endif %}
+		
 		<!-- Post -->        
         {% assign author = site.authors[page.author] %}
         
