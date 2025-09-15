@@ -45,8 +45,15 @@ Over the next few steps, we'll explore a few common type system designs and feat
 ## Notation
 Before we start with types, we need to introduce some notation.
 
-When describing type systems, we make use of *inference rules*.
-Inference rules are a way of expressing logical systems
+When describing type systems, it's common to make use of *inference rules*.
+Inference rules are a flexible syntax that can be used to reason about a wide variety of logical systems.
+
+Rules consist of a horizontal line, with some statements above the line, and exactly one statement beneath the line.
+The statements above the line are called *premises*, and the statement beneath the line is called the *conclusion*.
+In order for the conclusion to hold, all of the premises must hold also.
+Validity here is determined by the logical system you're working with.
+
+Let's look at a classic example of an inference rule.
 
 $$
 \frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}
