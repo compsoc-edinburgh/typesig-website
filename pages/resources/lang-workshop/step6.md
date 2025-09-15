@@ -72,7 +72,8 @@ We do this by producing an inference rule where there are zero premises, and the
 Such an inference rule is called an *axiom*.
 
 $$
-\frac{}{\textrm{Socrates is a man}}
+\AxiomC{}
+\UnaryInfC{\textrm{Socrates is a man}}
 $$
 
 ### Proof Trees
@@ -84,15 +85,35 @@ If we ever end up with a tree where with unproven statements, but there are no r
 We'll step through an example proof tree so you can see how to do them.
 Let's say we assume the following axioms:
 $$
-\frac{}{\textrm{Socrates is a man}}
-\frac{}{\textrm{All men are mortal}}
-\frac{}{\textrm{All mortals can be killed}}
+\begin{prooftree}
+\AxiomC{}
+\UnaryInfC{\textrm{Socrates is a man}}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{}
+\UnaryInfC{\textrm{All men are mortal}}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{}
+\UnaryInfC{\textrm{All mortals can be killed}}
+\end{prooftree}
 $$
 
 And we assume the following inference rules:
 $$
-\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}
-\frac{\textrm{Socrates is mortal}\quad\textrm{All mortals can be killed}}{\textrm{Socrates can be killed}}
+\begin{prooftree}
+\AxiomC{\textrm{{Socrates is a man}}
+\AxiomC{\textrm{{All men are mortal}}
+\BinaryInfC{\textrm{Socrates is mortal}}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{\textrm{{Socrates is mortal}}
+\AxiomC{\textrm{{All mortals can be killed}}
+\BinaryInfC{\textrm{Socrates can be killed}}
+\end{prooftree}
 $$
 
 We can combine these together into a proof that Socrates can be killed.
