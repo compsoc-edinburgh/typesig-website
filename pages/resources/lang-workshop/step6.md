@@ -2,6 +2,7 @@
 layout: page
 title: "Step 6: Types | Language Workshop"
 permalink: "/resources/lang-workshop/step6"
+latex: true
 ---
 
 Complexity: Medium
