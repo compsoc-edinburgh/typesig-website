@@ -182,11 +182,11 @@ Our only type will be `Int`, which represents the integers.
 
 We'll have two typing rules:
 1. Any integer literal has type `Int`.
-\[
+\\[
 \begin{prooftree}
   \AxiomC{v : \texttt{Int}}
 \end{prooftree}
-\]
+\\]
 
 2. Given an expression `a + b` (where `a` and `b` stand for sub-expressions, *not* variables), if both `a` and `b` have type `Int`, then `a + b` has type `Int`.
 \[
