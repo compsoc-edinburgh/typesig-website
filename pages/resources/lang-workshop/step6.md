@@ -213,10 +213,8 @@ Now let's apply addition to them:
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{1 : \texttt{Int}}
-
   \AxiomC{}
   \UnaryInfC{42 : \texttt{Int}}
-
   \BinaryInfC{1 + 42 : \texttt{Int}}
 \end{prooftree}
 
@@ -225,30 +223,22 @@ Let's then add this to 100 in two different ways:
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{1 : \texttt{Int}}
-
   \AxiomC{}
   \UnaryInfC{42 : \texttt{Int}}
-
   \BinaryInfC{1 + 42 : \texttt{Int}}
-
   \AxiomC{}
   \UnaryInfC{100 : \texttt{Int}}
-
   \BinaryInfC{(1 + 42) + 100 : \texttt{Int}}
 \end{prooftree}
 
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{100 : \texttt{Int}}
-
   \AxiomC{}
   \UnaryInfC{1 : \texttt{Int}}
-
   \AxiomC{}
   \UnaryInfC{42 : \texttt{Int}}
-
   \BinaryInfC{1 + 42 : \texttt{Int}}
-
   \BinaryInfC{100 + (1 + 42) : \texttt{Int}}
 \end{prooftree}
 
@@ -271,10 +261,8 @@ Pretty quickly, we'll reach the following state in our proof tree:
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{1 : \texttt{Int}}
-
   \AxiomC{}
   \UnaryInfC{\texttt{true} : \texttt{Int}}
-
   \BinaryInfC{1 + \texttt{true} : \texttt{Int}}
 \end{prooftree}
 
