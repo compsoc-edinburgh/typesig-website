@@ -157,6 +157,7 @@ Let's attack this statement with the original \(\frac{\textrm{Socrates is a man}
 Now we have two holes.
 Luckily, both of them correspond to axioms, so we can fill them in much like before:
 
+\[
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{\textrm{Socrates is a man}}
@@ -167,6 +168,7 @@ Luckily, both of them correspond to axioms, so we can fill them in much like bef
   \UnaryInfC{\textrm{All mortals can be killed}}
   \BinaryInfC{\textrm{Socrates can be killed}}
 \end{prooftree}
+\]
 
 We have no remaining statements to prove; therefore, we have a proof that Socrates can be killed!
 
