@@ -174,33 +174,115 @@ We have no remaining statements to prove; therefore, we have a proof that Socrat
 
 ## Types and Type Systems
 The core concept behind a type system is to give every expression $e$ an associated type $t$ according to a pre-defined set of *typing rules*.
-We write this association as $e : t$, and read it as "$e$ has type $t$", or "$e$ is a $t$".
+
+We'll call this association a *typing judgement*.
+We'll write our typing judgement as $e : t$, and read it as "$e$ has type $t$", or "$e$ is a $t$".
 Any expression that can be given a type, is then considered *valid*, or *well typed*.
 
 As an example, let's consider a simple language, with just integer literals and the usual addition operator `+`.
-Our only type will be `Int`, which represents the integers.
+Our only type will be $\texttt{Int}$, which represents the integers.
 
 We'll have two typing rules:
-1. Any integer literal has type `Int`.
+1. Any integer literal has type $\texttt{Int}$.
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{v : \texttt{Int}}
 \end{prooftree}
 
-2. Given an expression `a + b` (where `a` and `b` stand for sub-expressions, *not* variables), if both `a` and `b` have type `Int`, then `a + b` has type `Int`.
+2. Given an expression $a + b$ (where $a$ and $b$ stand for sub-expressions, *not* variables), if both $a$ and $b$ have type $\texttt{Int}$, then $a + b$ has type $\texttt{Int}$.
 \begin{prooftree}
   \AxiomC{x : \texttt{Int}}
   \AxiomC{y : \texttt{Int}}
   \BinaryInfC{x + y : \texttt{Int}}
 \end{prooftree}
-<!-- TODO: Give example derivations -->
 
+Let's see some derivations for a few example expressions in this language.
+First off, some plain literals.
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{1 : \texttt{Int}}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{42 : \texttt{Int}}
+\end{prooftree}
+
+Now let's apply addition to them:
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{1 : \texttt{Int}}
+
+  \AxiomC{}
+  \UnaryInfC{42 : \texttt{Int}}
+
+  \BinaryInfC{1 + 42 : \texttt{Int}}
+\end{prooftree}
+
+Let's then add this to 100 in two different ways:
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{1 : \texttt{Int}}
+
+  \AxiomC{}
+  \UnaryInfC{42 : \texttt{Int}}
+
+  \BinaryInfC{1 + 42 : \texttt{Int}}
+
+  \AxiomC{}
+  \UnaryInfC{100 : \texttt{Int}}
+
+  \BinaryInfC{(1 + 42) + 100 : \texttt{Int}}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{100 : \texttt{Int}}
+
+  \AxiomC{}
+  \UnaryInfC{1 : \texttt{Int}}
+
+  \AxiomC{}
+  \UnaryInfC{42 : \texttt{Int}}
+
+  \BinaryInfC{1 + 42 : \texttt{Int}}
+
+  \BinaryInfC{100 + (1 + 42) : \texttt{Int}}
+\end{prooftree}
+
+{% include infobox.html
+  align="start"
+  header="Exercise 1"
+  text="
+  Write down a proof tree for the expression $((1 + (2 + 3)) + (4 + 5)) + 6$.
+  "
+  color="success" align="center"
+%}
 
 Not all expressions can be given a type, however.
-If we have an expression that, according to our pre-defined set of typing rules, cannot be given a type
 
-- explain types in the abstract
-- well-typed-ness
+Let's extend our language to have booleans as well, given by the type $\texttt{Bool}$, and the terms $\texttt{true} : \texttt{Int}$ and $\texttt{false} : \texttt{Int}$.
+What happens if we try to derive a type for the expression $1 + \texttt{true}$?
+
+Pretty quickly, we'll reach the following state in our proof tree:
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{1 : \texttt{Int}}
+
+  \AxiomC{}
+  \UnaryInfC{\texttt{true} : \texttt{Int}}
+
+  \BinaryInfC{1 + \texttt{true} : \texttt{Int}}
+\end{prooftree}
+
+We have no way of deriving $\texttt{true} : \texttt{Int}}$, so we can't derive a type for the overall expression, and it's invalid according to our type system.
+This is good news!
+The fact that the system we've just come up with doesn't allow $1 + \texttt{true}$ means we've reached our goal of a type system that only allows meaningful programs.
+
+## TODO
 - progress
 - preservation
 - soundness
