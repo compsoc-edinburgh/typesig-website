@@ -71,10 +71,10 @@ We might want to express that some logical statement *always* holds.
 We do this by producing an inference rule where there are zero premises, and the conclusion is our desired statement.
 Such an inference rule is called an *axiom*.
 
-$$
+\begin{prooftree}
 \AxiomC{}
 \UnaryInfC{\textrm{Socrates is a man}}
-$$
+\end{prooftree}
 
 ### Proof Trees
 We can combine axioms and inference rules to produce *proof trees*, which show that a given logical statement follows from the assumed axioms and inference rules.
