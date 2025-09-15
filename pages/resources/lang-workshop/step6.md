@@ -42,10 +42,24 @@ The exact definition of "meaningful" above depends on the programs you want your
 Over the next few steps, we'll explore a few common type system designs and features that many languages have.
 
 ## Types and Type Systems
+The core concept behind a type system is to give every expression an associated type, according to a pre-defined set of *typing rules*.
+Any expression that can be given a type, is then considered *valid*, or *well typed*.
+
+As an example, let's consider a simple language, with just integer literals and the usual addition operator `+`.
+Our only type will be `Int`, which represents the integers.
+
+We'll have two typing rules:
+1. Any integer literal has type `Int`
+2. Given an expression `a + b` (where `a` and `b` stand for sub-expressions, *not* variables), if both `a` and `b` have type `Int`, then `a + b` has type `Int`.
+<!-- TODO: I think things will be much easier if we start using inference rule syntax -->
+<!-- TODO: Give example derivations -->
+
+
+Not all expressions can be given a type, however.
+If we have an expression that, according to our pre-defined set of typing rules, cannot be given a type
+
 - explain types in the abstract
-<!--
-how far do we go, notation wise? it might be easier to explain things if we start using inference rule notation
--->
+<!-- TODO: how far do we go, notation wise? it might be easier to explain things if we start using inference rule notation -->
 - well-typed-ness
 - progress
 - preservation
