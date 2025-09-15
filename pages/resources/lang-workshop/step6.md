@@ -122,7 +122,7 @@ When deriving proof trees, it's often easiest to work bottom to top, so let's st
   \AxiomC{\textrm{Socrates can be killed}}
 \end{prooftree}
 
-Here, we can only use the $\frac{\textrm{Socrates is mortal}\quad\textrm{All mortals can be killed}}{\textrm{Socrates can be killed}}$ rule, as no other rule has a matching conclusion.
+Here, we can only use the \(\frac{\textrm{Socrates is mortal}\quad\textrm{All mortals can be killed}}{\textrm{Socrates can be killed}}\) rule, as no other rule has a matching conclusion.
 So, let's plug it in to our proof:
 
 \begin{prooftree}
@@ -143,7 +143,7 @@ We can plug the axiom into our proof tree as follows:
 \end{prooftree}
 
 Since the axiom doesn't introduce any new unproven statements, we can move onto the remaining statement on the left.
-Let's attack this statement with the original $\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}$ rule:
+Let's attack this statement with the original \(\frac{\textrm{Socrates is a man}\quad\textrm{All men are mortal}}{\textrm{Socrates is mortal}}\) rule:
 
 \begin{prooftree}
   \AxiomC{\textrm{Socrates is a man}}
@@ -171,8 +171,8 @@ Luckily, both of them correspond to axioms, so we can fill them in much like bef
 We have no more statements left to give proofs for, so we have a proof that Socrates can be killed!
 
 ## Types and Type Systems
-The core concept behind a type system is to give every expression $e$ an associated type $t$, according to a pre-defined set of *typing rules*.
-We write this association as $e : t$, and read it as "$e$ has type $t$", or "$e$ is a $t$".
+The core concept behind a type system is to give every expression \(e\) an associated type \(t\), according to a pre-defined set of *typing rules*.
+We write this association as \(e : t\), and read it as "\(e\) has type \(t\)", or "\(e\) is a \(t\)".
 Any expression that can be given a type, is then considered *valid*, or *well typed*.
 
 As an example, let's consider a simple language, with just integer literals and the usual addition operator `+`.
