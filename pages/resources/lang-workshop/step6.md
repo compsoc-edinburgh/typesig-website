@@ -66,17 +66,28 @@ This rule can be read in two ways:
 Which reading is more relevent depends on what you're trying to accomplish.
 Often, with type systems, we usually read things from bottom to top.
 
+### Axioms
+We might want to express that some logical statement *always* holds.
+We do this by producing an inference rule where there are zero premises, and the conclusion is our desired statement.
+Such an inference rule is called an *axiom*.
+
+$$
+\frac{}{\textrm{Socrates is a man}}
+$$
+
+### Proof Trees
 <!-- TODO: explain proof trees -->
 
 ## Types and Type Systems
-The core concept behind a type system is to give every expression an associated type, according to a pre-defined set of *typing rules*.
+The core concept behind a type system is to give every expression $e$ an associated type $t$, according to a pre-defined set of *typing rules*.
+We write this association as $e : t$, and read it as "$e$ has type $t$", or "$e$ is a $t$".
 Any expression that can be given a type, is then considered *valid*, or *well typed*.
 
 As an example, let's consider a simple language, with just integer literals and the usual addition operator `+`.
 Our only type will be `Int`, which represents the integers.
 
 We'll have two typing rules:
-1. Any integer literal has type `Int`
+1. Any integer literal has type `Int`.
 2. Given an expression `a + b` (where `a` and `b` stand for sub-expressions, *not* variables), if both `a` and `b` have type `Int`, then `a + b` has type `Int`.
 <!-- TODO: Give example derivations -->
 
