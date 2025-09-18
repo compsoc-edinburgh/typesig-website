@@ -344,7 +344,7 @@ These are some extra challenges you can attempt to build your understanding furt
   Int -> Int
   ```
 
-- Add a REPL command that lets the user search for all available functions via their type (a la [Haskell's Hoogle](https://hoogle.haskell.org)):
+- Add a REPL command that lets the user search for all available functions (i.e., those in the current environment) via their type, a la [Haskell's Hoogle](https://hoogle.haskell.org):
 
   ```console
   MLTS> :typesearch Int -> Int -> Int
@@ -354,11 +354,12 @@ These are some extra challenges you can attempt to build your understanding furt
   /
   ```
 
-- Allow the user to specify an unknown type by using an underscore:
+- Add type level metavariables. These allow the user to specify an unknown type by using an underscore, which is then inferred by the typechecker:
 
   ```console
   MLTS> :t (lambda ((x _)) (+ x 1))
   Int -> Int
   ```
 
-  NB: `_` is *not* an "any" type; it's simply a concrete type that should be inferred. You may need to restructure your type checker if you assume function arguments are always given a type annotation by the user.
+  NB: `_` is *not* an "any" type; it's simply a concrete type that should be inferred.
+  You may need to restructure your type checker if you assume function arguments are always given a type annotation by the user.
