@@ -271,22 +271,22 @@ We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a 
 This is good news!
 The fact that the system we've just come up with doesn't allow $1 + \texttt{true}$ means we've reached our goal of a type system that only allows meaningful programs.
 
-## TODO
-- progress
-- preservation
-- soundness
+## TODO List
+- TODO: progress
+- TODO: preservation
+- TODO: soundness
 
 ## MLTS Types
 So what types do we have available to us so far?
 
-Naturally, we have all of the primitive types we've added; integers, floats, characters, strings, booleans, as well as any other types you may have decided to add.
+Naturally, we have all of the primitive types we've added; integers, floats, characters, strings, booleans, as well as any others you may have decided to add.
 We'll refer to these as *ground* types, or *base* types.
 
 But what type should lambdas have?
 
-- introduce function types (rec and lambda)
-- quiz on which terms are well typed
-- quick note/ref to STLC
+- TODO: introduce function types (rec and lambda)
+- TODO: quiz on which terms are well typed
+- TODO: quick note/ref to STLC
 
 ## Convertibility
 We'll need a notion for when two types are equivalent.
