@@ -261,8 +261,7 @@ Pretty quickly, we'll reach the following state in our proof tree:
 \begin{prooftree}
   \AxiomC{}
   \UnaryInfC{1 : \texttt{Int}}
-  \AxiomC{}
-  \UnaryInfC{\texttt{true} : \texttt{Int}}
+  \AxiomC{\texttt{true} : \texttt{Int}}
   \BinaryInfC{1 + \texttt{true} : \texttt{Int}}
 \end{prooftree}
 
