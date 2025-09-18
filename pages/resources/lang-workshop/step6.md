@@ -320,7 +320,7 @@ It should support any primitives you've implemented (integers, boolean, strings 
 
 You should also add a data structure for typing contexts, mapping names to types.
 
-Update the syntax for `lambda` and `rec` to take the types of any arguments:
+Update the syntax for `lambda` and `rec` to take the types of their arguments:
 
 ```scheme
 (lambda ((x Int)) (+ x 1))
