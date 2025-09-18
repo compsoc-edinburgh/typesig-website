@@ -298,20 +298,50 @@ Right now, for our current type system, convertibility is straightforward:
 - Two function types are convertible if and only if all of their arguments are pointwise convertible, and their return types are convertible. For example, `Int -> Bool -> String` is convertible only with `Int -> Bool -> String`.
 
 You might notice that currently, our convertibility relation is just equality.
-Once we add parametric polymorphism, convertibility will become a lot more complicated, so it's worth structuring our code this way from the beginning to minimise the amount of code restructuring we have to do.
+Once we add parametric polymorphism in the next step, convertibility will become a lot more complicated, so it's worth structuring our code this way from the beginning to minimise the amount of code restructuring we have to do.
 
 ## Checking and Inference
-Given an expression, can we check if it has a certain type?
-Even better, given an expression, can we work out its type automatically?
+Given an expression `e` and a type `t`, can we check if `e` has type `t`?
+Even better, given an expression, can we infer its type automatically?
 
-It turns out the answer to these questions is a definite yes!
-Or, at least it is for the simple type system we have currently.
+It turns out for our type system, the answer to both of these questions is a definite yes!
 
-- explain meanings of checking and inference.
+We'll start with type inference first.
+Let's call the inference function that we're implementing `infer`.
+`infer` is structured similarly to `eval`; it works its way through the AST recursively, building up a context `gamma` associating names to types as it goes (instead of an environment `env` associating names to values).
+You may notice that this is exactly the same thing we do when we work out proof trees for type derivations on paper!
+<!-- TODO: should this be something a reader should notice, or should it be the explicit framing for why we're structuring the algorithm the way we do? -->
 
-- detailed inference algorithm walkthrough
+Let's see how it works on each different type of AST node we have.
 
-Now that we have inference, we can implement checking if the expression `e` has type `t` easily; just infer the type of `e`, and check if it's the same type as `t`.
+For every literal `l` of some type `t`, `infer(l, gamma)` will return `t`.
+This case is hardcoded for each type of literal.
+For example:
+- `infer(42, gamma)` returns `Int`.
+- `infer("hello", gamma)` returns `String`.
+- `infer(42.0, gamma)` returns `Float`.
+
+Similarly, we'll need to hardcode types for each primitive operation.
+For example, `infer(+, gamma)` returns `Int -> Int -> Int`.
+
+For variables, `infer(v, gamma)` will look up the type of `v` in `gamma`.
+If it finds a corresponding type for `v` in `gamma`, then it returns that; otherwise, it throws an error, claiming that `v` isn't in scope.
+
+For function types, `infer` will take the arguments declared in the function, add them to the context, and then run `infer` on the body.
+For example, `infer((lambda ((x Int) (y Int)) (+ x y)), gamma)` will call `infer((+ x y), gamma + (x, Int) + (y, Int))` to infer the type of the body. <!-- TODO: split into multiple ~~> lines like we did for eval -->
+As far as type checking is concerned, there's no difference between a `rec` and a `lambda`, except for the fact that we have to make the type of
+
+For function application, `infer` will infer the types of all of the arguments, and the type of the function in the head position.
+If each of the argument types is convertible with the corresponding argument in the function's type, then `infer` will return the function's return type.
+If any arguments aren't convertible with their corresponding argument type in the function, or if the expression in the head position isn't a function, `infer` will throw an error.
+
+For example:
+- `infer(((lambda ((x Int)) (+ x 1)) 1), gamma)` returns `Int`: the type of the lambda is `Int -> Int`, and the type of `1` is `Int`, so the arguments are convertible.
+- `infer(((lambda ((x Int)) (+ x 1)) "hello"), gamma)` errors: `String` is not convertible with `Int`.
+- `infer((1 2), gamma)` errors: `1` has type `Int`, which isn't a function type.
+
+We've covered all types of AST node in our language, so we've fully described a type inference algorithm.
+Now that we have inference, we can implement typechecking easily; just infer the type of `e`, and check if the inferred type is convertible with `t`.
 
 ## Task
 
