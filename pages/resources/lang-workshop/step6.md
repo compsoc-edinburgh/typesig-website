@@ -271,7 +271,8 @@ We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a 
 This is good news!
 The fact that the system we've just come up with doesn't allow $1 + \texttt{true}$ means we've reached our goal of a type system that only allows meaningful programs.
 
-## TODO List
+## Progress, Preservation and Soundness
+There's a well-known slogan for typed languages: "well typed programs don't go wrong"!
 - TODO: progress
 - TODO: preservation
 - TODO: soundness
