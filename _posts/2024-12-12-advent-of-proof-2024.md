@@ -8,7 +8,7 @@ tags: lean agda events
 featured: false
 ---
 
-TypeSig is pleased to announce that Advent of Proof is returning this year! [Click here to join in!][aop]
+TypeSig is pleased to announce that Advent of Proof is returning this year!
 
 We are grateful to the academics who supplied problems for us this year, and will credit them individually at the beginning of each problem when they are published. We also thank Dr Liam O'Connor for supplying the web infrastructure from last year's version of the event.  
 
