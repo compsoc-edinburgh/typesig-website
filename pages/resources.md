@@ -19,8 +19,8 @@ This page contains resources from previous TypeSig events, courses, and workshop
 [Theorem Proving in Lean](https://lean-lang.org/theorem_proving_in_lean4/introduction.html)   
 [Lean Game Server](https://adam.math.hhu.de/) (Natural Number Game, Set Theory Game, etc.)
 [Formalising Mathematics](https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2023/)    
-[Mechanics of Proof](https://hrmacbeth.github.io/math2001/) 
-[A Glimpse of Lean](https://github.com/PatrickMassot/GlimpseOfLean/)
+[Mechanics of Proof](https://hrmacbeth.github.io/math2001/)     
+[A Glimpse of Lean](https://github.com/PatrickMassot/GlimpseOfLean/)    
 
 ##### Agda
 [Programming Language Foundations in Agda](https://plfa.inf.ed.ac.uk)   
