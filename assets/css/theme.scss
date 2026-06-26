@@ -514,6 +514,24 @@ background-color: #fff;
     content: '';
     background-color: #333333;
 }
+.sidebar .gold-sponsors h5 span {
+    color: #e6b800;
+}
+.sidebar .gold-sponsors h5:before {
+    background-color: #e6b800;
+}
+.sidebar .silver-sponsors h5 span {
+    color: #adadad;
+}
+.sidebar .silver-sponsors h5:before {
+    background-color: #adadad;
+}
+.sidebar .bronze-sponsors h5 span {
+    color: #cd8032;
+}
+.sidebar .bronze-sponsors h5:before {
+    background-color: #cd8032;
+}
 .sidebar ul {list-style:none;padding-left:0;}
 .sidebar ul li a {
     color: #999;
