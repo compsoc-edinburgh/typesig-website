@@ -5,9 +5,7 @@ permalink: "/about/"
 ---
 This is a dedicated space for people to nerd out about semantics, programming languages, type theory, concurrency and any other field of theoretical CS! We're a special interest group (SIG) within [CompSoc][compsoc], and we run frequent events for you to learn about various different topics within these fields.
 
-We have weekly workshops where you can learn to use the Lean theorem prover, and learn to make your own programming language; ~monthly TypeSig Talks, where academics give introductory talks on their research; and we organise the world's largest undergrad PL conference every year in reading week of semester two! Everything is designed to be beginner-friendly, so don't worry if you haven't got any experience - this is the perfect place to learn! Oh, and all events come with free pizza 🍕. 
-
-To complement our Lean workshops, we run Advent of Proof every December, testing you with a range of theorem proving challenges released daily.
+We have weekly workshops where you can learn to use the Lean theorem prover, and learn to make your own programming language; ~monthly TypeSig Talks, where academics give introductory talks on their research; Advent of Proof, a challenge series in December testing you with a range of theorem proving problems released daily; and we organise the world's largest undergrad PL conference every year in semester two! Everything is designed to be beginner-friendly, so don't worry if you haven't got any experience - this is the perfect place to learn! Oh, and all events come with free pizza 🍕. 
 
 We also have regular pub socials at the Dagda Bar (nominative determinism?) every Sunday at 7pm, and an annual barbecue at the end of each academic year.
 
