@@ -15,7 +15,7 @@ This page contains resources from previous TypeSig events, courses, and workshop
 
 ###  Other Resources
 ##### Lean4
-[Functional Programming in Lean](https://lean-lang.org/functional_programming_in_lean/title.html)   
+[Functional Programming in Lean](https://lean-lang.org/functional_programming_in_lean/)   
 [Theorem Proving in Lean](https://lean-lang.org/theorem_proving_in_lean4/introduction.html)   
 [Lean Game Server (Natural Number Game, Set Theory Game, etc.)](https://adam.math.hhu.de/)  
 [Formalising Mathematics (Imperial College London)](https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2023/)    
