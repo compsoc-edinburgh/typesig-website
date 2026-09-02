@@ -186,14 +186,15 @@ We'll have two typing rules:
 1. Any integer literal has type $\texttt{Int}$.
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{v : \texttt{Int}}
+  \UnaryInfC{\texttt{v : Int}}
 \end{prooftree}
 
-2. Given an expression $a + b$ (where $a$ and $b$ stand for sub-expressions, *not* variables), if both $a$ and $b$ have type $\texttt{Int}$, then $a + b$ has type $\texttt{Int}$.
+2. Given an expression $a + b$ (where $a$ and $b$ stand for sub-expressions, *not* variables), if both $a$ and $b$ have type $\texttt{int}$, then $a + b$ has type $\texttt{int}$.
+   Here we're using Lisp syntax; we're ultimately trying to type Lisp programs, after all! 
 \begin{prooftree}
-  \AxiomC{x : \texttt{Int}}
-  \AxiomC{y : \texttt{Int}}
-  \BinaryInfC{x + y : \texttt{Int}}
+  \AxiomC{\texttt{x : Int}}
+  \AxiomC{\texttt{y : Int}}
+  \BinaryInfC{\texttt{(+ x y) : Int}}
 \end{prooftree}
 
 Let's see some derivations for a few example expressions in this language.
@@ -201,52 +202,52 @@ First off, some plain literals.
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{1 : \texttt{Int}}
+  \UnaryInfC{\texttt{1} : \texttt{Int}}
 \end{prooftree}
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{42 : \texttt{Int}}
+  \UnaryInfC{\texttt{42} : \texttt{Int}}
 \end{prooftree}
 
 Now let's apply addition to them:
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{1 : \texttt{Int}}
+  \UnaryInfC{\texttt{1} : \texttt{Int}}
   \AxiomC{}
-  \UnaryInfC{42 : \texttt{Int}}
-  \BinaryInfC{1 + 42 : \texttt{Int}}
+  \UnaryInfC{\texttt{42} : \texttt{Int}}
+  \BinaryInfC{\texttt{(+ 1 42)} : \texttt{Int}}
 \end{prooftree}
 
 Let's then add this to 100 in two different ways:
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{1 : \texttt{Int}}
+  \UnaryInfC{\texttt{1} : \texttt{Int}}
   \AxiomC{}
-  \UnaryInfC{42 : \texttt{Int}}
-  \BinaryInfC{1 + 42 : \texttt{Int}}
+  \UnaryInfC{\texttt{42} : \texttt{Int}}
+  \BinaryInfC{\texttt{(+ 1 42)} : \texttt{Int}}
   \AxiomC{}
-  \UnaryInfC{100 : \texttt{Int}}
-  \BinaryInfC{(1 + 42) + 100 : \texttt{Int}}
+  \UnaryInfC{\texttt{100} : \texttt{Int}}
+  \BinaryInfC{\texttt{(+ (+ 1 42) 100)} : \texttt{Int}}
 \end{prooftree}
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{100 : \texttt{Int}}
+  \UnaryInfC{\texttt{100} : \texttt{Int}}
   \AxiomC{}
-  \UnaryInfC{1 : \texttt{Int}}
+  \UnaryInfC{\texttt{1} : \texttt{Int}}
   \AxiomC{}
-  \UnaryInfC{42 : \texttt{Int}}
-  \BinaryInfC{1 + 42 : \texttt{Int}}
-  \BinaryInfC{100 + (1 + 42) : \texttt{Int}}
+  \UnaryInfC{\texttt{42} : \texttt{Int}}
+  \BinaryInfC{\texttt{(+ 1 42)} : \texttt{Int}}
+  \BinaryInfC{\texttt{(+ 100 (+ 1 42))} : \texttt{Int}}
 \end{prooftree}
 
 {% include infobox.html
   align="start"
   header="Exercise 1"
   text="
-  Write down a proof tree for the expression $((1 + (2 + 3)) + (4 + 5)) + 6$.
+  Write down a proof tree for the expression $\texttt{(+ (+ (+ 1 (+ 2 3)) (+ 4 5)) 6)}$.
   "
   color="success" align="center"
 %}
@@ -262,22 +263,16 @@ Pretty quickly, we'll reach the following state in our proof tree:
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{1 : \texttt{Int}}
+  \UnaryInfC{\texttt{1} : \texttt{Int}}
   \AxiomC{\texttt{true} : \texttt{Int}}
-  \BinaryInfC{1 + \texttt{true} : \texttt{Int}}
+  \BinaryInfC{\texttt{1 + true} : \texttt{Int}}
 \end{prooftree}
 
 We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a type for the overall expression, and it's invalid according to our type system.
 This is good news!
 The fact that the system we've just come up with doesn't allow $1 + \texttt{true}$ means we've reached our goal of a type system that only allows meaningful programs.
 
-## Progress, Preservation and Soundness
-There's a well-known slogan for typed languages: "well typed programs don't go wrong"!
-- TODO: progress
-- TODO: preservation
-- TODO: soundness
-
-## MLTS Types
+## Lambda Types
 So what types do we have available to us so far?
 
 Naturally, we have all of the primitive types we've added; integers, floats, characters, strings, booleans, as well as any others you may have decided to add.
@@ -285,9 +280,160 @@ We'll refer to these as *ground* types, or *base* types.
 
 But what type should lambdas have?
 
-- TODO: introduce function types (rec and lambda)
-- TODO: quiz on which terms are well typed
+Lambdas as in this tutorial keep track of two types: the type of the argument, and the return type. We'll denote this as $\texttt{A -> B}$, where $\texttt{A}$ is the argument type and $\texttt{B}$ is the return type.
+This is probably familiar to anyone with experience of a functional programming language like Haskell or OCaml.
+
+Now that we have lambda types, we want to be able to introduce them, as we did before with base types.
+Namely, we want to fill this hole:
+
+\begin{prooftree}
+  \AxiomC{???}
+  \UnaryInfC{\texttt{(lambda (x) e)} : \texttt{A -> B}}
+\end{prooftree}
+
+To do this, we're going to use *type contexts*. 
+
+### Type Contexts
+
+Just as before where we used environments to store the *values* of variables, type contexts store the *types* of variables.
+
+We'll also have a representation of type contexts in our inference system: 
+1. $\cdot$ represents the empty type context, where there are no variables.
+2. $\Gamma, \texttt{x} : t$ represents the environment $\Gamma$ being *extended* with the type mapping $\texttt{x} : t$ (given that $\texttt{x}$ isn't already in $\Gamma$). 
+   Here you have available the variables of $\Gamma$, as well as the new variable $\texttt{x}$.
+3. $\Gamma \vdash e : t$ means that you can produce the program expression $e$ under the type context $\Gamma$.
+
+In general, we'll use $\Gamma$ to refer to a generic type context.
+
+An example of point 3 is the rule for variables: if you have a variable $\texttt{x}$ of type $t$ in your type context, you can produce an expression $\texttt{x}$ of type $t$.
+This allows you to use the mappings in your type context in derivations.
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{$\Gamma$, \texttt{x} : t $\vdash$ \texttt{x} : t}
+\end{prooftree}
+
+Adding a type context to our inference rules means that we also have to change the typing rules for integers. 
+In particular, we need to say that we can introduce and add integers under any generic context $\Gamma$.
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{$\Gamma \vdash$ \texttt{v : Int}}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash$ \texttt{x : Int}}
+  \AxiomC{$\Gamma \vdash$ \texttt{y : Int}}
+  \BinaryInfC{$\Gamma \vdash $ \texttt{(+ x y) : Int}}
+\end{prooftree}
+
+### Typing Lambdas
+
+With all of this in place, we can now figure out how to introduce lambdas! In the body of a lambda, we can access all of the variables in the surrounding scope, as well as the parameter. 
+As such, we can use context extension to represent the parameter of the lambda in our derivation, like so:
+
+\begin{prooftree}
+  \AxiomC{$\Gamma$, \texttt{x} : \texttt{A} $\vdash$ \texttt{e} : \texttt{B}}
+  \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda (x) e)} : \texttt{A -> B}}
+\end{prooftree}
+
+We also want to be able to beta-reduce these lambdas. This is more straightforward: we just need the lambda, the expression to apply it to, and the resulting expression will be of the return type.
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash$ \texttt{f} : \texttt{A -> B}}
+  \AxiomC{$\Gamma \vdash$ \texttt{e} : \texttt{A}}
+  \BinaryInfC{$\Gamma \vdash$ \texttt{(f e)} : \texttt{B}}
+\end{prooftree}
+
+Now we have everything we need to type functions! As an example, here's the derivation for $\texttt{(lambda (x) (+ x 1))}$.
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{$\cdot,$ \texttt{x} : \texttt{Int} $\vdash$ \texttt{x} : \texttt{Int}}
+  \AxiomC{}
+  \UnaryInfC{$\cdot,$ \texttt{x} : \texttt{Int} $\vdash$ \texttt{1} : \texttt{Int}}
+  \BinaryInfC{$\cdot,$ \texttt{x} : \texttt{Int} $\vdash$ \texttt{(+ x 1)} : \texttt{Int}}
+  \UnaryInfC{$\cdot \vdash$ \texttt{(lambda (x) (+ x 1))} : \texttt{Int -> Int}}
+\end{prooftree}
+
+{% include infobox.html
+  align="start"
+  header="Exercise 2"
+  text="
+  Write down a proof tree for the composition operator $\texttt{(lambda (f) (lambda (g) (lambda (x) (g (f x)))))}$.
+  "
+  color="success" align="center"
+%}
+
+{% include infobox.html
+  align="start"
+  header="Exercise 3"
+  text="
+  Try to figure out the typing rule for the $\texttt{def}$ keyword. If you're getting stuck, try to consider how $\texttt{def}$ and $\texttt{lambda}$ are similar. In particular, 
+  $\texttt{(def x v) e == ((lambda (x) e) v)}$.
+  "
+  color="success" align="center"
+%}
+
 - TODO: quick note/ref to STLC
+
+## Progress, Preservation and Type Safety
+There's a well-known slogan for typed languages: "well-typed programs don't go wrong"! This notion is called *type safety*, and is an important property to prove to make sure that programs that start with no type errors stay with no type errors when they're evaluated.
+It can come about from two properties of type systems: *progress* and *preservation*.
+
+### Progress
+Progress says that, for any well-typed expression $e : t$ in our language, either e is a value, or e evaluates *in one step* to some other expression $e^\prime$ in our language.
+
+{% include infobox.html
+  header="Aside on Proof Techniques"
+  text="
+  You can prove this statement using a technique called *structural induction*. 
+
+  If you've done mathematical induction before, structural induction is a similar idea. 
+  You can consider the natural numbers as a derivation tree like so:
+
+  \begin{prooftree}
+    \AxiomC{}
+    \UnaryInfC{$0$ : $\mathbb{N}$}
+  \end{prooftree}
+
+  \begin{prooftree}
+    \AxiomC{$n$ : $\mathbb{N}$}
+    \UnaryInfC{$n + 1$ : $\mathbb{N}$}
+  \end{prooftree}
+
+  i.e. 0 is a natural number and, if $n$ is a natural number, $n + 1$ is also a natural number.
+
+  To prove a property holds of the natural numbers, you prove the property holds in each case:
+  1. Prove that it holds for 0.
+  2. Assuming that it holds for a generic natural number $n$, prove that it holds for $n + 1$.
+
+  Structural induction is just a generalisation of this for any kind of derivation tree. For each case, you assume the property holds for what's above the line, and prove the property holds for what's below the line.
+
+  Since our typing rules are a derivation tree, you can prove things about them in this way.
+  "
+  color="info"
+%}
+
+
+- TODO: Do progress for one case.
+
+### Preservation
+Preservation says that, for any well-typed expression $e : t$ in our language, either e is a value, or e evaluates *in one step* to some other expression $e^\prime$ in our language.
+
+Preservation is usually slightly more tricky than progress: you typically need some intermediate lemmas. 
+In particular, *renaming* and *substitution* are lemmas you often need to prove.
+
+Weakening is the idea that extending a context doesn't affect whether an expression produced by that context is well-typed. It can be formulated like this:
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash e : t_1$}
+  \UnaryInfC{$\Gamma, x : t_2 \vdash e : t_1$}
+\end{prooftree}
+
+### Type Safety
+
+
 
 ## Convertibility
 We'll need a notion for when two types are equivalent.
@@ -347,7 +493,8 @@ Now that we have inference, we can implement typechecking easily; just infer the
 ## Task
 
 Add a new data structure to represent types in your language.
-It should support any primitives you've implemented (integers, boolean, strings etc.), as well as function types.
+It should support any primitives you've implemented (integers, boolean, strings etc.), as well as function types. 
+If you've implemented multi-argument functions, think carefully about how you're going to type this.
 
 You should also add a data structure for typing contexts, mapping names to types.
 

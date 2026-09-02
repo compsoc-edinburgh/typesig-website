@@ -80,7 +80,7 @@ There are many different ways to represent functions, but one method that is com
 The lambda calculus was described in 1936 by Alonzo Church, and was shown to be a universal model of computation by the Church-Turing thesis.
 In short, the Church-Turing thesis says that any function that can be computed by a Turing machine can be computed via the lambda calculus, and vice versa.
 
-You can find a detailed explanation of the lambda calculus in several of the courses taught in Edinburgh, namely Introduction to Theoretical Computer Science, and Types and Semantics of Programming Languages.
+You can find a detailed explanation of the lambda calculus in several of the courses taught in Edinburgh, namely Foundations of Computing, Introduction to Theoretical Computer Science, and Topics in Programming Languages and Semantics.
 We'll skip over a lot the theory, and focus on what's important for implementation.
 But if you find this step interesting, you should definitely consider taking these courses; there are very rich connections between the lambda calculus and the fields of logic, mathematics, category theory, and computation.
 
@@ -215,7 +215,6 @@ For example, evaluating `(rec f (x) (+ x 1))` in the environment `env` results i
 (+ x 1), env}`.
 Applying this closure value to the literal value `41`
 
-<!-->  clojure avoids syntax errors with {/}  </!-->
 ```clojure
 ((rec f (x) (+ x 1)) 41)
 --> ({rec f x.
