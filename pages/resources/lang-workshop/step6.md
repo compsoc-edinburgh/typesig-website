@@ -283,6 +283,7 @@ But what type should functions have?
 
 Functions are associated with two types: the type of the argument, and the return type. We'll denote this as $t_1 \, \texttt{->} \, t_2$, where $t_1$ is the argument type and $t_2$ is the return type.
 This is probably familiar to anyone with experience of a functional programming language like Haskell or OCaml.
+
 When we introduce function objects with lambda expressions, we'll also annotate the lambda argument with its type. This is so that our type checker knows the type of the parameter ahead of time so it can check whether it's well-typed in the lambda body.
 
 Now that we have function types, we want to be able to introduce them, as we did before with base types.
