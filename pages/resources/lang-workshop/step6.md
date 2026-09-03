@@ -82,8 +82,8 @@ Such an inference rule is called an *axiom*.
 ### Proof Trees
 We can combine axioms and inference rules to produce *proof trees*, which show that a given logical statement follows from the assumed axioms and inference rules.
 
-A proof tree is complete when there are no unproven statements at its leaves.
-If we ever end up with a tree where with unproven statements, but there are no rules that can be applied, then it means the statement is unprovable from the assumed axioms and inference rules.
+A proof tree is complete when all of its leaves are axioms i.e. every statement in the tree is proven.
+If we ever end up with a tree with unproven statements, but there are no rules that can be applied, then it means the statement is unprovable from the assumed axioms and inference rules.
 
 We'll step through an example proof tree so you can see how to do them.
 Let's say we assume the following axioms:
@@ -269,7 +269,7 @@ Pretty quickly, we'll reach the following state in our proof tree:
   \BinaryInfC{\texttt{1 + true} : \texttt{Int}}
 \end{prooftree}
 
-We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a type for the overall expression, and it's invalid according to our type system.
+We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a type for the overall expression, and it's not well-typed, and therefore invalid, according to our type system.
 This is good news!
 The fact that the system we've just come up with doesn't allow $1 + \texttt{true}$ means we've reached our goal of a type system that only allows meaningful programs.
 
@@ -386,7 +386,14 @@ Now we have everything we need to type functions! As an example, here's the deri
   color="success" align="center"
 %}
 
-- TODO: quick note/ref to STLC
+{% include infobox.html
+  align="start"
+  text="
+  For those more interested about type systems, the system that we've defined here is equivalent to the [Simply-Typed Lambda Calculus](https://en.wikipedia.org/wiki/Simply_typed_lambda_calculus).
+  There are a myriad of other systems that have been studied extensively, some of which you'll see later in this workshop.
+  "
+  color="info" align="center"
+%}
 
 ### Typing Recursive Functions
 Recursive functions need to be typed slightly differently from normal functions, but it's the same idea as before. In particular, in our rec lambda's body, we can now call the function recursively as well as just use the parameter.
