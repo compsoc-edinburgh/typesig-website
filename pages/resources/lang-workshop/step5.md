@@ -1,11 +1,12 @@
 ---
 layout: page
-title: "Step 5: Lambda | Language Workshop"
+title: "Step 5: Lambdas | Language Workshop"
 permalink: "/resources/lang-workshop/step5"
 ---
 
 | Complexity | Long                                                   |
 | Previous   | [Step 4: Environments](/resources/lang-workshop/step4) |
+| Next       | [Step 6: Types](/resources/lang-workshop/step6) |
 
 ## Table of Contents
 {:.no_toc}
