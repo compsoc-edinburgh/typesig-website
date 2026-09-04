@@ -348,7 +348,7 @@ We also want to be able to apply to functions. This is more straightforward: we 
   \BinaryInfC{$\Gamma \vdash$ \texttt{(}$e_1$ $e_2$\texttt{)} : $t_2$}
 \end{prooftree}
 
-Now we have everything we need to type functions! As an example, here's the derivation for $\texttt{(lambda (x : Int) (+ x 1))}$.
+Now we have everything we need to type functions! As an example, here's the derivation for $\texttt{(lambda ((x Int)) (+ x 1))}$.
 
 \begin{prooftree}
   \AxiomC{}
