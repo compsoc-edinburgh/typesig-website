@@ -305,8 +305,8 @@ Just as before where we used environments to store the *values* of variables, ty
 
 We'll also have a representation of typing contexts in our inference system: 
 1. $\cdot$ represents the empty typing context, where there are no variables.
-2. $\Gamma, \texttt{x} : t$ represents the environment $\Gamma$ being *extended* with the type mapping $\texttt{x} : t$ (given that $\texttt{x}$ isn't already in $\Gamma$). 
-   Here you have available the variables of $\Gamma$, as well as the new variable $\texttt{x}$.
+2. $\Gamma, x : t$ represents the environment $\Gamma$ being *extended* with the type mapping $\texttt{x} : t$ (given that $x$ isn't already in $\Gamma$). 
+   Here you have available the typings of the variables of $\Gamma$, as well as the typing of the new variable $x$.
 3. $\Gamma \vdash e : t$ means that you can produce the program expression $e$ under the typing context $\Gamma$.
 
 In general, we'll use $\Gamma$ to refer to a generic typing context.
