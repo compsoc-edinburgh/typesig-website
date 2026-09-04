@@ -258,7 +258,7 @@ Let's then add this to 100 in two different ways:
 
 Not all expressions can be given a type, however.
 
-Let's extend our language to have booleans as well, given by the type $\texttt{Bool}$, and the terms $\texttt{true} : \texttt{Int}$ and $\texttt{false} : \texttt{Int}$.
+Let's extend our language to have booleans as well, given by the type $\texttt{Bool}$, and the terms $\texttt{true} : \texttt{Bool}$ and $\texttt{false} : \texttt{Bool}$.
 We'll only consider addition to be meaningful when applied to two integers; trying to add two booleans, or a boolean and an integer will be considered an illegal operation.
 
 Given the above system, what happens if we try to derive a type for the expression $1 + \texttt{true}$?
