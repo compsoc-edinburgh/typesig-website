@@ -248,7 +248,10 @@ Let's then add this to 100 in two different ways:
   align="start"
   header="Exercise 1"
   text="
-  Write down a proof tree for the expression $\texttt{(+ (+ (+ 1 (+ 2 3)) (+ 4 5)) 6)}$.
+  Write down a proof tree for the expression:
+  ```scheme 
+  (+ (+ (+ 1 (+ 2 3)) (+ 4 5)) 6)
+  ```
   "
   color="success" align="center"
 %}
