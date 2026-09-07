@@ -21,7 +21,21 @@ However, this is placing a lot of trust in your type system.
 For example, what if we started with a program that's well-typed but then, once it's been fully evaluated, it no longer remains well-typed?
 This places a question on how you actually go about typing that initial expression. Is it well-typed, because it started that way, or not well-typed, because it evaluates to something that isn't?
 
-This may sound like a far-fetched scenario, but it can happen surprisingly easily.
+To demonstrate a type system like this, consider the typing rule:
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash e_1$ : \texttt{Bool}}
+  \AxiomC{$\Gamma \vdash e_2 : t_1$}
+  \AxiomC{$\Gamma \vdash e_3 : t_2$}
+  \TrinaryInfC{$\Gamma \vdash$ \texttt{(if} $e_1$ \texttt{then} $e_2$ \texttt{else} $e_3$\texttt{)} : $t_1$}
+\end{prooftree}
+
+and the reduction rule:
+
+$\texttt{(if false } e_1 \texttt{ } e_2 \texttt{)} \longrightarrow e_2$
+
+
+
 
 ## Structural Induction
 Proofs abouts type systems often involve a proof technique called *structural induction*.
