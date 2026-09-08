@@ -48,7 +48,8 @@ To prove a property holds of the natural numbers, you prove the property holds i
 1. Prove that it holds for 0.
 2. Assuming that it holds for a generic natural number $n$, prove that it holds for $n + 1$.
 
-Structural induction is just a generalisation of this for any kind of derivation tree. For each case, you assume the property holds for what's above the line, and prove the property holds for what's below the line.
+Structural induction is just a generalisation of this for any kind of derivation tree. For each case, you can assume the property holds for what's above the line, and must prove the property holds for what's below the line. 
+The assumption that the property holds for the term above the line is known as the *inductive hypothesis*.
 
 Since our typing rules are a derivation tree, you can prove things about them in this way.
 
@@ -85,15 +86,19 @@ and
   \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda ((x }$t_1$\texttt{)) e)} : $t_1$ \texttt{->} $t_2^\prime$}
 \end{prooftree}
 
-Since the argument type of the function is determined by the expression, this type will remain the same in both expressions. It's only the return type that changes.
+Since the argument type of the function is determined by the expression, this type will remain the same in both expressions. It's only the return type that can change.
 
-Here, for each of our two derivations, not only do we have a typing judgement underneath the line to prove the property for, we also have one above the line to assume the property holds for, as with the earlier natural numbers.
+Here, for each of our two derivations, not only do we have a typing judgement underneath the line to prove the property holds for, we also have one above the line to assume the property holds for, as with the earlier natural numbers $n + 1$ example.
 
 As such, considering $\Gamma, x : t_1 \vdash \texttt{e} : t_2$ and $\Gamma, x : t_1 \vdash \texttt{e} : t_2^\prime$, we may say that, by the induction hypothesis, $t_2 = t_2^\prime$.
 
 Now that we have this, we can consider the two typing judgements we have below the line. Since we've determined that $t_2 = t_2^\prime$, we can go through and replace every instance of $t_2^\prime$ with $t_2$.
-By doing this, we get  
-$\Gamma \vdash \texttt{(lambda ((x }$t_1$\texttt{)) e)} : t_1 \, \texttt{->} \, t_2$  
+By doing this, we get
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \texttt{(lambda ((x } t_1 \texttt{)) e)} : t_1 \, \texttt{->} \, t_2$}
+\end{prooftree}
+
 for both typing judgements, which is exactly what we're looking for.
 
 {% include infobox.html
