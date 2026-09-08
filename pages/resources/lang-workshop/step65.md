@@ -85,6 +85,17 @@ and
   \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda ((x }$t_1$\texttt{)) e)} : $t_1$ \texttt{->} $t_2^\prime$}
 \end{prooftree}
 
+Since the argument type of the function is determined by the expression, this type will remain the same in both expressions. It's only the return type that changes.
+
+Here, for each of our two derivations, not only do we have a typing judgement underneath the line to prove the property for, we also have one above the line to assume the property holds for, as with the earlier natural numbers.
+
+As such, considering $\Gamma, x : t_1 \vdash \texttt{e} : t_2$ and $\Gamma, x : t_1 \vdash \texttt{e} : t_2^\prime$, we may say that, by the induction hypothesis, $t_2 = t_2^\prime$.
+
+Now that we have this, we can consider the two typing judgements we have below the line. Since we've determined that $t_2 = t_2^\prime$, we can go through and replace every instance of $t_2^\prime$ with $t_2$.
+By doing this, we get  
+$\Gamma \vdash \texttt{(lambda ((x }$t_1$\texttt{)) e)} : t_1 \, \texttt{->} \, t_2$  
+for both typing judgements, which is exactly what we're looking for.
+
 {% include infobox.html
   align="start"
   header="Exercise 1"
