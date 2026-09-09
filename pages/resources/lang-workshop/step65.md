@@ -34,11 +34,13 @@ To demonstrate this, consider the natural numbers as a derivation tree like so:
 
 \begin{prooftree}
   \AxiomC{}
+  \RightLabel{\scriptsize{ZERO}}
   \UnaryInfC{$0$ : $\mathbb{N}$}
 \end{prooftree}
 
 \begin{prooftree}
   \AxiomC{$n$ : $\mathbb{N}$}
+  \RightLabel{\scriptsize{SUC}}
   \UnaryInfC{$n + 1$ : $\mathbb{N}$}
 \end{prooftree}
 
@@ -51,7 +53,71 @@ To prove a property holds of the natural numbers, you prove the property holds i
 Structural induction is just a generalisation of this for any kind of derivation tree. For each case, you can assume the property holds for what's above the line, and must prove the property holds for what's below the line. 
 The assumption that the property holds for the term above the line is known as the *inductive hypothesis*.
 
-Since our typing rules are a derivation tree, you can prove things about them in this way.
+Let's look at another example. You can express binary trees as derivation rules, considering two cases: 
+- Tree leaves, which have a value. These represent the ends of the tree, where the tree doesn't branch any further.
+- Tree nodes, which have a value and branch to two other trees.
+
+\begin{prooftree}
+  \AxiomC{x : Int}
+  \RightLabel{\scriptsize{LEAF}}
+  \UnaryInfC{leaf(x) : Tree}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{left : Tree}
+  \AxiomC{x : Int}
+  \AxiomC{right : Tree}
+  \RightLabel{\scriptsize{NODE}}
+  \TrinaryInfC{node(x, left, right) : Tree}
+\end{prooftree}
+
+An example of such a tree derivation would be
+
+\begin{prooftree}
+  \AxiomC{}
+  \UnaryInfC{3 : Int}
+  \UnaryInfC{leaf(3) : Tree}
+  \AxiomC{}
+  \UnaryInfC{2 : Int}
+  \AxiomC{}
+  \UnaryInfC{4 : Int}
+  \UnaryInfC{leaf(4) : Tree}
+  \TrinaryInfC{node(2, leaf(3), leaf(4)) : Tree}
+  \AxiomC{}
+  \UnaryInfC{1 : Int}
+  \AxiomC{}
+  \UnaryInfC{5 : Int}
+  \UnaryInfC{leaf(5) : Tree}
+  \TrinaryInfC{node(1, node(2, leaf(3), leaf(4)), leaf(5)) : Tree}
+\end{prooftree}
+
+which represents the tree
+
+<img src="/assets/images/mlts-diagrams/btree.png" width="200" align="middle" style="display: block; margin-left: auto; margin-right: auto;">
+
+Let's say we wanted to prove that, for every tree of height $k$, the number of values the tree contains, which we'll call its *size*, does not exceed $2^k - 1$.
+
+We can proceed by strctural induction, which splits our proof into two cases:
+
+Case LEAF.
+
+In this case, $k = 1$, so we need to prove that the number of values in the tree does not exceed $2^1 - 1 = 1$.
+In the LEAF case, there is always only 1 value in the tree. $1 \le 2^1 - 1 = 1$, as required.
+
+Case NODE.
+
+In this case, we have a value, as well as branches to two sub-trees, *left* and *right*. We'll say these trees have heights $k_l$ and $k_r$ respectively.
+
+By using the *inductive hypothesis*, we can say that *left* has a size not exceeding $2^{k_l} - 1$, and *right* has a size not exceeding $2^{k_r} - 1$.
+From this, we can infer that the combined tree's size does not exceed $(2^{k_l} - 1) + (2^{k_r} - 1) + 1 = 2^{k_l} + 2^{k_r} - 1$.
+
+To figure out the height of the combined tree, we want to take the *greater* of the two sub-tree heights, and then add one for the new node.
+Let's denote the greater height as $k_{max}$.
+Hence, the height of the combined tree is $k_{max} + 1$, and so we want to show that the size of the combined tree does not exceed $2^{k_{max} + 1} - 1$.
+
+Since $k_{max}$ is the maximum of $k_l$ and $k_r$, we have $k_l \le k_{max}$ and $k_r \le k_{max}$. Therefore, we can say that $2^{k_l} + 2^{k_r} - 1 \le 2 \cdot 2^{k_{max}} - 1 \le 2^{k_{max} + 1} - 1$, as required.
+
+---
 
 For example, say you wanted to prove that types are *unique*: if $\Gamma \vdash e : t$ and $\Gamma \vdash e : t^\prime$, then $t = t^\prime$.
 Here, we're performing structural induction on both of the hypotheses, so both of them will be expanded into their cases.
@@ -101,6 +167,10 @@ By doing this, we get
 
 for both typing judgements, which is exactly what we're looking for.
 
+You can then do this for every typing rule to end up with a complete proof of type uniqueness.
+
+Since our typing rules are a derivation tree, you can prove things about them in this way.
+
 {% include infobox.html
   align="start"
   header="Exercise 1"
@@ -110,29 +180,29 @@ for both typing judgements, which is exactly what we're looking for.
   color="success" align="center"
 %}
 
-<!-- ## Progress, Preservation and Type Safety -->
-<!-- There's a well-known slogan for typed languages: "well-typed programs don't go wrong"! This notion is called *type safety*, and is an important property to prove to make sure that programs that start with no type errors stay with no type errors when they're evaluated. -->
-<!-- It can come about from two properties of type systems: *progress* and *preservation*. -->
-<!---->
-<!-- ### Progress -->
-<!-- Progress says that, for any well-typed expression $e : t$ in our language, either e is a value, or e evaluates *in one step* to some other expression $e^\prime$ in our language. -->
-<!---->
-<!-- - TODO: Do progress for one case. -->
-<!---->
-<!-- ### Preservation -->
-<!-- Preservation says that, for any well-typed expression $e : t$ in our language, if $e $ -->
-<!---->
-<!-- Preservation is usually slightly more tricky than progress: you typically need some intermediate lemmas.  -->
-<!-- In particular, *renaming* and *substitution* are lemmas you often need to prove. -->
-<!---->
-<!-- Weakening is the idea that extending a context doesn't affect whether an expression produced by that context is well-typed. It can be formulated like this: -->
-<!---->
-<!-- \begin{prooftree} -->
-<!--   \AxiomC{$\Gamma \vdash e : t_1$} -->
-<!--   \UnaryInfC{$\Gamma, x : t_2 \vdash e : t_1$} -->
-<!-- \end{prooftree} -->
-<!---->
-<!-- ### Type Safety -->
+## Progress, Preservation and Safety
+There's a well-known slogan for typed languages: "well-typed programs don't go wrong"! This notion is called *type safety*, and is the property we alluded to earlier, making sure that programs that start well-typed stay well-typed when they're evaluated.
+It can come about from two properties of type systems: *progress* and *type preservation*.
+
+### Progress
+Progress says that, for any well-typed expression $e : t$ in our language, either e is a value, or e evaluates *in one step* to (which we'll henceforth call *stepping to*) some other expression $e^\prime$ in our language.
+
+- TODO: Outline progress proof.
+
+### Type Preservation
+Type preservation says that, for any well-typed expression $e : t$ in our language, if $e$ steps to $e^\prime$, then $e^\prime : t$.
+
+Type preservation is usually slightly more tricky than progress: you typically need some intermediate lemmas. 
+In particular, *weakening* and *substitution* are lemmas you often need to prove.
+
+Weakening is the idea that extending a context doesn't affect whether an expression produced by that context is well-typed. It can be formulated like this:
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash e : t$}
+  \UnaryInfC{$\Gamma, x : t^\prime \vdash e : t$}
+\end{prooftree}
+
+### Type Safety
 
 
 

@@ -461,7 +461,15 @@ For variables, `infer(v, gamma)` will look up the type of `v` in `gamma`.
 If it finds a corresponding type for `v` in `gamma`, then it returns that; otherwise, it throws an error, claiming that `v` isn't in scope.
 
 For function types, `infer` will take the arguments declared in the function, add them to the context, and then run `infer` on the body.
-For example, `infer((lambda ((x Int) (y Int)) (+ x y)), gamma)` will call `infer((+ x y), gamma + (x, Int) + (y, Int))` to infer the type of the body. <!-- TODO: split into multiple ~~> lines like we did for eval -->
+Here's an example with a function that adds two `Int`s together:
+
+```scheme
+infer((lambda ((x Int) (y Int)) (+ x y)), gamma)
+--> infer((+ x y), gamma + (x, Int) + (y, Int))
+```
+
+Now, we can just infer the type of the body. <!-- TODO: split into multiple ~~> lines like we did for eval -->
+
 As far as type checking is concerned, there's no difference between a `rec` and a `lambda`, except for the fact that we have to annotate the return type of the function, and add the recursive function typing to the context.
 
 For function application, `infer` will infer the types of all of the arguments, and the type of the function in the head position.
