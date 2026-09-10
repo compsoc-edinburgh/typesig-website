@@ -297,13 +297,21 @@ Namely, we want to fill this hole:
   \UnaryInfC{\texttt{(lambda ((x }$t_1$\texttt{))} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
 \end{prooftree}
 
-To do this, we're going to use *typing contexts*. 
+The idea is that we want to determine the return type of the lambda by determining the type of its body. For example,
+
+\begin{prooftree}
+  \AxiomC{\texttt{(+ x 1) : Int}}
+  \UnaryInfC{\texttt{(lambda ((x Int)) (+ x 1))} : \texttt{Int -> Int}}
+\end{prooftree}
+
+The problem is, there's no wat to figure out if the above expression is well-typed. What type is $\texttt{x}$? Is it an $\texttt{Int}$, like we want, or could it be a $\texttt{Bool}$?
+Evidently, we need some way to track the types of variables. We already have *environments*, which track the *values* of variables, and we're going to use a very similar idea for types: *typing contexts* will track the types of variables.
 
 ### Typing Contexts
 
-Just as before where we used environments to store the *values* of variables, typing contexts store the *types* of variables.
+Similarly to environments, typing contexts will be a mapping of variables to types in our interpreter.
 
-We'll also have a representation of typing contexts in our inference system: 
+We'll also have a representation of typing contexts in our derivation system: 
 1. $\cdot$ represents the empty typing context, where there are no variables.
 2. $\Gamma, x : t$ represents the environment $\Gamma$ being *extended* with the type mapping $\texttt{x} : t$ (given that $x$ isn't already in $\Gamma$). 
    Here you have available the typings of the variables of $\Gamma$, as well as the typing of the new variable $x$.
