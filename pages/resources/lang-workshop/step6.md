@@ -304,8 +304,8 @@ The idea is that we want to determine the return type of the lambda by determini
   \UnaryInfC{\texttt{(lambda ((x Int)) (+ x 1))} : \texttt{Int -> Int}}
 \end{prooftree}
 
-The problem is, there's no wat to figure out if the above expression is well-typed. What type is $\texttt{x}$? Is it an $\texttt{Int}$, like we want, or could it be a $\texttt{Bool}$?
-Evidently, we need some way to track the types of variables. We already have *environments*, which track the *values* of variables, and we're going to use a very similar idea for types: *typing contexts* will track the types of variables.
+The problem is, there's no way to figure out if the above expression is well-typed. What type is $\texttt{x}$? Is it an $\texttt{Int}$, like we want, or could it be a $\texttt{Bool}$?
+Evidently, we need some way to track the types of variables. We already have *environments*, which track the *values* of variables, and we're going to use a very similar idea for types: *typing contexts* will track the *types* of variables.
 
 ### Typing Contexts
 
