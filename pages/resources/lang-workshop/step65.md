@@ -50,10 +50,31 @@ To prove a property holds of the natural numbers, you prove the property holds i
 1. Prove that it holds for 0.
 2. Assuming that it holds for a generic natural number $n$, prove that it holds for $n + 1$.
 
-Structural induction is just a generalisation of this for any kind of derivation tree. For each case, you can assume the property holds for what's above the line, and must prove the property holds for what's below the line. 
-The assumption that the property holds for the term above the line is known as the *inductive hypothesis*.
+Structural induction is just a generalisation of this for any kind of derivation tree.
 
-Let's look at another example. You can express binary trees as derivation rules, considering two cases: 
+In particular, the term *below the line* in a derivation rule is always some object of a particular type $U$. 
+We can see the derivation rules as ways of *constructing* an object of type $U$. 
+In the example above, $U$ is the type of *natural numbers*, $\mathbb{N}$. In the case of our type system, $U$ would be the type of *well-typed terms*.
+In this light, the derivation rules of our type system should really be rewritten as
+
+\begin{prooftree}
+  \AxiomC{($\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$) : Term}
+  \AxiomC{($\Gamma \vdash e_2 : t_1$) : Term}
+  \BinaryInfC{($\Gamma \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)}$ : $t_2$) : Term}
+\end{prooftree}
+
+but we omit these extra type annotations for brevity. 
+Note that the two colons in 
+\begin{prooftree}
+  \AxiomC{($\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$) : Term}
+\end{prooftree}
+are different: the first is part of the syntax of Terms, and the second is a kind of meta-colon that we use to give the object ($\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$) the type Term, like we gave $0$ the type $\mathbb{N}$.
+
+
+As for the objects *above the line* in a derivation rule, we may both assume that they exist and, if they have type $U$, assume that the property we're trying to prove holds for them.
+Considering objects above the line having different types isn't relevant for the natural numbers, but they are relevant for our next example: *binary trees*.
+
+You can express binary trees as derivation rules, considering two cases: 
 - Tree leaves, which have a value. These represent the ends of the tree, where the tree doesn't branch any further.
 - Tree nodes, which have a value and branch to two other trees.
 
@@ -64,8 +85,8 @@ Let's look at another example. You can express binary trees as derivation rules,
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{left : Tree}
   \AxiomC{x : Int}
+  \AxiomC{left : Tree}
   \AxiomC{right : Tree}
   \RightLabel{\scriptsize{NODE}}
   \TrinaryInfC{node(x, left, right) : Tree}
@@ -75,36 +96,36 @@ An example of such a tree derivation would be
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{3 : Int}
-  \UnaryInfC{leaf(3) : Tree}
+  \UnaryInfC{1 : Int}
   \AxiomC{}
   \UnaryInfC{2 : Int}
+  \AxiomC{}
+  \UnaryInfC{3 : Int}
+  \UnaryInfC{leaf(3) : Tree}
   \AxiomC{}
   \UnaryInfC{4 : Int}
   \UnaryInfC{leaf(4) : Tree}
   \TrinaryInfC{node(2, leaf(3), leaf(4)) : Tree}
-  \AxiomC{}
-  \UnaryInfC{1 : Int}
   \AxiomC{}
   \UnaryInfC{5 : Int}
   \UnaryInfC{leaf(5) : Tree}
   \TrinaryInfC{node(1, node(2, leaf(3), leaf(4)), leaf(5)) : Tree}
 \end{prooftree}
 
-which represents the tree
+which represents the construction of the tree
 
 <img src="/assets/images/mlts-diagrams/btree.png" width="200" align="middle" style="display: block; margin-left: auto; margin-right: auto;">
 
 Let's say we wanted to prove that, for every tree of height $k$, the number of values the tree contains, which we'll call its *size*, does not exceed $2^k - 1$.
 
-We can proceed by strctural induction, which splits our proof into two cases:
+We can proceed by structural induction, which splits our proof into two cases:
 
-Case LEAF.
+*Case* LEAF.
 
 In this case, $k = 1$, so we need to prove that the number of values in the tree does not exceed $2^1 - 1 = 1$.
 In the LEAF case, there is always only 1 value in the tree. $1 \le 2^1 - 1 = 1$, as required.
 
-Case NODE.
+*Case* NODE.
 
 In this case, we have a value, as well as branches to two sub-trees, *left* and *right*. We'll say these trees have heights $k_l$ and $k_r$ respectively.
 
@@ -117,65 +138,13 @@ Hence, the height of the combined tree is $k_{max} + 1$, and so we want to show 
 
 Since $k_{max}$ is the maximum of $k_l$ and $k_r$, we have $k_l \le k_{max}$ and $k_r \le k_{max}$. Therefore, we can say that $2^{k_l} + 2^{k_r} - 1 \le 2 \cdot 2^{k_{max}} - 1 \le 2^{k_{max} + 1} - 1$, as required.
 
----
-
-For example, say you wanted to prove that types are *unique*: if $\Gamma \vdash e : t$ and $\Gamma \vdash e : t^\prime$, then $t = t^\prime$.
-Here, we're performing structural induction on both of the hypotheses, so both of them will be expanded into their cases.
-
-Let's start with the base type case. Assume you have:
-
-\begin{prooftree}
-  \AxiomC{}
-  \UnaryInfC{$\Gamma \vdash v : t$}
-\end{prooftree}
-
-and
-
-\begin{prooftree}
-  \AxiomC{}
-  \UnaryInfC{$\Gamma \vdash v : t^\prime$}
-\end{prooftree}
-
-where v is some integer literal, as in the example from Step 6. Since integer literals cannot have any type other than $\texttt{Int}$, we have $t_1 = t_2 = \texttt{Int}$, as required.
-
-Slightly less trivial are composite types. Let's take the example of the typing rule for lambda introduction. Assume:
-
-\begin{prooftree}
-  \AxiomC{$\Gamma, x : t_1 \vdash$ \texttt{e} : $t_2$}
-  \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda ((x }$t_1$\texttt{)) e)} : $t_1$ \texttt{->} $t_2$}
-\end{prooftree}
-
-and
-
-\begin{prooftree}
-  \AxiomC{$\Gamma, x : t_1 \vdash$ \texttt{e} : $t_2^\prime$}
-  \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda ((x }$t_1$\texttt{)) e)} : $t_1$ \texttt{->} $t_2^\prime$}
-\end{prooftree}
-
-Since the argument type of the function is determined by the expression, this type will remain the same in both expressions. It's only the return type that can change.
-
-Here, for each of our two derivations, not only do we have a typing judgement underneath the line to prove the property holds for, we also have one above the line to assume the property holds for, as with the earlier natural numbers $n + 1$ example.
-
-As such, considering $\Gamma, x : t_1 \vdash \texttt{e} : t_2$ and $\Gamma, x : t_1 \vdash \texttt{e} : t_2^\prime$, we may say that, by the induction hypothesis, $t_2 = t_2^\prime$.
-
-Now that we have this, we can consider the two typing judgements we have below the line. Since we've determined that $t_2 = t_2^\prime$, we can go through and replace every instance of $t_2^\prime$ with $t_2$.
-By doing this, we get
-
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \texttt{(lambda ((x } t_1 \texttt{)) e)} : t_1 \, \texttt{->} \, t_2$}
-\end{prooftree}
-
-for both typing judgements, which is exactly what we're looking for.
-
-You can then do this for every typing rule to end up with a complete proof of type uniqueness.
-
-Since our typing rules are a derivation tree, you can prove things about them in this way.
+Our typing rules also form derivation trees, so we can apply structural induction to prove things about them, too.
 
 {% include infobox.html
   align="start"
   header="Exercise 1"
   text="
-  Prove type uniqueness for your programming language's type system by structural induction.
+  Something
   "
   color="success" align="center"
 %}
@@ -185,9 +154,40 @@ There's a well-known slogan for typed languages: "well-typed programs don't go w
 It can come about from two properties of type systems: *progress* and *type preservation*.
 
 ### Progress
-Progress says that, for any well-typed expression $e : t$ in our language, either e is a value, or e evaluates *in one step* to (which we'll henceforth call *stepping to*) some other expression $e^\prime$ in our language.
+Progress says that, for any well-typed term $\cdot \vdash e : t$ in our language, either e is a value, or e *evaluates in one step* to (which we'll henceforth call *stepping to*) some other expression $e^\prime$ in our language.
 
-- TODO: Outline progress proof.
+For this, we need to define what a value actually is. In general, a value is something that you can't reduce any further. In our language, this would be values of base types, and lambdas.
+
+Let's consider some of the derivation rules we have in Step 6.
+
+*Case* $\frac{}{\cdot \vdash v : \texttt{Int}}$.
+
+Here, since $v$ is a value, the property is trivially true in this case. This goes for the introduction of *any* base type.
+
+*Case* $\frac{\cdot \vdash e_1 : \texttt{Int}\,\cdot \vdash e_2 : \texttt{Int}}{\cdot \vdash \texttt{(+ }e_1\texttt{ }e_2\texttt{)} : \texttt{Int}}$.
+
+By applying the inductive hypothesis to $e_1$, we can determine that either $e_1$ is a value, or $e_1$ steps to some other expression $e_1^\prime$.
+
+Let's consider the case that $e_1$ steps to $e_1^\prime$. Then, $\texttt{(+ }e_1\texttt{ }e_2\texttt{)}$ steps to $\texttt{(+ }e_1^\prime\texttt{ }e_2\texttt{)}$, as required.
+
+Now consider the case that $e_1$ is some value $v_1$, and whether $\texttt{(+ }v_1\texttt{ }e_2\texttt{)}$ satisfies the desired property.
+Let's apply the inductive hypothesis to $e_2$. Either $e_2$ is a value, or steps to some $e_2^\prime$.
+
+Similarly to before, if $e_2$ steps to $e_2^\prime$, then $\texttt{(+ }v_1\texttt{ }e_2\texttt{)}$ steps to $\texttt{(+ }v_1\texttt{ }e_2^\prime\texttt{)}$, as required.
+
+If $e_2$ is some value $v_2$, then $\texttt{(+ }v_1\texttt{ }v_2\texttt{)}$ steps to the *integer sum* of $v_1$ and $v_2$, $v_1 + v_2$, as required.
+
+By applying to the inductive hypothesis to all of our sub-expressions, we've managed to determine what $\texttt{(+ }e_1\texttt{ }e_2\texttt{)}$ steps to in every situation.
+This is the general idea of this proof.
+
+{% include infobox.html
+  align="start"
+  header="Exercise 2"
+  text="
+  Complete a proof of progress for your type system.
+  "
+  color="success" align="center"
+%}
 
 ### Type Preservation
 Type preservation says that, for any well-typed expression $e : t$ in our language, if $e$ steps to $e^\prime$, then $e^\prime : t$.
@@ -202,7 +202,7 @@ Weakening is the idea that extending a context doesn't affect whether an express
   \UnaryInfC{$\Gamma, x : t^\prime \vdash e : t$}
 \end{prooftree}
 
+
+
 ### Type Safety
-
-
 
