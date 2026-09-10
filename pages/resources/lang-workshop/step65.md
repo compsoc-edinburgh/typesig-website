@@ -65,11 +65,12 @@ In this light, the derivation rules of our type system should really be rewritte
 
 but we omit these extra type annotations for brevity. 
 Note that the two colons in 
+
 \begin{prooftree}
   \AxiomC{($\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$) : Term}
 \end{prooftree}
-are different: the first is part of the syntax of Terms, and the second is a kind of meta-colon that we use to give the object ($\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$) the type Term, like we gave $0$ the type $\mathbb{N}$.
 
+are different: the first is part of the syntax of Terms, and the second is used to give the object ($\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$) the type Term, like we gave $0$ the type $\mathbb{N}$.
 
 As for the objects *above the line* in a derivation rule, we may both assume that they exist and, if they have type $U$, assume that the property we're trying to prove holds for them.
 Considering objects above the line having different types isn't relevant for the natural numbers, but they are relevant for our next example: *binary trees*.
