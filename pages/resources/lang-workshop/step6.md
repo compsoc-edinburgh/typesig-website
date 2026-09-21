@@ -5,8 +5,8 @@ permalink: "/resources/lang-workshop/step6"
 latex: true
 ---
 
-| Complexity | Medium
-| Previous   | [Step 5: Lambdas](/resources/lang-workshop/step5) |
+| Length   | Medium                                            |
+| Previous | [Step 5: Lambdas](/resources/lang-workshop/step5) |
 
 ## Table of Contents
 {:.no_toc}
@@ -195,7 +195,7 @@ We'll have two typing rules:
 \begin{prooftree}
   \AxiomC{$e_1$ : \texttt{Int}}
   \AxiomC{$e_2$ : \texttt{Int}}
-  \BinaryInfC{$\texttt{(+} \, e_1 \, e_2\texttt{)} : \texttt{Int}$}
+  \BinaryInfC{$\texttt{(+ }e_1\texttt{ }e_2\texttt{)} : \texttt{Int}$}
 \end{prooftree}
 
 Let's see some derivations for a few example expressions in this language.
@@ -269,7 +269,7 @@ Pretty quickly, we'll reach the following state in our proof tree:
   \AxiomC{}
   \UnaryInfC{\texttt{1} : \texttt{Int}}
   \AxiomC{\texttt{true} : \texttt{Int}}
-  \BinaryInfC{\texttt{1 + true} : \texttt{Int}}
+  \BinaryInfC{\texttt{(+ 1 true)} : \texttt{Int}}
 \end{prooftree}
 
 We have no way of deriving $\texttt{true} : \texttt{Int}$, so we can't derive a type for the overall expression, and it's not well-typed, and therefore invalid, according to our type system.
@@ -315,12 +315,12 @@ We'll also have a representation of typing contexts in our derivation system:
 1. $\cdot$ represents the empty typing context, where there are no variables.
 2. $\Gamma, x : t$ represents the environment $\Gamma$ being *extended* with the type mapping $\texttt{x} : t$ (given that $x$ isn't already in $\Gamma$). 
    Here you have available the typings of the variables of $\Gamma$, as well as the typing of the new variable $x$.
-3. $\Gamma \vdash e : t$ means that you can produce the program expression $e$ under the typing context $\Gamma$.
+3. $\Gamma \vdash e : t$ (pronounced "gamma entails e of type t") means that you can produce the program expression $e$ under the typing context $\Gamma$.
 
 In general, we'll use $\Gamma$ to refer to a generic typing context.
 
 An example of point 3 is the rule for variables: if you have a variable $x$ of type $t$ in your typing context, you can produce an expression $\texttt{x}$ of type $t$.
-This allows you to use the mappings in your typing context in larger expressions.
+This allows you to use the mappings in your typing context to type larger expressions.
 
 \begin{prooftree}
   \AxiomC{}
@@ -338,12 +338,12 @@ In particular, we need to say that we can introduce and add integers under any g
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash e_1 : \texttt{Int}$}
   \AxiomC{$\Gamma \vdash e_2 : \texttt{Int}$}
-  \BinaryInfC{$\Gamma \vdash \texttt{(+}$ $e_1$ $e_2\texttt{) : Int}$}
+  \BinaryInfC{$\Gamma \vdash \texttt{(+ }e_1\texttt{ }e_2\texttt{) : Int}$}
 \end{prooftree}
 
 ### Typing Functions
 
-With all of this in place, we can now figure out how to introduce functions! In the body of a lambda, we can access all of the variables in the surrounding scope, as well as the parameter. 
+With all of this in place, we can now figure out the typing rule to introduce functions! In the body of a lambda, we can access all of the variables in the surrounding scope, as well as the parameter. 
 As such, we can use context extension to represent the parameter of the lambda in our derivation, like so:
 
 \begin{prooftree}
@@ -351,7 +351,7 @@ As such, we can use context extension to represent the parameter of the lambda i
   \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda ((x }$t_1$\texttt{))} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
 \end{prooftree}
 
-We also want to be able to apply to functions. This is more straightforward: we just need the lambda, the expression to apply it to, and the resulting expression will be of the return type.
+We also want to be able to apply functions. This is more straightforward: we just need the lambda, the expression to apply it to, and the resulting expression will be of the return type.
 
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash e_1 : t_1$ \texttt{->} $t_2$}
@@ -411,11 +411,11 @@ Recursive functions need to be typed slightly differently from normal functions,
 
 Just as we extended the context before with our parameter typing, we can also extend it with the recursive function's typing. However, we also need to annotate the rec lambda with its return type so that the type checker can check whether the recursive calls are well-typed in the rec lambda's body.
 
-With all this in mind, we end up with this:
+With all of this in mind, we end up with this:
 
 \begin{prooftree}
   \AxiomC{$\Gamma, f : t_1$ \texttt{->} $t_2, x : t_1 \vdash e : t_2$}
-  \UnaryInfC{$\Gamma \vdash$ \texttt{(rec (f (x : }$t_1$\texttt{) : }$t_2$\texttt{)} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
+  \UnaryInfC{$\Gamma \vdash$ \texttt{(rec (f ((x }$t_1$\texttt{)) }$t_2$\texttt{)} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
 \end{prooftree}
 
 Application uses the same rule as before.
@@ -473,7 +473,7 @@ Here's an example with a function that adds two `Int`s together:
 
 ```scheme
 infer((lambda ((x Int) (y Int)) (+ x y)), gamma)
---> infer((+ x y), gamma + (x, Int) + (y, Int))
+~> infer((+ x y), gamma + (x, Int) + (y, Int))
 ```
 
 Now, we can just infer the type of the body. <!-- TODO: split into multiple ~~> lines like we did for eval -->
@@ -492,7 +492,7 @@ For example:
 We've covered all types of AST node in our language, so we've fully described a type inference algorithm.
 Now that we have inference, we can implement typechecking easily; just infer the type of `e`, and check if the inferred type is convertible with `t`.
 
-## Task
+## **Task**
 
 Write down the typing rules for each of the types in your language; both for ground types (primitives like integers, booleans, strings etc.) and function types.
 If you've implemented multi-argument functions, think carefully about how you're going to type this.
@@ -526,7 +526,7 @@ These are some extra challenges you can attempt to build your understanding furt
   Int -> Int
   ```
 
-- Add a REPL command that lets the user search for all available functions (i.e., those in the current environment) via their type, a la [Haskell's Hoogle](https://hoogle.haskell.org):
+- Add a REPL command that lets the user search for all available functions (i.e., those in the current environment) via their type, à la [Haskell's Hoogle](https://hoogle.haskell.org):
 
   ```console
   MLTS> :typesearch Int -> Int -> Int

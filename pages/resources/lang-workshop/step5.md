@@ -4,9 +4,9 @@ title: "Step 5: Lambdas | Language Workshop"
 permalink: "/resources/lang-workshop/step5"
 ---
 
-| Complexity | Long                                                   |
-| Previous   | [Step 4: Environments](/resources/lang-workshop/step4) |
-| Next       | [Step 6: Types](/resources/lang-workshop/step6) |
+| Length   | Long                                                   |
+| Previous | [Step 4: Environments](/resources/lang-workshop/step4) |
+| Next     | [Step 6: Types](/resources/lang-workshop/step6)        |
 
 ## Table of Contents
 {:.no_toc}
@@ -156,9 +156,9 @@ Here's an example to illustrate how this works:
 
 ```scheme
 ((lambda (x) (+ x 1)) 41)
---> (+ x 1)  [x -> 41]
---> (+ 41 1)
---> 42
+~> (+ x 1)  [x -> 41]
+~> (+ 41 1)
+~> 42
 ```
 
 ## Closures
@@ -218,11 +218,11 @@ Applying this closure value to the literal value `41`
 
 ```clojure
 ((rec f (x) (+ x 1)) 41)
---> ({rec f x.
+~> ({rec f x.
 (+ x 1), env} 41)
---> (+ x 1)  [f -> rec f x.
+~> (+ x 1)  [f -> rec f x.
 (+ x 1), x -> 41]
---> 42
+~> 42
 ```
 
 We haven't actually used `f` in this definition, since we haven't defined any control flow operators like `if`.
@@ -256,9 +256,9 @@ When evaluating a closure `{lambda (arg) b, env}` applied to a value `v`, add `a
 
 ```scheme
 ((lambda (x) (+ x 1)) 41)
---> (+ x 1)  [add x -> 41 to env]
---> (+ 41 1)
---> 42  [drop x -> 41 from env]
+~> (+ x 1)  [add x -> 41 to env]
+~> (+ 41 1)
+~> 42  [drop x -> 41 from env]
 ```
 
 Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-Expression containing a symbol `arg`, and an expression `body`.
@@ -266,14 +266,14 @@ Also add the keyword `rec`, which takes three arguments: a symbol `name`, an S-E
 
 ```scheme
 ((rec fac (n) (if (= 0 n) 1 (* n (fac (- n 1))))) 3)
---> (if (= 0 n) 1 (* n (fac (- n 1))))  [add n -> 3, fac -> <[], rec fac (n) ...> to env]
---> (if (= 0 3) 1 (* n (fac (- n 1))))
---> (if false 1 (* n (fac (- n 1))))
---> (* 3 (fac 2))
---> (* 3 (if (= 0 n) 1 (* n (fac (- n 1)))))  [replace/shadow n -> 3 with n -> 2]
---> ...
---> (* 3 (* 2 (* 1 0)))
---> 6
+~> (if (= 0 n) 1 (* n (fac (- n 1))))  [add n -> 3, fac -> <[], rec fac (n) ...> to env]
+~> (if (= 0 3) 1 (* n (fac (- n 1))))
+~> (if false 1 (* n (fac (- n 1))))
+~> (* 3 (fac 2))
+~> (* 3 (if (= 0 n) 1 (* n (fac (- n 1)))))  [replace/shadow n -> 3 with n -> 2]
+~> ...
+~> (* 3 (* 2 (* 1 0)))
+~> 6
 ```
 
 Be sure to watch out for cases like `(lambda (x) (lambda (x) (+ x 1)))`!

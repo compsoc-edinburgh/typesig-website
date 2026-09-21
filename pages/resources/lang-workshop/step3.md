@@ -4,9 +4,9 @@ title: "Step 3: Evaluation | Language Workshop"
 permalink: "/resources/lang-workshop/step3"
 ---
 
-| Complexity | Medium                                                         |
-| Previous   | [Step 2: Parsing and Printing](/resources/lang-workshop/step2) |
-| Next       | [Step 4: Environments](/resources/lang-workshop/step4)         |
+| Length   | Medium                                                         |
+| Previous | [Step 2: Parsing and Printing](/resources/lang-workshop/step2) |
+| Next     | [Step 4: Environments](/resources/lang-workshop/step4)         |
 
 ## Table of Contents
 {:.no_toc}
@@ -146,26 +146,26 @@ If we had the term `(+ 1 (* 2 3))`, it would reduce as follows:
 
 ```scheme
 (+ 1 (* 2 3))
---> (+ 1 6)
---> 7
+~> (+ 1 6)
+~> 7
 ```
 
 If we had the term `(+ (+ 1 2) (+ 3 4))`, it would reduce as follows:
 
 ```scheme
 (+ (+ 1 2) (+ 3 4))
---> (+ 3 (+ 3 4))
---> (+ 3 7)
---> 10
+~> (+ 3 (+ 3 4))
+~> (+ 3 7)
+~> 10
 ```
 
 And if we had `((+ 1 2) (* 3 4))`, our (attempted) reduction would look like this:
 
 ```scheme
 ((+ 1 2) (* 3 4))
---> ((+ 1 2) 7)
---> (3 7)
---> Error: 3 is not a function!
+~> ((+ 1 2) 7)
+~> (3 7)
+~> Error: 3 is not a function!
 ```
 
 The primary advantage of applicative order over normal order is that it's easier to reason about the performance of applicative order code.
