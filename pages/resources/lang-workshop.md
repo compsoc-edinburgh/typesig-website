@@ -23,12 +23,7 @@ In this case, we recommend that you use a language that you have the most experi
 - [Step 5: Lambdas](lang-workshop/step5)
 - [Step 6: Types](lang-workshop/step6)
 
-Upcoming steps:
-- Step 7: Polymorphism and Generics
-- Step 8: ADTs and Pattern Matching
-- Step 9: Typeclasses and Overloading
-- Step 10: I/O
-- Step 11: Typed Holes and Metavariables
+For further features to implement, refer to [Types and Programming Languages by Benjamin Pierce](https://i.warosu.org/data/sci/img/0163/64/1725651701869705.pdf).
 
 If you have any ideas of other things we should cover, do get in touch with us on our [Discord][discord]!
 
