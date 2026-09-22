@@ -422,7 +422,7 @@ As a reminder, our current grammar looks like this:
 
 ```ebnf
 <integer> ::= /[0-9]+/          // matches one or more digits
-<symbol>  ::= /(^\s|\(|\))+/    // any string of non-whitespace characters
+<symbol>  ::= /(\S|\(|\))+/    // any string of non-whitespace characters
 <literal> ::= <integer> | <symbol>
 <expr>    ::= <literal> | ( <expr>* )
 <program> ::= <expr>*
