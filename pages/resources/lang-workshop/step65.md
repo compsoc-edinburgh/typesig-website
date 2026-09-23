@@ -18,8 +18,33 @@ latex: true
 When we write a program, we want to ensure that the program is doing what we want it to do. This is part of the job that types do; they make sure that each of your programs are meaningful.
 
 In particular, we made claims in the last chapter about how our type system operates. 
+But how do we know that this is actually the case?
 
-While we could check this isn't the case through testing, testing may not provide 100% coverage, and sometimes it's difficult to know exactly what tests you want to write.
+For example, say we write the typing derivation of an $\texttt{if}$ statement as:
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash e_1 : \texttt{Bool}$}
+  \AxiomC{$\Gamma \vdash e_2 : t_1$}
+  \AxiomC{$\Gamma \vdash e_3 : t_2$}
+  \TrinaryInfC{$\Gamma \vdash \texttt{(if }e_1\texttt{ }e_2\texttt{ }e_3\texttt{)}$ : $t_1$}
+\end{prooftree}
+
+and we say that $\texttt{(if false }e_1\texttt{ }e_2\texttt{)}$ reduces to $e_2$. Now consider the expression
+
+$\texttt{(if false 3 "hello")}$
+
+By the typing derivation, this expression should be typed:
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \texttt{false} : \texttt{Bool}$}
+  \AxiomC{$\Gamma \vdash \texttt{3} : \texttt{Int}$}
+  \AxiomC{$\Gamma \vdash \texttt{"hello"} : \texttt{String}$}
+  \TrinaryInfC{$\Gamma \vdash \texttt{(if false 3 "hello")} : \texttt{Int}$}
+\end{prooftree}
+
+But this expression would evaluate to $\texttt{"hello"}$, which should have type $\texttt{String}$!
+
+While we could check that cases like this don't arise through testing, your tests may not provide 100% coverage, and sometimes it's difficult to know exactly what tests you want to write.
 Proving properties about our type system helps with both of these problems, and is an active and existing area in programming language research.
 
 This is a half chapter for a reason; this doesn't immediately have a lot to do with writing an interpreter. However, if you're interested in something a little more mathsy, this chapter is worth reading.
@@ -227,7 +252,7 @@ Now we can consider how functions reduce. Here, I'll describe function applicati
 
 \begin{prooftree}
   \AxiomC{}
-  \RightLabel{\scriptsize{BETA}}
+  \RightLabel{\scriptsize{BETA-RED}}
   \UnaryInfC{$\langle \texttt{((lambda ((x }t\texttt{)) }e\texttt{)}\texttt{ }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle$}
 \end{prooftree}
 
@@ -258,7 +283,7 @@ Now that we know this, we can apply the APP-RED-2 rule to the lambda application
               \end{aligned}$}
 \end{prooftree}
 
-Now that the right-hand side of the application is a value, we can apply BETA to reduce further:
+Now that the right-hand side of the application is a value, we can apply BETA-RED to reduce further:
 
 \begin{prooftree}
   \AxiomC{}
@@ -328,7 +353,7 @@ Let's apply the inductive hypothesis to $e_2$. Either $e_2$ is a value, or $\lan
 
 If $\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho^\prime \rangle$, then by APP-RED-2, $\langle \texttt{(}v_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}v_1\texttt{ }e_2^\prime\texttt{)}, \rho^\prime \rangle$, as required.
 
-If $e_2$ is some value $v$, then, taking $v_1 = \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)}$, by BETA, $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{)}\texttt{ }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \rightsquigarrow v] \rangle$, as required.
+If $e_2$ is some value $v$, then, taking $v_1 = \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)}$, by BETA-RED, $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{)}\texttt{ }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle$, as required.
 
 By applying to the inductive hypothesis to all of our sub-expressions, and applying our reduction rules, we've managed to determine what $\texttt{(}e_1\texttt{ }e_2\texttt{)}$ steps to in every situation!
 
@@ -410,7 +435,7 @@ and then, since the inductive hypothesis gives us that $\Gamma^\prime \supseteq 
 
 By proving all of (1), (2) and (3), we've finished proving this case.
 
-The APP-RED-2 case follows similarly to APP-RED-1, so we now consider the BETA case.
+The APP-RED-2 case follows similarly to APP-RED-1, so we now consider the BETA-RED case.
 
 In this case, the typing derivation takes the form 
 
@@ -420,7 +445,7 @@ In this case, the typing derivation takes the form
   \BinaryInfC{$\Gamma \vdash \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)} : t_2$}
 \end{prooftree}
 
-and the reduction takes the form $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \rightsquigarrow v] \rangle$, so we're looking to show that there exists some $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e : t_2$ and $\Gamma^\prime \vdash \rho[x \rightsquigarrow v]$.
+and the reduction takes the form $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle$, so we're looking to show that there exists some $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e : t_2$ and $\Gamma^\prime \vdash \rho[x \mapsto v]$.
 
 Keeping in mind that we want to keep the environment and the typing context in lock-step, and we're extending $\rho$ with $x$, let's try extending $\Gamma$ with $x$ too.
 Hence, we'll let $\Gamma^\prime$ be $\Gamma, x : t_1$.
@@ -428,7 +453,7 @@ Hence, we'll let $\Gamma^\prime$ be $\Gamma, x : t_1$.
 Now we want to show:
 1. $\Gamma, x : t_1 \supseteq \Gamma$.
 2. $\Gamma, x : t_1 \vdash e : t_2$.
-3. $\Gamma, x : t_1 \vdash \rho[x \rightsquigarrow v]$.
+3. $\Gamma, x : t_1 \vdash \rho[x \mapsto v]$.
 
 (1) is true by the definition of $\supseteq$.
 
@@ -452,7 +477,7 @@ To prove (3), we make use of the assumption $\Gamma \vdash \rho$.
 Since this is true, we must only consider the effect of extending $\Gamma$ and $\rho$ by $x$ to prove (3).
 
 By expanding the definition of the above assumption, $\text{dom}(\Gamma) = \text{dom}(\rho)$. 
-Extending each of these by $x$ will keep the domains the same relative to each other if they started the same, so $\text{dom}(\Gamma, x : t_1) = \text{dom}(\rho[x \rightsquigarrow v])$.
+Extending each of these by $x$ will keep the domains the same relative to each other if they started the same, so $\text{dom}(\Gamma, x : t_1) = \text{dom}(\rho[x \mapsto v])$.
 
 Similarly, since $\Gamma \vdash \rho(x^\prime) : \Gamma(x^\prime)$ for all $x^\prime \in \text{dom}(\Gamma)$ by expanding the assumption, we now only need to consider this statement for the variable $x$ - $\Gamma \vdash v : t_1$.
 Fortunately, this is true by the other assumption made from the initial typing derivation tree.
@@ -463,7 +488,7 @@ Fortunately, this is true by the other assumption made from the initial typing d
   \BinaryInfC{$\Gamma \vdash \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)} : t_2$}
 \end{prooftree}
 
-Now that we've proven all of (1), (2) and (3), we've proven that preservation holds in the BETA case, and by extension the entire function application typing case.
+Now that we've proven all of (1), (2) and (3), we've proven that preservation holds in the BETA-RED case, and by extension the entire function application typing case.
 
 {% include infobox.html
   align="start"
