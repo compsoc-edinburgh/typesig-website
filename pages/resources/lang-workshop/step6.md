@@ -5,8 +5,9 @@ permalink: "/resources/lang-workshop/step6"
 latex: true
 ---
 
-| Length   | Medium                                            |
-| Previous | [Step 5: Lambdas](/resources/lang-workshop/step5) |
+| Length   | Medium                                                          |
+| Previous | [Step 5: Lambdas](/resources/lang-workshop/step5)               |
+| Next     | [Step 6.5: Proofs about Types](/resources/lang-workshop/step65) |
 
 ## Table of Contents
 {:.no_toc}

@@ -4,7 +4,7 @@ title: Language Workshop
 permalink: "/resources/lang-workshop"
 ---
 Welcome to the language workshop!
-This is a series of worksheets that will walk you through implementing an interpreter for a programming language called MLTS (pronounced as "melts").
+This is a series of worksheets that will walk you through implementing an interpreter for a programming language called MLTS.
 MLTS is a functional language, and you get to choose what features your implementation supports!
 We'll walk you through implementing a parser, evaluator, REPL, and typechecker.
 
@@ -22,6 +22,7 @@ In this case, we recommend that you use a language that you have the most experi
 - [Step 4: Environments](lang-workshop/step4)
 - [Step 5: Lambdas](lang-workshop/step5)
 - [Step 6: Types](lang-workshop/step6)
+- [Step 6.5: Proofs about Types](lang-workshop/step65)
 
 For further features to implement, refer to [Types and Programming Languages by Benjamin Pierce](https://i.warosu.org/data/sci/img/0163/64/1725651701869705.pdf).
 
