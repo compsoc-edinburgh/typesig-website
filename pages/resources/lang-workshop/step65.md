@@ -102,15 +102,15 @@ We also extend the previous reduction rules with our new environment representat
 Now we can consider how functions reduce. Here, I'll describe function application.
 
 \begin{prooftree}
-  \AxiomC{$\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho^\prime \rangle$}
+  \AxiomC{$\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho \rangle$}
   \RightLabel{\scriptsize{APP-RED-1}}
-  \UnaryInfC{\langle $\texttt{(}e_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}e_1^\prime\texttt{ }e_2\texttt{)}, \rho^\prime \rangle$}
+  \UnaryInfC{\langle $\texttt{(}e_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}e_1^\prime\texttt{ }e_2\texttt{)}, \rho \rangle$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho^\prime \rangle$}
+  \AxiomC{$\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho \rangle$}
   \RightLabel{\scriptsize{APP-RED-2}}
-  \UnaryInfC{$\langle \texttt{(}v_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}v_1\texttt{ }e_2^\prime\texttt{)}, \rho^\prime \rangle$}
+  \UnaryInfC{$\langle \texttt{(}v_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}v_1\texttt{ }e_2^\prime\texttt{)}, \rho \rangle$}
 \end{prooftree}
 
 \begin{prooftree}
