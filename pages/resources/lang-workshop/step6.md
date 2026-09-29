@@ -315,16 +315,17 @@ We'll also have a representation of typing contexts in our derivation system:
 1. $\cdot$ represents the empty typing context, where there are no variables.
 2. $\Gamma, x : t$ represents the environment $\Gamma$ being *extended* with the type mapping $\texttt{x} : t$ (given that $x$ isn't already in $\Gamma$). 
    Here you have available the typings of the variables of $\Gamma$, as well as the typing of the new variable $x$.
-3. $\Gamma \vdash e : t$ (pronounced "gamma entails e of type t") means that you can produce the program expression $e$ under the typing context $\Gamma$.
+3. $\Gamma \vdash e : t$ (read "gamma entails e of type t") means that you can produce the program expression $e$ under the typing context $\Gamma$.
+3. $\Gamma(x)$ is the lookup of the type of $x$ in $\Gamma$.
 
 In general, we'll use $\Gamma$ to refer to a generic typing context.
 
-An example of point 3 is the rule for variables: if you have a variable $x$ of type $t$ in your typing context, you can produce an expression $\texttt{x}$ of type $t$.
+An important example of the use of this notation is the rule for variables: if you have a variable $x$ of type $t$ in your typing context, you can type an expression $\texttt{x}$ with type $t$.
 This allows you to use the mappings in your typing context to type larger expressions.
 
 \begin{prooftree}
-  \AxiomC{}
-  \UnaryInfC{$\Gamma, x : t \vdash$ \texttt{x} : $t$}
+  \AxiomC{$\Gamma(x) = t$}
+  \UnaryInfC{$\Gamma \vdash \texttt{x} : t$}
 \end{prooftree}
 
 Adding a typing context to our inference rules means that we also have to change the typing rules for integers. 
@@ -363,6 +364,7 @@ Now we have everything we need to type functions! As an example, here's the deri
 
 \begin{prooftree}
   \AxiomC{}
+  \UnaryInfC{$(\cdot, x : \texttt{Int})(x) = \texttt{Int}$}
   \UnaryInfC{$\cdot, x : \texttt{Int} \vdash \texttt{x} : \texttt{Int}$}
   \AxiomC{}
   \UnaryInfC{$\cdot, x : \texttt{Int} \vdash \texttt{1} : \texttt{Int}$}
