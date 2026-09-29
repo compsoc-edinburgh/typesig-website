@@ -210,71 +210,64 @@ To demonstrate this, consider the natural numbers as a derivation tree like so:
 \begin{prooftree}
   \AxiomC{$n \in \mathbb{N}$}
   \RightLabel{\scriptsize{SUC}}
-  \UnaryInfC{$n + 1 \in \mathbb{N}$}
+  \UnaryInfC{$\text{suc}(n) \in \mathbb{N}$}
 \end{prooftree}
 
-i.e. 0 is a natural number and, if $n$ is a natural number, $n + 1$ is also a natural number.
+i.e. 0 is a natural number and, if $n$ is a natural number, the successor of $n$ is also a natural number.
+For example, 1 is represented as $\text{suc}(0)$, 2 is represented as $\text{suc}(\text{suc}(0))$, and so on.
+We can consider 0 and $\text{suc}$ to be *constructors* for the natural numbers.
 
-To prove a property $P$ holds of the natural numbers, you prove:
-1. $P(0)$
-2. For all $n \in \mathbb{N}$, if $P(n)$, then $P(n + 1)$
+To prove a property $P$ holds of the natural numbers, we prove that:
+1. $P$ holds for 0.
+2. If $P$ holds for n, then $P$ holds for $\text{suc}(n)$.
 
 Structural induction is just a generalisation of this for any kind of derivation tree.
 
-In particular, if we want to prove a property $P$ for a set of expressions $L$, then it suffices to prove that, for each derivation tree constructor $c$, if $P$ holds for each subtree $e_1, ..., e_k \in L$, then $P$ holds for the tree $c(e_1, ..., e_k) \in L$.
+In particular, if we want to prove a property $P$ for a set of expressions $L$, then it suffices to prove that, for each constructor $c$, if $P$ holds for each sub-tree $e_1, ..., e_k \in L$, then $P$ holds for the whole tree $c(e_1, ..., e_k) \in L$.
+This is called the *principle of structural induction*.
 
-In particular, the conclusion in a derivation rule is always some object of a particular type $U$. 
-We can see the derivation rules as ways of *constructing* an object of type $U$. 
-In the example above, $U$ is the type of *natural numbers*, $\mathbb{N}$. In the case of our type system, $U$ would be the type of *well-typed terms* of the form $\Gamma \vdash e : t$.
-In this light, the derivation rules of our type system should really be rewritten as
+We can apply this to the natural numbers to see how we arrive at mathematical induction: 
+1. For the constructor 0, we have no sub-trees, so we just need to show that P holds for 0.
+2. For the constructor $\text{suc}$, we have the single sub-tree $n$, so we need to show that, if P holds for $n$, P holds for $\text{suc}(n)$.
 
-\begin{prooftree}
-  \AxiomC{($\Gamma \vdash e_1 : \texttt{Int}$) : Term}
-  \AxiomC{($\Gamma \vdash e_2 : \texttt{Int}$) : Term}
-  \BinaryInfC{($\Gamma \vdash \texttt{(+ }e_1\texttt{ }e_2\texttt{)}$ : \texttt{Int}) : Term}
-\end{prooftree}
+Since we've covered all constructors, these two statements suffice to prove that $P$ holds for every natural number.
 
-but we omit these extra type annotations for brevity. When we write $\frac{}{\Gamma \vdash 3 : \texttt{Int}}$, we don't mean that we have $\Gamma \vdash 3$ of type Int, but rather that the whole thing is of type Term.
-
-As for the premises in a derivation rule, we may both assume that they exist and, if they have type $U$, assume that the property we're trying to prove holds for them.
-Considering that premises having different types isn't relevant for the natural numbers, but they are relevant for our next example: *binary trees*.
-
-You can express binary trees as derivation rules, considering two cases: 
+As another example, let's examine the set of binary trees. Binary trees can be constructed in two ways:
 - Tree leaves, which have a value. These represent the ends of the tree, where the tree doesn't branch any further.
 - Tree nodes, which have a value and branch to two other trees.
 
 \begin{prooftree}
-  \AxiomC{x : Int}
+  \AxiomC{$x \in \mathbb{Z}$}
   \RightLabel{\scriptsize{LEAF}}
-  \UnaryInfC{leaf(x) : Tree}
+  \UnaryInfC{$\text{leaf}(x) \in \text{Tree}$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{left : Tree}
-  \AxiomC{x : Int}
-  \AxiomC{right : Tree}
+  \AxiomC{$l \in \text{Tree}$}
+  \AxiomC{$x \in \mathbb{Z}$}
+  \AxiomC{$r \in \text{Tree}$}
   \RightLabel{\scriptsize{NODE}}
-  \TrinaryInfC{node(x, left, right) : Tree}
+  \TrinaryInfC{$\text{node}(x, l, r) \in \text{Tree}$}
 \end{prooftree}
 
 An example of such a tree derivation would be
 
 \begin{prooftree}
   \AxiomC{}
-  \UnaryInfC{3 : Int}
-  \UnaryInfC{leaf(3) : Tree}
+  \UnaryInfC{$3 \in \mathbb{Z}$}
+  \UnaryInfC{$\text{leaf}(3) \in \text{Tree}$}
   \AxiomC{}
-  \UnaryInfC{2 : Int}
+  \UnaryInfC{$2 \in \mathbb{Z}$}
   \AxiomC{}
-  \UnaryInfC{4 : Int}
-  \UnaryInfC{leaf(4) : Tree}
-  \TrinaryInfC{node(2, leaf(3), leaf(4)) : Tree}
+  \UnaryInfC{$4 \in \mathbb{Z}$}
+  \UnaryInfC{$\text{leaf}(4) \in \text{Tree}$}
+  \TrinaryInfC{$\text{node}(2, \text{leaf}(3), \text{leaf}(4)) \in \text{Tree}$}
   \AxiomC{}
-  \UnaryInfC{1 : Int}
+  \UnaryInfC{$1 \in \mathbb{Z}$}
   \AxiomC{}
-  \UnaryInfC{5 : Int}
-  \UnaryInfC{leaf(5) : Tree}
-  \TrinaryInfC{node(1, node(2, leaf(3), leaf(4)), leaf(5)) : Tree}
+  \UnaryInfC{$5 \in \mathbb{Z}$}
+  \UnaryInfC{$\text{leaf}(5) \in \text{Tree}$}
+  \TrinaryInfC{$\text{node}(1, \text{node}(2, \text{leaf}(3), \text{leaf}(4)), \text{leaf}(5)) \in \text{Tree}$}
 \end{prooftree}
 
 which represents the construction of the tree
@@ -282,8 +275,13 @@ which represents the construction of the tree
 <img src="/assets/images/mlts-diagrams/btree.png" width="200" align="middle" style="display: block; margin-left: auto; margin-right: auto;">
 
 Let's say we wanted to prove that, for every tree of height $k$, the number of values the tree contains, which we'll call its *size*, does not exceed $2^k - 1$.
+We'll call this property $P$.
 
-We can proceed by structural induction, which splits our proof into two cases:
+By applying the principle of structural induction, to prove $P(t)$ for all $t \in \text{Tree}$, we prove that:
+1. $P(\text{leaf}(x))$ holds.
+2. If $P(l)$ and $P(r)$ hold, then $P(\text{node}(x, l, r))$ holds.
+
+Let's follow through with this, proving each case.
 
 *Case* LEAF.
 
@@ -292,9 +290,9 @@ In the LEAF case, there is always only 1 value in the tree. $1 \le 2^1 - 1 = 1$,
 
 *Case* NODE.
 
-In this case, we have a value, as well as branches to two sub-trees, *left* and *right*. We'll say these trees have heights $k_l$ and $k_r$ respectively.
+In this case, we have a value, as well as branches to two sub-trees, $l$ and $r$. We'll say these trees have heights $k_l$ and $k_r$ respectively.
 
-From the *inductive hypothesis*, we can assume that *left* has a size not exceeding $2^{k_l} - 1$, and *right* has a size not exceeding $2^{k_r} - 1$.
+We can assume that $l$ has a size not exceeding $2^{k_l} - 1$, and $r$ has a size not exceeding $2^{k_r} - 1$.
 From this, we can infer that the combined tree's size does not exceed $(2^{k_l} - 1) + (2^{k_r} - 1) + 1 = 2^{k_l} + 2^{k_r} - 1$.
 
 To figure out the height of the combined tree, we want to take the *greater* of the two sub-tree heights, and then add one for the new node.
@@ -309,7 +307,32 @@ Our typing rules also form derivation trees, so we can apply structural inductio
   align="start"
   header="Exercise 1"
   text="
-  Something
+  Here are the derivation rules for a linked list.
+
+  \begin{prooftree}
+    \AxiomC{}
+    \UnaryInfC{$[] \in \text{List}$}
+  \end{prooftree}
+
+  \begin{prooftree}
+    \AxiomC{$x \in \mathbb{Z}$}
+    \AxiomC{$l \in List$}
+    \BinaryInfC{$x :: l \in \text{List}$}
+  \end{prooftree}
+
+  As an example, the construction of the list $[1, 2, 3]$ is $1 :: (2 :: (3 :: []))$.
+
+  Define a function $\text{concat}$ on lists as follows:
+
+  \begin{aligned}
+    &\text{concat}([], l_2) \stackrel{\text{def}}{=} l_2 \newline
+    &\text{concat}(x :: l_1, l_2) \stackrel{\text{def}}{=} x :: \text{concat}(l_1, l_2)
+  \end{aligned}
+
+  Prove that $\text{concat}$ is *associative* i.e.  
+  $\text{concat}(\text{concat}(l_1, l_2), l_3) = \text{concat}(l_1, \text{concat}(l_2, l_3))$.
+
+  Hint: this proof mostly follows from continually expanding out the definitions.
   "
   color="success" align="center"
 %}
@@ -608,7 +631,7 @@ The first rule says that if the context begins with the mapping for $x$, then $x
 The second rule says that, if the context begins with a different mapping, we can discard the first mapping and look for $x$ in the rest of the context.
 Together, these rules describe a procedure for *searching* through the context.
 
-For example,
+For example, here is the derivation for the lookup of $x : t_1$ in the context $\Gamma, x : t_1, y : t_2, z : t_3$.
 
 \begin{prooftree}
   \AxiomC{}
