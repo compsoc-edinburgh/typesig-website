@@ -559,7 +559,7 @@ Once this is done, we should be able to construct types,
 #check Ty.function Ty.int (Ty.function Ty.int Ty.int) 
 ```
 
-types,
+terms,
 ```lean
 -- 5
 #check Term.int_lit 5 
