@@ -188,6 +188,7 @@ We'll have two typing rules:
 1. Any integer literal has type $\texttt{Int}$.
 \begin{prooftree}
   \AxiomC{}
+  \RightLabel{\scriptsize{INT-LIT}}
   \UnaryInfC{$v$ : \texttt{Int}}
 \end{prooftree}
 
@@ -196,8 +197,11 @@ We'll have two typing rules:
 \begin{prooftree}
   \AxiomC{$e_1$ : \texttt{Int}}
   \AxiomC{$e_2$ : \texttt{Int}}
+  \RightLabel{\scriptsize{ADD}}
   \BinaryInfC{$\texttt{(+ }e_1\texttt{ }e_2\texttt{)} : \texttt{Int}$}
 \end{prooftree}
+
+The words on the side are just names we give to the rules.
 
 Let's see some derivations for a few example expressions in this language.
 First off, some plain literals.
@@ -295,6 +299,7 @@ Namely, we want to fill this hole:
 
 \begin{prooftree}
   \AxiomC{???}
+  \RightLabel{\scriptsize{LAM}}
   \UnaryInfC{\texttt{(lambda ((x }$t_1$\texttt{))} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
 \end{prooftree}
 
@@ -302,6 +307,7 @@ The idea is that we want to determine the return type of the lambda by determini
 
 \begin{prooftree}
   \AxiomC{\texttt{(+ x 1) : Int}}
+  \RightLabel{\scriptsize{LAM}}
   \UnaryInfC{\texttt{(lambda ((x Int)) (+ x 1))} : \texttt{Int -> Int}}
 \end{prooftree}
 
@@ -326,6 +332,7 @@ This allows you to use the mappings in your typing context to type larger expres
 
 \begin{prooftree}
   \AxiomC{$\Gamma(x) = t$}
+  \RightLabel{\scriptsize{VAR}}
   \UnaryInfC{$\Gamma \vdash \texttt{x} : t$}
 \end{prooftree}
 
@@ -334,12 +341,14 @@ In particular, we need to say that we can introduce and add integers under any g
 
 \begin{prooftree}
   \AxiomC{}
+  \RightLabel{\scriptsize{INT-LIT}}
   \UnaryInfC{$\Gamma \vdash v : \texttt{Int}$}
 \end{prooftree}
 
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash e_1 : \texttt{Int}$}
   \AxiomC{$\Gamma \vdash e_2 : \texttt{Int}$}
+  \RightLabel{\scriptsize{ADD}}
   \BinaryInfC{$\Gamma \vdash \texttt{(+ }e_1\texttt{ }e_2\texttt{) : Int}$}
 \end{prooftree}
 
@@ -350,6 +359,7 @@ As such, we can use context extension to represent the parameter of the lambda i
 
 \begin{prooftree}
   \AxiomC{$\Gamma, x : t_1 \vdash e : t_2$}
+  \RightLabel{\scriptsize{LAM}}
   \UnaryInfC{$\Gamma \vdash$ \texttt{(lambda ((x }$t_1$\texttt{))} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
 \end{prooftree}
 
@@ -358,6 +368,7 @@ We also want to be able to apply functions. This is more straightforward: we jus
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash e_1 : t_1$ \texttt{->} $t_2$}
   \AxiomC{$\Gamma \vdash e_2 : t_1$}
+  \RightLabel{\scriptsize{APP}}
   \BinaryInfC{$\Gamma \vdash$ \texttt{(}$e_1$ $e_2$\texttt{)} : $t_2$}
 \end{prooftree}
 
@@ -418,6 +429,7 @@ With all of this in mind, we end up with this:
 
 \begin{prooftree}
   \AxiomC{$\Gamma, f : t_1$ \texttt{->} $t_2, x : t_1 \vdash e : t_2$}
+  \RightLabel{\scriptsize{REC}}
   \UnaryInfC{$\Gamma \vdash$ \texttt{(rec (f ((x }$t_1$\texttt{)) }$t_2$\texttt{)} $e$\texttt{)} : $t_1$ \texttt{->} $t_2$}
 \end{prooftree}
 

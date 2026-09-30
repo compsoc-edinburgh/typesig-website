@@ -125,7 +125,7 @@ You may notice that we don't use the argument type $t$ on the right-hand side of
 
 Let's try an example reduction of the lambda application $\texttt{((lambda ((x Int)) (+ x 1)) (+ 2 3))}$, with an empty initial environment.
 
-We see that the left-hand side of the reduction is a value, so we skip over the APP-RED-1 rule.
+We see that the left-hand side of the reduction is a value, so we skip over the $\text{\scriptsize{APP-RED-1}} rule.
 
 The right-hand side of the reduction is not a value, but instead an expression $\texttt{(+ 2 3)}$. 
 Noting that $\texttt{2}$ and $\texttt{3}$ are values, we can apply the $\texttt{+}$-RED-3 rule:
@@ -135,7 +135,7 @@ Noting that $\texttt{2}$ and $\texttt{3}$ are values, we can apply the $\texttt{
   \UnaryInfC{$\langle \texttt{(+ 2 3)}, \cdot \rangle \rightsquigarrow \langle \texttt{5}, \cdot \rangle$}
 \end{prooftree}
 
-Now that we know this, we can apply the APP-RED-2 rule to the lambda application:
+Now that we know this, we can apply the $\text{\scriptsize{APP-RED-2}}$ rule to the lambda application:
 
 \begin{prooftree}
   \AxiomC{}
@@ -146,7 +146,7 @@ Now that we know this, we can apply the APP-RED-2 rule to the lambda application
               \end{aligned}$}
 \end{prooftree}
 
-Now that the right-hand side of the application is a value, we can apply BETA-RED to reduce further:
+Now that the right-hand side of the application is a value, we can apply $\text{\scriptsize{BETA-RED}}$ to reduce further:
 
 \begin{prooftree}
   \AxiomC{}
@@ -177,7 +177,7 @@ Finally, since 5 and 1 are values, as before, we apply the $\texttt{+}$-RED-3 ru
 
 {% include infobox.html
   align="start"
-  header="Exercise 2"
+  header="Exercise 1"
   text="
   Write down the additional reduction rules for your programming language.
   "
@@ -225,6 +225,7 @@ Structural induction is just a generalisation of this for any kind of derivation
 
 In particular, if we want to prove a property $P$ for a set of expressions $L$, then it suffices to prove that, for each constructor $c$, if $P$ holds for each sub-tree $e_1, ..., e_k \in L$, then $P$ holds for the whole tree $c(e_1, ..., e_k) \in L$.
 This is called the *principle of structural induction*.
+The assumption that P holds for each sub-tree is called the *inductive hypothesis*.
 
 We can apply this to the natural numbers to see how we arrive at mathematical induction: 
 1. For the constructor 0, we have no sub-trees, so we just need to show that P holds for 0.
@@ -283,16 +284,16 @@ By applying the principle of structural induction, to prove $P(t)$ for all $t \i
 
 Let's follow through with this, proving each case.
 
-*Case* LEAF.
+*Case* $\frac{x \in \mathbb{Z}}{\text{node}(x, l, r) \in \text{Tree}} \text{\scriptsize{LEAF}}$.
 
 In this case, $k = 1$, so we need to prove that the number of values in the tree does not exceed $2^1 - 1 = 1$.
 In the LEAF case, there is always only 1 value in the tree. $1 \le 2^1 - 1 = 1$, as required.
 
-*Case* NODE.
+*Case* $\frac{l \in \text{Tree} \,\,x \in \mathbb{Z}\,\,r \in \text{Tree}}{\text{node}(x, l, r) \in \text{Tree}} \text{\scriptsize{NODE}}$.
 
 In this case, we have a value, as well as branches to two sub-trees, $l$ and $r$. We'll say these trees have heights $k_l$ and $k_r$ respectively.
 
-We can assume that $l$ has a size not exceeding $2^{k_l} - 1$, and $r$ has a size not exceeding $2^{k_r} - 1$.
+From the inductive hypothesis, we can assume that $l$ has a size not exceeding $2^{k_l} - 1$, and $r$ has a size not exceeding $2^{k_r} - 1$.
 From this, we can infer that the combined tree's size does not exceed $(2^{k_l} - 1) + (2^{k_r} - 1) + 1 = 2^{k_l} + 2^{k_r} - 1$.
 
 To figure out the height of the combined tree, we want to take the *greater* of the two sub-tree heights, and then add one for the new node.
@@ -305,18 +306,20 @@ Our typing rules also form derivation trees, so we can apply structural inductio
 
 {% include infobox.html
   align="start"
-  header="Exercise 1"
+  header="Exercise 2"
   text="
   Here are the derivation rules for a linked list.
 
   \begin{prooftree}
     \AxiomC{}
+    \RightLabel{\scriptsize{NIL}}
     \UnaryInfC{$[] \in \text{List}$}
   \end{prooftree}
 
   \begin{prooftree}
     \AxiomC{$x \in \mathbb{Z}$}
-    \AxiomC{$l \in List$}
+    \AxiomC{$l \in \text{List}$}
+    \RightLabel{\scriptsize{CONS}}
     \BinaryInfC{$x :: l \in \text{List}$}
   \end{prooftree}
 
@@ -345,30 +348,48 @@ Now that we have our reduction rules in place, we can state the progress theorem
 
 <u>Theorem (Progress).</u> If $\cdot \vdash e : t$, then either e is a value or there exists some $e^\prime$ such that $\langle e, \rho \rangle \rightsquigarrow \langle e^\prime, \rho^\prime \rangle$.
 
-As an example, let's consider the derivation rules we have for functions from Step 6.
+To prove this statement, we want to perform structural induction over the term $\cdot \vdash e : t$. Since this is constructed by a derivation tree, we can apply the principle of structural induction to figure out what we need to prove:
+1. For the $\text{\scriptsize{LAM}}$ rule, we have the sub-tree $\Gamma, x : t_1 \vdash e : t_2$, so we assume that progress holds for this sub-tree and then prove that progress holds for $\Gamma \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)} : t_1\texttt{ -> }t_2$.
+2. For the $\text{\scriptsize{APP}}$ rule, we have the sub-trees $\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$ and $\Gamma \vdash e_2 : t_1$, so we assume that progress holds for these sub-trees and then prove that preservation holds for $\Gamma \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2$.
 
-*Case* $\frac{\cdot, x : t_1 \vdash e : t_2}{\cdot \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)} : t_1 \texttt{->} t_2}$.
-
-Here, preservation holds since $\texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)}$ is a value. This also goes for the introduction of an object of any base type.
-
-*Case* $\frac{\cdot \vdash e_1 : t_1 \texttt{->} t_2\,\,\cdot \vdash e_2 : t_1}{\cdot \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2}$.
-
-By applying the inductive hypothesis to $e_1$, we can determine that either $e_1$ is a value, or $\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho \rangle$.
-
-Let's consider the case that $\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho \rangle$. Then, by APP-RED-1, $\langle \texttt{(}e_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}e_1^\prime\texttt{ }e_2\texttt{)}, \rho \rangle$, as required.
-
-Now consider the case that $e_1$ is some value $v_1$, and consider whether $\texttt{(}v_1\texttt{ }e_2\texttt{)}$ satisfies the desired property.
-Let's apply the inductive hypothesis to $e_2$. Either $e_2$ is a value, or $\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho \rangle$.
-
-If $\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho \rangle$, then by APP-RED-2, $\langle \texttt{(}v_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}v_1\texttt{ }e_2^\prime\texttt{)}, \rho \rangle$, as required.
-
-If $e_2$ is some value $v$, then, taking $v_1 = \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)}$, by BETA-RED, $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{)}\texttt{ }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle$, as required.
-
-By applying to the inductive hypothesis to all of our sub-expressions, and applying our reduction rules, we've managed to determine what $\texttt{(}e_1\texttt{ }e_2\texttt{)}$ steps to in every situation!
+...and so on for the rest of our rules.
 
 {% include infobox.html
   align="start"
-  header="Exercise 2"
+  header="Exercise 3"
+  text="
+  Use the principle of structural induction to determine the rest of the proof cases for typing derivations. Do this for reduction derivations as well.
+  "
+  color="success" align="center"
+%}
+
+As an example of proving progress, let's consider those derivation rules we have for functions.
+
+*Case* $\frac{\cdot, x : t_1 \vdash e : t_2}{\cdot \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)} : t_1 \texttt{->} t_2} \text{\scriptsize{LAM}}$.
+
+Here, preservation holds since $\texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)}$ is a value. 
+We don't even need to use our assumption!
+This also goes for the introduction of an object of any base type.
+
+*Case* $\frac{\cdot \vdash e_1 : t_1 \texttt{->} t_2\,\,\cdot \vdash e_2 : t_1}{\cdot \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2} \text{\scriptsize{APP}}$.
+
+By using the inductive hypothesis to assume that progress holds for $\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$, we can determine that either $e_1$ is a value, or $\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho \rangle$.
+
+Let's consider the case that $\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho \rangle$. Then, by $\text{\scriptsize{APP-RED-1}}$, $\langle \texttt{(}e_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}e_1^\prime\texttt{ }e_2\texttt{)}, \rho \rangle$, as required.
+
+Now consider the case that $e_1$ is some value $v_1$, and consider whether $\texttt{(}v_1\texttt{ }e_2\texttt{)}$ satisfies the desired property.
+Let's now use the inductive hypothesis assumption that progress holds for $\Gamma \vdash e_2 : t_1$. 
+From this, either $e_2$ is a value, or $\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho \rangle$.
+
+If $\langle e_2, \rho \rangle \rightsquigarrow \langle e_2^\prime, \rho \rangle$, then by $\text{\scriptsize{APP-RED-2}}$, $\langle \texttt{(}v_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}v_1\texttt{ }e_2^\prime\texttt{)}, \rho \rangle$, as required.
+
+If $e_2$ is some value $v$, then, taking $v_1 = \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)}$, since lambdas are the only form that function values can take, by $\text{\scriptsize{BETA-RED}}$, $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{)}\texttt{ }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle$, as required.
+
+By applying the inductive hypothesis to all of our sub-expressions, and applying our reduction rules, we've managed to determine what $\texttt{(}e_1\texttt{ }e_2\texttt{)}$ steps to in every situation!
+
+{% include infobox.html
+  align="start"
+  header="Exercise 4"
   text="
   Complete a proof of progress for the rest of the Simply-Typed Lambda Calculus.
   "
@@ -408,19 +429,19 @@ We'll need this for the preservation proof.
 
 <u>Theorem (Weakening)</u>. If $\Gamma \vdash e : t$ and $\Gamma \subseteq \Gamma^\prime$, then $\Gamma^\prime \vdash e : t$.  
 
-As previously, let's examine the function application case.
+As with progress, we'll perform structural induction over $\Gamma \vdash e : t$. Let's examine the function application case again.
 
-*Case* $\frac{\Gamma \vdash e_1 : t_1\texttt{ -> }t_2\,\,\Gamma \vdash e_2 : t_1}{\Gamma \vdash \texttt{(}e_1\,e_2\texttt{)} : t_2}$.
+*Case* $\frac{\Gamma \vdash e_1 : t_1\texttt{ -> }t_2\,\,\Gamma \vdash e_2 : t_1}{\Gamma \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2} \text{\scriptsize{APP}}$.
 
-In this case, we're looking to prove that, given a $\Gamma^\prime \supseteq \Gamma$, $\Gamma^\prime \vdash e_1\,e_2 : t_2$.
+In this case, we're looking to prove that, given a $\Gamma^\prime \supseteq \Gamma$, $\Gamma^\prime \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2$.
 
 Assuming that weakening holds for the premises, we have $\Gamma^\prime \vdash e_1 : t_1\texttt{ -> }t_2$ and $\Gamma^\prime \vdash e_2 : t_1$.
 
-Hence, by applying the function application rule to these two statements, we have $\Gamma^\prime \vdash e_1\,e_2 : t_2$, as required.
+Hence, by applying the function application rule to these two statements, we have $\Gamma^\prime \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2$, as required.
 
 {% include infobox.html
   align="start"
-  header="Exercise 3"
+  header="Exercise 5"
   text="
   Complete a proof of weakening for the rest of the Simply-Typed Lambda Calculus.
   "
@@ -431,12 +452,17 @@ Once this is proven, we can now state preservation.
 
 <u>Theorem (Preservation).</u> If $\Gamma \vdash e : t$, $\langle e, \rho \rangle \rightsquigarrow \langle e^\prime, \rho^\prime \rangle$ and $\Gamma \vdash \rho$, then there exists some $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e^\prime : t$ and $\Gamma^\prime \vdash \rho^\prime$.
 
+Here, there are two different derivations we need to induct over: $\Gamma \vdash e : t$, and $\langle e, \rho \rangle \rightsquigarrow \langle e^\prime, \rho^\prime \rangle$. 
+Inducting over two derivations isn't much different from inducting over one, except now there are a lot more cases and assumptions to get your head around.
+
 Again, let's examine the function application case.
 
-*Case* $\frac{\Gamma \vdash e_1 : t_1\texttt{ -> }t_2\,\,\Gamma \vdash e_2 : t_1}{\Gamma \vdash \texttt{(}e_1\,e_2\texttt{)} : t_2}$.
+*Case* $\frac{\Gamma \vdash e_1 : t_1\texttt{ -> }t_2\,\,\Gamma \vdash e_2 : t_1}{\Gamma \vdash \texttt{(}e_1\,e_2\texttt{)} : t_2} \text{\scriptsize{APP}}$.
 
-Let's consider the APP-RED-1 case. By assumption, we have $\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$, $\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho^\prime \rangle$ and $\Gamma \vdash \rho$. 
-By invoking the inductive hypothesis on these three assumptions, we have a $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e_1^\prime : t_1\texttt{ -> }t_2$ and $\Gamma^\prime \vdash \rho^\prime$.
+*Sub-case* $\frac{\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho \rangle}{\langle \texttt{(}e_1\texttt{ }e_2\texttt{)}, \rho \rangle \rightsquigarrow \langle \texttt{(}e_1^\prime\texttt{ }e_2\texttt{)}, \rho \rangle} \text{\scriptsize{APP-RED-1}}$. 
+
+By assumption, we have $\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$, $\langle e_1, \rho \rangle \rightsquigarrow \langle e_1^\prime, \rho^\prime \rangle$ and $\Gamma \vdash \rho$. 
+By using the inductive hypothesis to assume preservation holds for these three assumptions, we have a $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e_1^\prime : t_1\texttt{ -> }t_2$ and $\Gamma^\prime \vdash \rho^\prime$.
 
 We use this same $\Gamma^\prime$ to prove the exists statement of the theorem. To do this, we want to show that 
 1. $\Gamma^\prime \supseteq \Gamma$.
@@ -450,6 +476,7 @@ Since the term of (2) is a function application, we aim to prove it using the de
 \begin{prooftree}
   \AxiomC{$\Gamma^\prime \vdash e_1^\prime : t_1\texttt{ -> }t_2$}
   \AxiomC{$\Gamma^\prime \vdash e_2 : t_1$}
+  \RightLabel{\scriptsize{APP}}
   \BinaryInfC{$\Gamma^\prime \vdash \texttt{(}e_1^\prime\texttt{ }e_2\texttt{)} : t_2$}
 \end{prooftree}
 
@@ -460,6 +487,7 @@ We prove the second assumption by taking the assumption $\Gamma \vdash e_2 : t_1
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash e_1 : t_1\texttt{ -> }t_2$}
   \AxiomC{$\color{#048ee0}\boxed{\color{black} \Gamma \vdash e_2 : t_1}$}
+  \RightLabel{\scriptsize{APP}}
   \BinaryInfC{$\Gamma \vdash \texttt{(}e_1\texttt{ }e_2\texttt{)} : t_2$}
 \end{prooftree}
 
@@ -467,7 +495,9 @@ and then, since the inductive hypothesis gives us that $\Gamma^\prime \supseteq 
 
 By proving all of (1), (2) and (3), we've finished proving this case.
 
-The APP-RED-2 case follows similarly to APP-RED-1, so we now consider the BETA-RED case.
+The $\text{\scriptsize{APP-RED-2}}$ case follows similarly to $\text{\scriptsize{APP-RED-1}}$, so we now consider the $\text{\scriptsize{BETA-RED}}$ case.
+
+*Sub-case* $\frac{}{\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle} \text{\scriptsize{BETA-RED}}$. 
 
 In this case, the typing derivation takes the form 
 
@@ -477,7 +507,7 @@ In this case, the typing derivation takes the form
   \BinaryInfC{$\Gamma \vdash \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)} : t_2$}
 \end{prooftree}
 
-and the reduction takes the form $\langle \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)}, \rho \rangle \rightsquigarrow \langle e, \rho[x \mapsto v] \rangle$, so we're looking to show that there exists some $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e : t_2$ and $\Gamma^\prime \vdash \rho[x \mapsto v]$.
+so we're looking to show that there exists some $\Gamma^\prime \supseteq \Gamma$ such that $\Gamma^\prime \vdash e : t_2$ and $\Gamma^\prime \vdash \rho[x \mapsto v]$.
 
 Keeping in mind that we want to keep the environment and the typing context in lock-step, and we're extending $\rho$ with $x$, let's try extending $\Gamma$ with $x$ too.
 Hence, we'll let $\Gamma^\prime$ be $\Gamma, x : t_1$.
@@ -496,10 +526,12 @@ By assumption, we have $\Gamma \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\text
   \AxiomC{$\color{#048ee0}\boxed{\color{black}
       \begin{prooftree}
         \AxiomC{$\Gamma, x : t_1 \vdash e : t_2$}
+        \RightLabel{\scriptsize{LAM}}
         \UnaryInfC{$\Gamma \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)} : t_1\texttt{ -> }t_2$}
       \end{prooftree}
     }$}
   \AxiomC{$\Gamma \vdash v : t_1$}
+  \RightLabel{\scriptsize{APP}}
   \BinaryInfC{$\Gamma \vdash \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)} : t_2$}
 \end{prooftree}
 
@@ -517,14 +549,15 @@ Fortunately, this holds by the other assumption made from the initial typing der
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)} : t_1\texttt{ -> }t_2$}
   \AxiomC{$\color{#048ee0}\boxed{\color{black} \Gamma \vdash v : t_1}$}
+  \RightLabel{\scriptsize{APP}}
   \BinaryInfC{$\Gamma \vdash \texttt{((lambda ((x }t_1\texttt{)) }e\texttt{) }v\texttt{)} : t_2$}
 \end{prooftree}
 
-Now that we've proven all of (1), (2) and (3), we've proven that preservation holds in the BETA-RED case, and by extension the entire function application typing case.
+Now that we've proven all of (1), (2) and (3), we've proven that preservation holds in the $\text{\scriptsize{BETA-RED}}$ case, and by extension the entire function application typing case.
 
 {% include infobox.html
   align="start"
-  header="Exercise 4"
+  header="Exercise 6"
   text="
   Complete a proof of type preservation for the rest of the Simply-Typed Lambda Calculus.
   "
