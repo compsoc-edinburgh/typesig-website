@@ -125,7 +125,7 @@ You may notice that we don't use the argument type $t$ on the right-hand side of
 
 Let's try an example reduction of the lambda application $\texttt{((lambda ((x Int)) (+ x 1)) (+ 2 3))}$, with an empty initial environment.
 
-We see that the left-hand side of the reduction is a value, so we skip over the $\text{\scriptsize{APP-RED-1}} rule.
+We see that the left-hand side of the reduction is a value, so we skip over the $\text{\scriptsize{APP-RED-1}}$ rule.
 
 The right-hand side of the reduction is not a value, but instead an expression $\texttt{(+ 2 3)}$. 
 Noting that $\texttt{2}$ and $\texttt{3}$ are values, we can apply the $\texttt{+}$-RED-3 rule:
@@ -347,6 +347,8 @@ Here, we describe the theorem statements and proofs for progress and type preser
 Now that we have our reduction rules in place, we can state the progress theorem more formally.
 
 <u>Theorem (Progress).</u> If $\cdot \vdash e : t$, then either e is a value or there exists some $e^\prime$ such that $\langle e, \rho \rangle \rightsquigarrow \langle e^\prime, \rho^\prime \rangle$.
+
+We sum up the idea of being "not stuck" as either being a value or stepping to another expression, which is the negation of being "stuck" as being an expression that's not a value and does not step further.
 
 To prove this statement, we want to perform structural induction over the term $\cdot \vdash e : t$. Since this is constructed by a derivation tree, we can apply the principle of structural induction to figure out what we need to prove:
 1. For the $\text{\scriptsize{LAM}}$ rule, we have the sub-tree $\Gamma, x : t_1 \vdash e : t_2$, so we assume that progress holds for this sub-tree and then prove that progress holds for $\Gamma \vdash \texttt{(lambda ((x }t_1\texttt{)) }e\texttt{)} : t_1\texttt{ -> }t_2$.
@@ -715,9 +717,9 @@ inductive Red : Term × Env → Term × Env → Prop where
   | red_app_1 : Red (e₁, ρ) (e₁', ρ) 
               → Red (Term.app e₁ e₂, ρ) (Term.app e₁' e₂, ρ)
   | red_app_2 : ...
-  | add_app_1 : ...
-  | add_app_2 : ...
-  | add_app_3 : ...
+  | red_add_1 : ...
+  | red_add_2 : ...
+  | red_add_3 : ...
   ...
 ```
 
