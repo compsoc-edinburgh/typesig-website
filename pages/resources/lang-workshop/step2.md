@@ -336,7 +336,7 @@ Luckily for us, lexing is straightforward for most grammars.
 
 For example, consider the simple Python-like expression: `result = (1 * 2) + 3`.
 During the lexing process, this expression would be broken down into the following tokens:
-- `result (an identifier)
+- `result` (an identifier)
 - `=` (an assignment operator)
 - `(` (an open bracket)
 - `1` (an integer literal)
