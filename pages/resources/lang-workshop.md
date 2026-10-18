@@ -26,6 +26,14 @@ In this case, we recommend that you use a language that you have the most experi
 
 For further features to implement, refer to [Types and Programming Languages by Benjamin Pierce](https://i.warosu.org/data/sci/img/0163/64/1725651701869705.pdf).
 
+In particular, you might want to look at:
+- Chapter 11: Simple Extensions
+- Chapter 14: Exceptions
+- Section III: Subtyping
+- Section IV: Recursive Types
+- Section V: Polymorphism
+- Section VI: Higher-Order Systems
+
 If you have any ideas of other things we should cover, do get in touch with us on our [Discord][discord]!
 
 [discord]: {{site.social.discord}}
