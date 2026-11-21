@@ -9,7 +9,7 @@ featured: false
 
 TypeSig is pleased to announce that Advent of Proof is back this year.
 
-Each day from 12th of December to the 23rd, we will release a theorem that you must formalise and prove using either Lean or Agda (your choice!). Each problem is accompanied with a description, and hints if you get stuck. Depending on how fast you solve it and how many hints you use, you will score points on our leaderboard to battle it out for pride and glory. There will be prizes for the top scoring UoE students.
+Each day from 12th of December to the 23rd, we will release a theorem that you must formalise and prove using either Lean or Agda (your choice!). Each problem is accompanied with a description, and hints if you get stuck. Depending on how fast you solve it and how many hints you use, you will score points on our leaderboard to battle it out for pride and glory. There will be prizes for the top scoring University of Edinburgh students.
 
 Regardless of whether you are just getting started or experienced with theorem proving, we hope there is something interesting to think about in the problem set. The writers of each of our problems will be credited in the description when they are published each day.
 
